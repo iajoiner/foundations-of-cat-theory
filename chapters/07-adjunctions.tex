@@ -1,0 +1,452 @@
+\chapter{Adjunctions and equivalences}\label{ch:adjunctions}
+
+\begin{assumption}\label{ass:ch7}
+Throughout this chapter $\cC$ and $\cD$ have initial and terminal objects,
+chosen as in \cref{ass:normalized}.
+\end{assumption}
+
+\section{The feline adjoint string}\label{sec:string}
+
+\begin{definition}\label{def:points}
+The \emph{points functor} $\points\colon\Fel(\cC)\to\Set$ is defined by
+\[
+\points(K)=\coprod_{\alpha\in\legs(K)}\cC(1,L_\alpha),\qquad
+\points(\varphi,F)(\alpha,x)=(\varphi(\alpha),F_\alpha x).
+\]
+An element of $\points(K)$ is a \emph{point} of $K$: a leg together with a
+global element of that leg. The natural transformation
+$p\colon\points\Rightarrow\legs$, $p_K(\alpha,x)=\alpha$, is called the
+\emph{points-to-legs} transformation.
+\end{definition}
+
+Recall from \cref{ex:Fel-of-point} the functors $\Delta_X\colon\Set\to\Fel(\cC)$,
+$\Delta_X(S)=\langle X\rangle_{s\in S}$. Thus $\Delta_0(S)$ is the cat with
+$S$ legs each of which is a head, and $\Delta_1(S)$ is the cat with $S$ legs
+each of which is a tail.
+
+\begin{theorem}[The feline adjoint string]\label{thm:adjoint-string}
+There are adjunctions
+\[
+\Delta_0\ \dashv\ \legs\ \dashv\ \Delta_1\ \dashv\ \points .
+\]
+The functors $\Delta_0$ and $\Delta_1$ are fully faithful, and
+$\legs\Delta_0=\legs\Delta_1=\id_\Set$. Moreover $\legs\iso\Fel(\cC)(\Cephalic,-)$
+and $\points\iso\Fel(\cC)(\Caudal,-)$, and under these identifications the
+points-to-legs transformation $p$ is precomposition with the unique morphism
+$\iota({!_1})\colon\Cephalic\to\Caudal$.
+\end{theorem}
+
+\begin{proof}
+The first two adjunctions are \cref{cor:first-string}. Explicitly, by
+\cref{cor:Fel-hom},
+\begin{align*}
+\Fel(\cC)(\Delta_0S,K)&\iso\prod_{s\in S}\coprod_\alpha\cC(0,L_\alpha)\iso\Set(S,\legs K),\\
+\Fel(\cC)(K,\Delta_1S)&\iso\prod_\alpha\coprod_{s\in S}\cC(L_\alpha,1)\iso\Set(\legs K,S).
+\end{align*}
+For the third,
+\[
+\Fel(\cC)(\Delta_1S,K)\iso\prod_{s\in S}\coprod_{\alpha}\cC(1,L_\alpha)=\Set(S,\points K),
+\]
+naturally in $S$ and $K$: a morphism $\Delta_1 S\to K$ with gait $\varphi$ and
+components $x_s\colon 1\to L_{\varphi(s)}$ corresponds to the function
+$s\mapsto(\varphi(s),x_s)$. The functors $\Delta_0,\Delta_1$ are fully faithful
+since $\Fel(\cC)(\Delta_XS,\Delta_XS')\iso\prod_{s}\coprod_{s'}\cC(X,X)\iso\Set(S,S')$
+for $X\in\{0,1\}$. The equalities $\legs\Delta_X=\id$ hold by definition. The
+representability of $\legs$ is \cref{lem:legs-representable}, and
+$\Fel(\cC)(\Caudal,K)\iso\coprod_\alpha\cC(1,L_\alpha)=\points(K)$ by
+\cref{cor:Fel-hom}. Finally, precomposition with $\iota({!_1})$ sends
+$(\alpha,x)\colon\Caudal\to K$ to $(\alpha,x\circ{!_1})=(\alpha,!)$, which
+corresponds to $\alpha$.
+\end{proof}
+
+\begin{remark}\label{rem:string-honest}
+In terms of families, $\legs$ is the projection $\Fam(\cC)\to\Set$ of the
+family fibration, $\Delta_1$ and $\Delta_0$ are its sections by fibrewise
+terminal and initial objects, and $\points=\Fam(\cC)(\Caudal,-)$ is the
+global-sections functor of $\Fam(\cC)$. That a fibration with fibrewise
+terminal objects stable under reindexing has its terminal-object section as a
+right adjoint is a general fact \cite{Jacobs1999}. The adjunction
+$\Delta_1\dashv\points$ is an instance of the general adjunction between the
+copower functor $S\mapsto\coprod_S\Caudal$ and global sections, valid in any
+category with coproducts and a terminal object.
+\end{remark}
+
+\begin{proposition}\label{prop:Delta0-left}
+The functor $\Delta_0$ has a left adjoint if and only if $\cC$ is pointed. In
+that case $\Delta_0\iso\Delta_1$ and $\legs\dashv\Delta_0\dashv\legs$, so that
+$\legs$ is both left and right adjoint to $\Delta_0$.
+\end{proposition}
+
+\begin{proof}
+Suppose $\Lambda\dashv\Delta_0$. Then
+$\Fel(\cC)(\iota X,\Delta_0 1)\iso\Set(\Lambda\iota X,1)$ is a singleton for every
+$X$. But $\Fel(\cC)(\iota X,\Delta_01)=\Fel(\cC)(\iota X,\iota 0)\iso\cC(X,0)$.
+Thus $0$ is terminal and $\cC$ is pointed. Conversely, if $\cC$ is pointed then
+$0\iso1$, so $\Delta_0\iso\Delta_1$ (via $\Fel$ applied to the natural
+isomorphism $\ulcorner0\urcorner\iso\ulcorner1\urcorner$), and
+$\legs\dashv\Delta_1\iso\Delta_0$.
+\end{proof}
+
+\begin{proposition}\label{prop:Gamma-right}
+The functor $\points$ has a right adjoint if and only if either
+\begin{enumerate}
+\item $\cC$ is pointed, in which case $\points\iso\legs$ and $\points\dashv\Delta_1$; or
+\item the global-sections functor $\cC(1,-)\colon\cC\to\Set$ has a right
+  adjoint $\nabla$, in which case $\points\dashv\iota\nabla$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+If $\cC$ is pointed then $\cC(1,L_\alpha)\iso\cC(0,L_\alpha)$ is a singleton,
+so $p\colon\points\Rightarrow\legs$ is an isomorphism, and $\legs\dashv\Delta_1$.
+If $\cC(1,-)\dashv\nabla$, then naturally in $K$ and $S$,
+\[
+\Fel(\cC)(K,\iota\nabla S)\iso\prod_\alpha\cC(L_\alpha,\nabla S)\iso\prod_\alpha\Set(\cC(1,L_\alpha),S)\iso\Set(\points K,S).
+\]
+Conversely, suppose $\points\dashv R$ and that $\cC$ is not pointed. By
+\cref{lem:pointed}, $\cC(1,0)=\varnothing$, so $\points(\Cephalic)=\varnothing$
+and
+$\legs(RS)\iso\Fel(\cC)(\Cephalic,RS)\iso\Set(\points\Cephalic,S)=\Set(\varnothing,S)$
+is a singleton for every $S$. Hence $RS\iso\iota(\nabla S)$ for an object
+$\nabla S$, unique up to isomorphism, and
+\[
+\cC(X,\nabla S)\iso\Fel(\cC)(\iota X,RS)\iso\Set(\points\iota X,S)=\Set(\cC(1,X),S)
+\]
+naturally in $X$. By the parametrized representability theorem, $\nabla$
+extends uniquely to a functor right adjoint to $\cC(1,-)$.
+\end{proof}
+
+\begin{proposition}\label{prop:iota-no-right}
+The one-legged inclusion $\iota\colon\cC\to\Fel(\cC)$ has no right adjoint.
+More generally, if $\cD$ is a category with an initial object, no functor
+$G\colon\cD\to\Fel(\cC)$ whose values are unipedal cats has a right adjoint.
+\end{proposition}
+
+\begin{proof}
+A left adjoint preserves initial objects. The initial objects of $\Fel(\cC)$
+are the legless cats (\cref{prop:legless-initial}), and $G(0_\cD)$ is
+unipedal. For $\iota$ one may also argue directly, without using the initial
+object of $\cC$: if $\iota\dashv R$ then
+$\cC(R\Legless,R\Legless)\iso\Fel(\cC)(\iota R\Legless,\Legless)=\varnothing$,
+which is absurd.
+\end{proof}
+
+\begin{remark}\label{rem:legless-obstruction}
+The second argument in the proof of \cref{prop:iota-no-right} applies equally to
+headless cats in a category without an initial object: the obstruction to a
+right adjoint of $\iota$ is the legless cat, not the head.
+\end{remark}
+
+\begin{proposition}\label{prop:pointed-infinite}
+If $\cC$ is pointed, then, writing $\Delta=\Delta_0\iso\Delta_1$, there is an
+infinite string of adjunctions
+$\cdots\dashv\Delta\dashv\legs\dashv\Delta\dashv\legs\dashv\cdots$. If $\cC$
+is not pointed, the string $\Delta_0\dashv\legs\dashv\Delta_1\dashv\points$
+cannot be extended to the left.
+\end{proposition}
+
+\begin{proof}
+Immediate from \cref{prop:Delta0-left}.
+\end{proof}
+
+\section{The body}\label{sec:body}
+
+\begin{definition}\label{def:body}
+Suppose $\cC$ has small coproducts, chosen once and for all. The \emph{body}
+of a cat $K=(H,T,(L_\alpha)_{\alpha\in A})$ is the object
+$\body K\defeq\coprod_{\alpha\in A}L_\alpha$ of $\cC$. For a morphism
+$(\varphi,F)\colon K\to K'$, $\body(\varphi,F)\colon\body K\to\body K'$ is the
+morphism whose restriction to the $\alpha$-th summand is
+$\inj_{\varphi(\alpha)}\circ F_\alpha$.
+\end{definition}
+
+\begin{proposition}\label{prop:body-adjoint}
+The one-legged inclusion $\iota$ has a left adjoint if and only if $\cC$ has
+small coproducts; in that case the body functor is left adjoint to $\iota$,
+and $\body\iota\iso\id_\cC$.
+\end{proposition}
+
+\begin{proof}
+For a cat $K$ and an object $Y$,
+$\Fel(\cC)(K,\iota Y)\iso\prod_\alpha\cC(L_\alpha,Y)$ by \cref{cor:Fel-hom}. A
+left adjoint $\Lambda$ to $\iota$ therefore satisfies
+$\cC(\Lambda K,Y)\iso\prod_\alpha\cC(L_\alpha,Y)$ naturally in $Y$, which says
+precisely that $\Lambda K$ is a coproduct of the legs of $K$. Every small family
+of objects is the family of legs of some cat, so $\iota$ has a left adjoint if
+and only if every small family has a coproduct. The counit
+$\body\iota Y=\coprod_{1}Y\to Y$ is an isomorphism since $\iota$ is fully
+faithful.
+\end{proof}
+
+
+\begin{proposition}\label{prop:body-properties}
+Suppose $\cC$ has small coproducts. Then:
+\begin{enumerate}
+\item $\body$ preserves all colimits;
+\item $\body(\Legless)\iso0$, $\body(\Cephalic)\iso0$, and
+  $\body(\Delta_XS)\iso S\cdot X$, the $S$-fold copower of $X$;
+\item $\body$ is neither faithful nor conservative.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) $\body$ is a left adjoint. (ii) is immediate from the definition, the
+coproduct of the empty family and of a family of initial objects being
+initial. (iii) The two morphisms $\Cephalic\to\Delta_0(2)$ (with gaits the two
+functions $1\to2$) have the same body, namely the unique morphism
+$0\to0\sqcup0$; and the unique morphism $\Legless\to\Cephalic$ is not an
+isomorphism (its gait is not bijective), although its body $0\to0$ is.
+\end{proof}
+
+\begin{proposition}\label{prop:set-string}
+Let $\cC$ be one of $\Set$, $\Top$ or $\Cat$, and let $\nabla\colon\Set\to\cC$
+be, respectively, the identity, the indiscrete-topology functor, or the
+functor sending a set to the indiscrete (chaotic) category on it. Then there
+is a string of five adjoint functors
+\[
+\Delta_0\ \dashv\ \legs\ \dashv\ \Delta_1\ \dashv\ \points\ \dashv\ \iota\nabla,
+\]
+which cannot be extended in either direction. For $\cC=\Set$ the points functor
+is isomorphic to the body functor, so the string reads
+$\Delta_\varnothing\dashv\legs\dashv\Delta_1\dashv\body\dashv\iota$.
+\end{proposition}
+
+\begin{proof}
+In each case $\nabla$ is right adjoint to $\cC(1,-)$, which is respectively
+the identity, the underlying-set functor, and the object-set functor; so
+\cref{thm:adjoint-string,prop:Gamma-right} give the string. It cannot be
+extended to the left because $\cC$ is not pointed (\cref{prop:Delta0-left}),
+and it cannot be extended to the right by \cref{prop:iota-no-right}, since
+$\iota\nabla$ is a functor from $\Set$, which has an initial object, with
+unipedal values. For $\cC=\Set$, $\Set(1,L_\alpha)\iso L_\alpha$ naturally,
+so $\points K\iso\coprod_\alpha L_\alpha=\body K$.
+\end{proof}
+
+\begin{remark}\label{rem:cohesion}
+In the situation of \cref{prop:set-string}, the last four functors
+$\legs\dashv\Delta_1\dashv\points\dashv\iota\nabla$ form an adjoint quadruple
+in which the second and fourth functors are fully faithful (for $\iota\nabla$
+because $\iota$ is fully faithful by \cref{prop:iota-ff} and each of the three
+functors $\nabla$ is fully faithful), and $\legs$
+preserves finite products by \cref{thm:limits}. This is the shape of the
+adjoint quadruple ``pieces $\dashv$ discrete $\dashv$ points $\dashv$
+codiscrete'' in Lawvere's axiomatic cohesion \cite{Lawvere2007}. We record the
+resemblance and nothing more: we have not verified any of the further axioms
+of that theory, and we draw no conclusions from the coincidence of shapes.
+\end{remark}
+
+\section{Connected objects and reconstruction}\label{sec:reconstruction}
+
+\begin{proposition}\label{prop:connected-unipedal}
+A cat is a connected object of $\Fel(\cC)$, in the sense of
+\cref{def:connected}, if and only if it is unipedal.
+\end{proposition}
+
+\begin{proof}
+Let $X$ be an object of $\cC$ and $(K_i)_{i\in I}$ a family of cats. By
+\cref{cor:Fel-hom,prop:coproducts},
+\[
+\Fel(\cC)\Bigl(\iota X,\coprod_iK_i\Bigr)\iso\coprod_{(i,\alpha)}\cC(X,L_{i,\alpha})
+\iso\coprod_i\Fel(\cC)(\iota X,K_i),
+\]
+and the composite is inverse to the canonical map \eqref{eq:connected}; so
+unipedal cats are connected, and so are cats isomorphic to them. Conversely,
+let $K$ be connected with leg set $A$. Applying \eqref{eq:connected} to the
+empty family gives $\Fel(\cC)(K,\Legless)=\varnothing$, so $A\neq\varnothing$.
+Suppose $A=A_1\sqcup A_2$ with both parts nonempty, and let $K_1,K_2$ be the
+corresponding subcats, so that $K\iso K_1\sqcup K_2$. The identity of $K$
+corresponds to a morphism $K\to K_1\sqcup K_2$ whose gait is a bijection
+$A\to A_1\sqcup A_2$, and this morphism does not factor through either
+coprojection, whose image misses $A_2$ or $A_1$. This contradicts
+connectedness. Hence $|A|=1$.
+\end{proof}
+
+\begin{remark}\label{rem:connected-unipedal-chloe}
+In the terminology of \cref{sec:chloe}, the objects of $\Fel(\cC)$ satisfying
+the Chloe Condition are the unipedal cats, and a cat of cats satisfies the Chloe
+Condition if and only if its legs are unipedal (\cref{ex:chloe}(iii)). By
+\cref{cor:leg-decomposition-preview}, every cat is a coproduct of unipedal cats;
+in the terminology of \cref{def:gideon}, every object of $\Fel(\cC)$ admits a
+Gideon Decomposition (\cref{ex:gideon}(v)).
+\end{remark}
+
+
+\begin{theorem}[Reconstruction]\label{thm:reconstruction}
+Let $E\colon\Fel(\cC)\to\Fel(\cD)$ be an equivalence of categories. Then $E$
+restricts to an equivalence between the full subcategories of unipedal cats,
+and consequently there is an equivalence $F\colon\cC\to\cD$ with
+$E\circ\iota_\cC\iso\iota_\cD\circ F$. In particular,
+$\Fel(\cC)\eqv\Fel(\cD)$ implies $\cC\eqv\cD$.
+\end{theorem}
+
+\begin{proof}
+An equivalence preserves and reflects connected objects, since the
+definition of a connected object is invariant under equivalence. By
+\cref{prop:connected-unipedal}, $E$ therefore restricts to an equivalence
+$E_1\colon\Fel_1(\cC)\to\Fel_1(\cD)$. Composing with the equivalences
+$\iota_\cC\colon\cC\to\Fel_1(\cC)$ and a quasi-inverse of $\iota_\cD$ gives $F$.
+\end{proof}
+
+\begin{remark}\label{rem:reconstruction-honest}
+\Cref{thm:reconstruction} is the feline form of the standard fact that a
+category can be recovered, up to equivalence, from its free coproduct
+completion as the full subcategory of connected objects. The equivalence $E$
+in \cref{thm:reconstruction} is not assumed to commute with the leg functors.
+The next proposition shows that it nevertheless does so up to isomorphism.
+\end{remark}
+
+\begin{proposition}\label{prop:equivalence-legs}
+For every equivalence $E\colon\Fel(\cC)\to\Fel(\cD)$ there is a natural
+isomorphism $\legs_\cD\circ E\iso\legs_\cC$.
+\end{proposition}
+
+\begin{proof}
+The cephalic cat $\Cephalic_\cC=\iota(0)$ is an initial object of the full
+subcategory $\Fel_1(\cC)$ of unipedal cats, since $\iota\colon\cC\to\Fel_1(\cC)$
+is an equivalence (\cref{prop:iota-ff}) and $0$ is initial in $\cC$.
+By the proof of \cref{thm:reconstruction}, $E$ restricts to an equivalence
+$\Fel_1(\cC)\to\Fel_1(\cD)$, which preserves initial objects; hence
+$E(\Cephalic_\cC)\iso\Cephalic_\cD$. By \cref{lem:legs-representable},
+\[
+\legs_\cD(EK)\iso\Fel(\cD)(\Cephalic_\cD,EK)\iso\Fel(\cD)(E\Cephalic_\cC,EK)\iso\Fel(\cC)(\Cephalic_\cC,K)\iso\legs_\cC(K),
+\]
+naturally in $K$.
+\end{proof}
+
+\begin{corollary}\label{cor:not-idempotent}
+The construction $\cC\mapsto\Fel(\cC)$ is not idempotent up to equivalence:
+$\Fel(\Fel(\one))\not\eqv\Fel(\one)$.
+\end{corollary}
+
+\begin{proof}
+By \cref{prop:Fel-point}, $\Fel(\one)\iso\Set$, which has an initial and a
+terminal object, so $\Fel(\Fel(\one))$ is defined. If it were equivalent to
+$\Fel(\one)$, then \cref{thm:reconstruction} would give $\Fel(\one)\eqv\one$,
+that is, $\Set\eqv\one$, which is false.
+\end{proof}
+
+\section{Computations}\label{sec:computations}
+
+The following theorem computes the category of cats in a functor category
+$\Set^{\cJ}$. It is the main computational result of this monograph.
+
+\begin{theorem}\label{thm:Fel-Set-J}
+Let $\cJ$ be a small category, and let $\cJ^{\triangleright}$ be $\cJ$ with a
+terminal object $\top$ adjoined (\cref{def:adjoin}). Then there is an
+equivalence of categories
+\[
+\Theta\colon\Fel(\Set^{\cJ})\too\Set^{\cJ^{\triangleright}}
+\]
+with $\ev_\top\circ\Theta=\legs$. Explicitly, for a cat $K$ with legs
+$L_\alpha\colon\cJ\to\Set$,
+\[
+\Theta(K)|_{\cJ}=\coprod_{\alpha\in A}L_\alpha,\qquad
+\Theta(K)(\top)=A,
+\]
+and $\Theta(K)(j\to\top)\colon\coprod_\alpha L_\alpha(j)\to A$ is the map $(\alpha,x)\mapsto\alpha$.
+\end{theorem}
+
+\begin{proof}
+Note that $\Set^\cJ$ has an initial object (the constant functor at
+$\varnothing$) and a terminal object (the constant functor at a singleton),
+so $\Fel(\Set^\cJ)$ is defined. A functor $G\colon\cJ^{\triangleright}\to\Set$ is
+the same as a functor $G|_\cJ\colon\cJ\to\Set$, a set $G(\top)$, and a cocone
+$(G(j\to\top))_j$ from $G|_\cJ$ to $G(\top)$; the cocone condition is the
+functoriality of $G$ on composites $j\to j'\to\top$. The data $\Theta(K)$ satisfy
+this condition, since each $L_\alpha(u)$ preserves the summand $\alpha$. For a
+morphism $(\varphi,F)\colon K\to K'$, let $\Theta(\varphi,F)$ be the natural
+transformation with component $\varphi$ at $\top$ and component
+$(\alpha,x)\mapsto(\varphi(\alpha),F_{\alpha,j}(x))$ at $j\in\cJ$; it is natural at
+$j\to\top$ by construction and at $u\colon j\to j'$ by naturality of
+$F_\alpha$. Functoriality of $\Theta$ is clear, and $\ev_\top\Theta=\legs$.
+
+\emph{$\Theta$ is fully faithful.} Let $\theta\colon\Theta(K)\to\Theta(K')$ be a
+natural transformation and $\varphi=\theta_\top\colon A\to B$. Naturality at
+$j\to\top$ says that $\theta_j$ maps the summand $L_\alpha(j)$ into the summand
+$L'_{\varphi(\alpha)}(j)$, defining functions
+$F_{\alpha,j}\colon L_\alpha(j)\to L'_{\varphi(\alpha)}(j)$; naturality at
+$u\colon j\to j'$ says that $F_\alpha=(F_{\alpha,j})_j$ is a natural transformation.
+Then $\theta=\Theta(\varphi,F)$, and $(\varphi,F)$ is uniquely determined by
+$\theta$.
+
+\emph{$\Theta$ is essentially surjective.} Given $G\colon\cJ^{\triangleright}\to\Set$,
+let $A=G(\top)$ and, for $\alpha\in A$, let $L_\alpha(j)=G(j\to\top)^{-1}(\alpha)\subseteq G(j)$.
+For $u\colon j\to j'$, the map $G(u)$ sends $L_\alpha(j)$ into $L_\alpha(j')$ by
+the cocone condition, so $L_\alpha$ is a functor $\cJ\to\Set$. The evident
+bijections $\coprod_\alpha L_\alpha(j)\iso G(j)$ and $\id_A$ form a natural
+isomorphism $\Theta\langle L_\alpha\rangle_A\iso G$.
+\end{proof}
+
+\begin{corollary}\label{cor:Fel-Set}
+There is an equivalence $\Fel(\Set)\eqv\Set^{\to}$ between the category of
+$\Set$-cats and the arrow category of $\Set$, sending a cat $K$ to the function
+$\body K=\coprod_\alpha L_\alpha\to\legs K$. Under this equivalence the
+functors of \cref{prop:set-string} correspond to
+\[
+(S\mapsto(\varnothing\to S))\ \dashv\ \mathrm{cod}\ \dashv\ (S\mapsto\id_S)\ \dashv\ \mathrm{dom}\ \dashv\ (S\mapsto(S\to1)).
+\]
+\end{corollary}
+
+\begin{proof}
+Take $\cJ=\one$ in \cref{thm:Fel-Set-J}; then $\Set^{\one}=\Set$ and
+$\one^{\triangleright}=[1]$, and $\Set^{[1]}=\Set^{\to}$. The images of
+$\Delta_\varnothing S$, $\Delta_1S$ and $\iota S$ are $\varnothing\to S$,
+$S\times1\to S$ and $S\to1$; $\legs$ corresponds to the codomain and
+$\body=\points$ to the domain.
+\end{proof}
+
+\begin{corollary}\label{cor:Fel-presheaf}
+For every small category $\cD$ there is an equivalence
+\[
+\Fel(\PSh(\cD))\eqv\PSh(\cD^{\triangleleft}),
+\]
+under which the leg functor
+corresponds to evaluation at the adjoined initial object $\bot$.
+\end{corollary}
+
+\begin{proof}
+Apply \cref{thm:Fel-Set-J} with $\cJ=\cD^{\op}$, and use
+$(\cD^{\op})^{\triangleright}=(\cD^{\triangleleft})^{\op}$, under which $\top$
+corresponds to $\bot$.
+\end{proof}
+
+\begin{remark}\label{rem:presheaf-head}
+In \cref{cor:Fel-presheaf}, the adjoined object $\bot$ is an initial object of
+$\cD^{\triangleleft}$ and the leg functor is evaluation of presheaves at it. A
+presheaf $P$ on $\cD^{\triangleleft}$ assigns to $\bot$ the set of legs, and to
+each $d\in\cD$ the set of elements of all legs at $d$, each element being sent
+by the restriction map $P(d)\to P(\bot)$ to the leg containing it. We shall
+see in \cref{thm:head-tail-eval} that, quite generally, the legs of a cat are
+the elements of its Yoneda presheaf at the head.
+\end{remark}
+
+\section{Failure of duality}\label{sec:duality}
+
+Since an initial object of $\cC$ is a terminal object of $\cC^{\op}$ and vice
+versa, \emph{head--tail reversal} $(H,T,L)\mapsto(T,H,L)$ is a bijection
+between the classes of $\cC$-cats and of $\cC^{\op}$-cats. In general it does
+not extend to an equivalence of categories in either variance.
+
+\begin{proposition}\label{prop:no-duality}
+In general $\Fel(\cC^{\op})\not\eqv\Fel(\cC)$ and
+$\Fel(\cC^{\op})\not\eqv\Fel(\cC)^{\op}$.
+\end{proposition}
+
+\begin{proof}
+Take $\cC=\one$. Then $\Fel(\one^{\op})=\Fel(\one)\iso\Set$, so an equivalence
+$\Fel(\one^{\op})\eqv\Fel(\one)^{\op}$ would give $\Set\eqv\Set^{\op}$. This is false: the initial object
+$\varnothing$ of $\Set$ is strict, whereas the initial object of $\Set^{\op}$,
+a singleton, is not strict in $\Set^{\op}$ (there are morphisms
+$2\to1$ in $\Set^{\op}$, namely functions $1\to2$, that are not isomorphisms).
+For the first assertion take $\cC=\Set$. By \cref{thm:reconstruction},
+$\Fel(\Set^{\op})\eqv\Fel(\Set)$ would imply $\Set^{\op}\eqv\Set$.
+\end{proof}
+
+\begin{remark}\label{rem:retrograde}
+Unwinding the definitions, $\Fel(\cC^{\op})^{\op}$ is equivalent to the
+category whose objects are small families in $\cC$ and whose morphisms
+$(A,X)\to(B,Y)$ are pairs consisting of a function $\psi\colon B\to A$ and
+morphisms $X_{\psi(b)}\to Y_b$ of $\cC$. This is the dual of the family
+construction, namely the free completion of $\cC$ under small products. One
+could call its objects \emph{retrograde cats}; they are not studied here.
+\end{remark}

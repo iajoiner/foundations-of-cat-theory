@@ -1,0 +1,381 @@
+\chapter{Feline Yoneda theory}\label{ch:yoneda}
+
+\begin{assumption}\label{ass:ch8}
+Throughout this chapter $\cC$ is a locally small category with an initial
+object $0$ and a terminal object $1$. Presheaf categories are as in
+\cref{conv:presheaves}.
+\end{assumption}
+
+\section{The feline Yoneda functor}\label{sec:feline-yoneda}
+
+\begin{definition}\label{def:feline-yoneda}
+The \emph{feline Yoneda functor} $\Yon\colon\Fel(\cC)\to\PSh(\cC)$ sends a cat
+$K$ with legs $(L_\alpha)_{\alpha\in A}$ to the presheaf
+\[
+\Yon K\defeq\coprod_{\alpha\in A}y(L_\alpha),\qquad
+(\Yon K)(X)=\coprod_{\alpha\in A}\cC(X,L_\alpha),
+\]
+and a morphism $(\varphi,F)\colon K\to K'$ to the natural transformation
+given by $(\Yon(\varphi,F))_X(\alpha,g)=(\varphi(\alpha),F_\alpha g)$.
+\end{definition}
+
+\begin{remark}\label{rem:feline-yoneda-restriction}
+By \cref{cor:Fel-hom}, $(\Yon K)(X)\iso\Fel(\cC)(\iota X,K)$, naturally in $X$
+and $K$. Thus $\Yon\iso\iota^*\circ y_{\Fel(\cC)}$ is, up to natural isomorphism, the composite of the Yoneda
+embedding of $\Fel(\cC)$ with restriction along $\iota$. This description
+will be exploited in \cref{sec:feline-presheaves}.
+\end{remark}
+
+\begin{lemma}[Feline Yoneda Lemma]\label{lem:feline-yoneda-lemma}
+For a cat $K$ and a presheaf $P$ on $\cC$, the map
+\[
+\PSh(\cC)(\Yon K,P)\too\prod_{\alpha\in\legs(K)}P(L_\alpha),\qquad
+\theta\longmapsto\bigl(\theta_{L_\alpha}(\alpha,\id_{L_\alpha})\bigr)_\alpha,
+\]
+is a bijection, natural in $K$ and $P$. In particular the left-hand side is a
+small set.
+\end{lemma}
+
+\begin{proof}
+Since $\Yon K$ is the coproduct of the $y(L_\alpha)$, with coprojections
+sending $g\in\cC(X,L_\alpha)$ to $(\alpha,g)$, a natural transformation
+$\Yon K\to P$ is the same as a family of natural transformations
+$y(L_\alpha)\to P$, which by the Yoneda lemma correspond to elements of
+$P(L_\alpha)$ via evaluation at $\id_{L_\alpha}$. Naturality in $P$ is
+immediate; naturality in $K$ means that for $(\varphi,F)\colon K\to K'$ the
+induced map $\prod_\beta P(L'_\beta)\to\prod_\alpha P(L_\alpha)$ is
+$(x_\beta)\mapsto(P(F_\alpha)x_{\varphi(\alpha)})_\alpha$, which follows from
+$(\Yon(\varphi,F))_{L_\alpha}(\alpha,\id)=(\varphi(\alpha),F_\alpha)$ and the
+naturality of $\theta$.
+\end{proof}
+
+\begin{theorem}\label{thm:yoneda-ff}
+The feline Yoneda functor $\Yon$ is fully faithful.
+\end{theorem}
+
+\begin{proof}
+Take $P=\Yon K'$ in \cref{lem:feline-yoneda-lemma}:
+\[
+\PSh(\cC)(\Yon K,\Yon K')\iso\prod_{\alpha}(\Yon K')(L_\alpha)=\prod_\alpha\coprod_\beta\cC(L_\alpha,L'_\beta)\iso\Fel(\cC)(K,K').
+\]
+The composite sends $\Yon(\varphi,F)$ to
+$\bigl((\Yon(\varphi,F))_{L_\alpha}(\alpha,\id)\bigr)_\alpha=((\varphi(\alpha),F_\alpha))_\alpha$,
+which corresponds to $(\varphi,F)$. Hence the action of $\Yon$ on hom-sets is
+the inverse of this bijection.
+\end{proof}
+
+\begin{theorem}\label{thm:yoneda-image}
+For a presheaf $P$ on $\cC$ the following are equivalent.
+\begin{enumerate}
+\item $P\iso\Yon K$ for some cat $K$.
+\item $P$ is a small coproduct of representable presheaves.
+\item The category of elements $\El P$ is a coproduct $\coprod_{i\in I}\cE_i$ of
+  categories indexed by a small set $I$, each of which has a terminal object.
+\end{enumerate}
+In this case the leg set of $K$ is in bijection with $I$, and the legs of $K$
+are, up to isomorphism, the first coordinates of the terminal objects of the
+$\cE_i$.
+\end{theorem}
+
+\begin{proof}
+(i)$\Leftrightarrow$(ii) is the definition of $\Yon$, every small family of
+objects being the family of legs of a cat.
+
+(ii)$\Rightarrow$(iii). The category of elements of a coproduct of presheaves
+is the coproduct of their categories of elements, and $\El y(X)\iso\cC/X$, the
+slice category, which has the terminal object $(X,\id_X)$.
+
+(iii)$\Rightarrow$(ii). Let $(X_i,x_i)$ be a terminal object of $\cE_i$. For an
+object $Y$ of $\cC$, define
+\[
+\coprod_{i\in I}\cC(Y,X_i)\too P(Y),\qquad (i,f)\longmapsto P(f)(x_i).
+\]
+It is natural in $Y$. It is surjective: an element $y\in P(Y)$ is an object
+$(Y,y)$ of some $\cE_i$, and the unique morphism $(Y,y)\to(X_i,x_i)$ is an
+$f\colon Y\to X_i$ with $P(f)(x_i)=y$. It is injective: if
+$P(f)(x_i)=P(f')(x_{i'})=y$, then $f$ and $f'$ are morphisms in $\El P$ from
+$(Y,y)$ to $(X_i,x_i)$ and to $(X_{i'},x_{i'})$, so $i=i'$ because the
+$\cE_i$ are distinct components, and $f=f'$ by terminality. Hence
+$P\iso\coprod_iy(X_i)$.
+
+For the final assertion: each $\cE_i$ has a terminal object and is therefore
+connected, so the $\cE_i$ are exactly the connected components of $\El P$. If
+$P\iso\Yon K$, then $\El P\iso\coprod_\alpha\cC/L_\alpha$, whose components are
+indexed by $\legs(K)$ and have terminal objects $(L_\alpha,\id)$; terminal objects
+are unique up to isomorphism.
+\end{proof}
+
+\begin{remark}\label{rem:yoneda-honest}
+\Cref{thm:yoneda-ff,thm:yoneda-image} are the feline forms of the standard facts
+that the free coproduct completion of $\cC$ embeds fully faithfully in
+$\PSh(\cC)$ as the coproducts of representables, and that a presheaf is a
+coproduct of representables if and only if each connected component of its
+category of elements has a terminal object and the set of components is small.
+(For large $\cC$ the smallness condition is not automatic: the constant
+presheaf at $1$ on a large discrete category has a proper class of components.
+For categories with an initial object it is automatic, by
+\cref{prop:components-head} below.)
+\end{remark}
+
+\section{Evaluation at the head and at the tail}\label{sec:head-tail-eval}
+
+\begin{proposition}\label{prop:components-head}
+For every presheaf $P$ on $\cC$, the map
+\[
+\pi_0(\El P)\too P(0),\qquad[(X,x)]\longmapsto P({!_X})(x),
+\]
+is a well-defined bijection, where ${!_X}\colon0\to X$.
+\end{proposition}
+
+\begin{proof}
+If $f\colon(X,x)\to(X',x')$ is a morphism of $\El P$, so that $P(f)(x')=x$,
+then $P({!_X})(x)=P({!_X})P(f)(x')=P(f\circ{!_X})(x')=P({!_{X'}})(x')$ because
+$f\circ{!_X}={!_{X'}}$; hence the map is constant on components. It is
+surjective because $(0,z)\mapsto P(\id_0)(z)=z$. It is injective because every
+object $(X,x)$ is connected to $(0,P({!_X})(x))$ by the morphism
+${!_X}\colon(0,P({!_X})x)\to(X,x)$; so two objects with the same image are
+connected to the same object $(0,z)$.
+\end{proof}
+
+\begin{remark}\label{rem:components-honest}
+\Cref{prop:components-head} is the special case of \cref{lem:colim-terminal}
+asserting that the colimit of a functor $\cC^{\op}\to\Set$ is its value at a
+terminal object of $\cC^{\op}$, combined with \cref{lem:colim-set}; the latter
+requires $\cC$ to be small, but the direct argument above does not.
+\end{remark}
+
+\begin{theorem}[Head--Tail Evaluation]\label{thm:head-tail-eval}
+There are natural isomorphisms
+\[
+\ev_0\circ\Yon\iso\legs,\qquad\ev_1\circ\Yon\iso\points,
+\]
+and, more generally, $\ev_X\circ\Yon\iso\Fel(\cC)(\iota X,-)$ for every object
+$X$. The points-to-legs transformation $p\colon\points\Rightarrow\legs$
+corresponds to $\Yon(-)({!_1})\colon\ev_1\circ\Yon\Rightarrow\ev_0\circ\Yon$,
+where ${!_1}\colon0\to1$. Moreover the connected components of $\El\Yon K$ are
+in canonical bijection with the legs of $K$.
+\end{theorem}
+
+\begin{proof}
+$(\Yon K)(0)=\coprod_\alpha\cC(0,L_\alpha)\iso\legs(K)$ and
+$(\Yon K)(1)=\coprod_\alpha\cC(1,L_\alpha)=\points(K)$, naturally in $K$. The
+general statement is \cref{rem:feline-yoneda-restriction}. The map
+$(\Yon K)({!_1})$ sends $(\alpha,x)$ to $(\alpha,x\circ{!_1})$, which corresponds
+to $\alpha$. The final assertion follows from \cref{prop:components-head}.
+\end{proof}
+
+Thus the legs of a cat are the elements of its Yoneda presheaf at the head, and
+its points are the elements at the tail. We stress that the content of
+\cref{thm:head-tail-eval} is the Yoneda lemma together with the definition of an
+initial object.
+
+\section{Feline presheaves}\label{sec:feline-presheaves}
+
+\begin{definition}\label{def:feline-presheaf}
+A presheaf $Q\colon\Fel(\cC)^{\op}\to\Set$ is \emph{feline} if it sends small
+coproducts in $\Fel(\cC)$ to products: for every small family $(K_i)_{i\in I}$
+the map $Q(\coprod_iK_i)\to\prod_iQ(K_i)$ induced by the coprojections is a
+bijection (for $I=\varnothing$ this says that $Q(\Legless)$ is a singleton).
+We write $\PSh_{\sqcup}(\Fel(\cC))$ for the full subcategory of feline presheaves.
+\end{definition}
+
+\begin{theorem}\label{thm:coproduct-presheaves}
+Restriction along $\iota$ is an equivalence of categories
+\[
+\iota^*\colon\PSh_{\sqcup}(\Fel(\cC))\too\PSh(\cC),
+\]
+with quasi-inverse $P\mapsto\widehat P\defeq\PSh(\cC)(\Yon(-),P)$; explicitly
+$\widehat P(K)\iso\prod_{\alpha}P(L_\alpha)$. Every representable presheaf
+$\Fel(\cC)(-,K)$ is feline, and $\iota^*\Fel(\cC)(-,K)\iso\Yon K$.
+\end{theorem}
+
+\begin{proof}
+By \cref{lem:feline-yoneda-lemma}, $\widehat P(K)\iso\prod_\alpha P(L_\alpha)$
+naturally. Since the leg set of $\coprod_iK_i$ is $\coprod_iA_i$
+(\cref{prop:coproducts}), $\widehat P$ is feline, and
+$\widehat P(\iota X)\iso P(X)$, so $\iota^*\widehat P\iso P$. Conversely, if
+$Q$ is feline, then using \cref{cor:leg-decomposition-preview},
+\[
+Q(K)\iso Q\Bigl(\coprod_\alpha\iota L_\alpha\Bigr)\iso\prod_\alpha Q(\iota L_\alpha)=\prod_\alpha(\iota^*Q)(L_\alpha)\iso\widehat{\iota^*Q}(K),
+\]
+naturally in $K$; so $Q\iso\widehat{\iota^*Q}$. Finally, a natural
+transformation between feline presheaves is determined by its components at
+unipedal cats, by the same decomposition, so $\iota^*$ is faithful, and the
+two isomorphisms above show that it is full and essentially surjective.
+Representables send colimits to limits, so they are feline, and
+$\iota^*\Fel(\cC)(-,K)\iso\Yon K$ is \cref{rem:feline-yoneda-restriction}.
+\end{proof}
+
+\begin{remark}\label{rem:feline-presheaves-honest}
+\Cref{thm:coproduct-presheaves} is the universal property of the free
+coproduct completion applied to the cocomplete category $\Set^{\op}$; compare
+\cref{thm:universal-property}. Combined with the ordinary Yoneda embedding
+of $\Fel(\cC)$, it yields a second proof of \cref{thm:yoneda-ff}.
+\end{remark}
+
+\begin{proposition}\label{prop:head-represent}
+Let $\cC$ be a category with a terminal object, and let
+$\legs\colon\Fel^{\hl}(\cC)\to\Set$ be the leg functor on headless cats. Then
+$\legs$ is representable if and only if $\cC$ has an initial object, in which
+case it is represented by the headless cat $(1,(0))$, the decapitated
+cephalic cat. By contrast, $\points$ is always represented by $(1,(1))$.
+\end{proposition}
+
+\begin{proof}
+If $\cC$ has an initial object, argue as in \cref{lem:legs-representable}.
+Conversely, suppose $\legs\iso\Fel^{\hl}(\cC)(R,-)$. The leg functor preserves
+coproducts (including the empty coproduct), so $R$ is a connected object of
+$\Fel^{\hl}(\cC)\eqv\Fam(\cC)$; the proof of \cref{prop:connected-unipedal},
+which does not use the head, shows that $R$ is unipedal, say $R\iso(1,(Y))$.
+Then $\cC(Y,X)\iso\Fel^{\hl}(\cC)(R,(1,(X)))\iso\legs(1,(X))=1$ for all $X$, so
+$Y$ is initial. The statement about $\points$ is proved as in
+\cref{thm:adjoint-string}.
+\end{proof}
+
+\section{Natural transformations between the basic functors}\label{sec:basic-nat}
+
+The ordinary Yoneda lemma, applied to the representable functors
+$\legs\iso\Fel(\cC)(\Cephalic,-)$ and $\points\iso\Fel(\cC)(\Caudal,-)$, computes
+all natural transformations between them. Nothing feline happens in the
+following proposition beyond the identification of representing objects.
+
+\begin{proposition}\label{prop:basic-nat}
+\begin{enumerate}
+\item The only natural transformation $\legs\Rightarrow\legs$ is the identity.
+\item The only natural transformation $\points\Rightarrow\points$ is the identity.
+\item The points-to-legs transformation $p$ is the only natural transformation
+  $\points\Rightarrow\legs$.
+\item There is a natural transformation $\legs\Rightarrow\points$ if and only if
+  $\cC$ is pointed, and it is then unique and invertible.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+By the Yoneda lemma,
+\[
+\mathrm{Nat}\bigl(\Fel(\cC)(M,-),\Fel(\cC)(M',-)\bigr)\iso\Fel(\cC)(M',M).
+\]
+(i) $\Fel(\cC)(\Cephalic,\Cephalic)\iso\cC(0,0)$ is a singleton. (ii)
+$\Fel(\cC)(\Caudal,\Caudal)\iso\cC(1,1)$ is a singleton. (iii)
+$\Fel(\cC)(\Cephalic,\Caudal)\iso\cC(0,1)$ is a singleton, and $p$ is a natural
+transformation. (iv) $\Fel(\cC)(\Caudal,\Cephalic)\iso\cC(1,0)$, which is
+nonempty if and only if $\cC$ is pointed (\cref{lem:pointed}); in that case
+the unique element is an isomorphism.
+\end{proof}
+
+\section{Restricted Yoneda on connected objects}\label{sec:restricted-yoneda}
+
+For use in \cref{ch:cmg} we record a variant of the feline Yoneda functor in
+which only connected objects are used as probes. Let $\cC^{\conn}$ be the full
+subcategory of connected objects (\cref{def:connected}), and let
+$y^{\conn}\colon\cC\to\PSh(\cC^{\conn})$, $y^\conn(X)=\cC(-,X)|_{\cC^\conn}$,
+be the restricted Yoneda functor.
+
+\begin{definition}\label{def:restricted-yoneda}
+The \emph{restricted feline Yoneda functor} is
+$\Yon^{\conn}\colon\Fel(\cC)\to\PSh(\cC^\conn)$,
+$\Yon^\conn K=\coprod_\alpha y^\conn(L_\alpha)$, defined on morphisms as in
+\cref{def:feline-yoneda}. Note that $\Yon^\conn(\iota X)\iso y^\conn(X)$ canonically; we identify the two.
+\end{definition}
+
+\begin{proposition}\label{prop:restricted-yoneda}
+Let $K$ be a cat all of whose legs are connected. Then for every cat $K'$ the
+map $\Yon^\conn\colon\Fel(\cC)(K,K')\to\PSh(\cC^\conn)(\Yon^\conn K,\Yon^\conn K')$
+is a bijection. In particular, $\Yon^\conn$ is fully faithful on the full
+subcategory of cats with connected legs.
+\end{proposition}
+
+\begin{proof}
+The proof of \cref{lem:feline-yoneda-lemma} applies verbatim with $\cC^\conn$ in
+place of $\cC$, because each $L_\alpha$ is an object of $\cC^\conn$, and gives
+$\PSh(\cC^\conn)(\Yon^\conn K,P)\iso\prod_\alpha P(L_\alpha)$. With
+$P=\Yon^\conn K'$ the right-hand side is
+$\prod_\alpha\coprod_\beta\cC(L_\alpha,L'_\beta)\iso\Fel(\cC)(K,K')$, and as in
+\cref{thm:yoneda-ff} the composite is inverse to the action of $\Yon^\conn$.
+\end{proof}
+
+\begin{counterexample}\label{cex:restricted-not-ff}
+The hypothesis on the legs of $K$ in \cref{prop:restricted-yoneda} cannot be
+dropped. In $\Set$, the connected objects are the singletons, so
+$\PSh(\Set^\conn)\eqv\Set$ and $\Yon^\conn K\iso\body K$ is the disjoint union
+of the legs. The two-legged cat $\langle1,1\rangle$ and the unipedal cat
+$\iota(2)$ have isomorphic images, but they are not isomorphic in
+$\Fel(\Set)$, their leg sets having different cardinalities.
+\end{counterexample}
+
+\section{Margaret Compatibility}\label{sec:margaret}
+
+The restricted feline Yoneda functor leads to the following notion, which
+compares a cat with an object of $\cC$ as seen from connected objects.
+
+\begin{definition}[Margaret Compatibility]\label{def:margaret}
+Let $K$ be a $\cC$-cat and $X$ an object of $\cC$. A \emph{cocone} from $K$ to
+$X$ is a family $\beta=(\beta_\alpha\colon L_\alpha\to X)_{\alpha\in\legs K}$;
+by \cref{cor:Fel-hom} it is the same as a morphism $\beta\colon K\to\iota X$.
+The cocone $\beta$ is \emph{Margaret compatible} if, for every connected object
+$Y$ of $\cC$, the map
+\[
+m^\beta_Y\colon\coprod_{\alpha\in\legs K}\cC(Y,L_\alpha)\too\cC(Y,X),\qquad(\alpha,g)\longmapsto\beta_\alpha\circ g,
+\]
+is a bijection. In words: every morphism from a connected object into $X$
+factors through exactly one leg, and through that leg in exactly one way.
+\end{definition}
+
+\begin{proposition}\label{prop:margaret-equiv}
+For a cocone $\beta\colon K\to\iota X$ the following are equivalent:
+\begin{enumerate}
+\item $\beta$ is Margaret compatible;
+\item for every connected $Y$, postcomposition with $\beta$ is a bijection
+  from $\Fel(\cC)(\iota Y,K)$ to $\Fel(\cC)(\iota Y,\iota X)$;
+\item $\Yon^\conn(\beta)\colon\Yon^\conn K\to\Yon^\conn(\iota X)\iso y^\conn X$ is an
+  isomorphism of presheaves on $\cC^\conn$ (\cref{def:restricted-yoneda}).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Under the bijections $\Fel(\cC)(\iota Y,K)\iso\coprod_\alpha\cC(Y,L_\alpha)=(\Yon^\conn K)(Y)$
+and $\Fel(\cC)(\iota Y,\iota X)\iso\cC(Y,X)=(y^\conn X)(Y)$, both postcomposition
+with $\beta$ and the component of $\Yon^\conn(\beta)$ at $Y$ become $m^\beta_Y$.
+A morphism of presheaves is an isomorphism if and only if each component is a
+bijection.
+\end{proof}
+
+\begin{example}\label{ex:margaret}
+\begin{enumerate}
+\item In $\Set$, the connected objects are the singletons, and $m^\beta_1$ is
+  identified with the map $\coprod_\alpha L_\alpha\to X$ induced by $\beta$. So
+  a cocone in $\Set$ is Margaret compatible if and only if it is a coproduct
+  cocone.
+\item In a pointed category every cocone is Margaret compatible, vacuously.
+\item In $\Top$, let $X=\mathbb Q$ with its usual topology, and let
+  $K=\langle\{q\}\rangle_{q\in\mathbb Q}$ with $\beta_q$ the inclusion of the point
+  $q$. Every continuous map from a connected space $Y$ to $\mathbb Q$ is constant,
+  since connected subsets of $\mathbb Q$ have at most one point, and so factors
+  uniquely through exactly one $\beta_q$. Hence $\beta$ is Margaret compatible.
+  It is not a coproduct cocone, since the coproduct of the points of $\mathbb Q$
+  is $\mathbb Q$ with the discrete topology.
+\end{enumerate}
+\end{example}
+
+\begin{proposition}\label{prop:margaret-closure}
+\begin{enumerate}
+\item If $\beta\colon K\to\iota X$ is Margaret compatible and $\theta\colon K'\to K$
+  is an isomorphism of cats, then $\beta\theta$ is Margaret compatible; if
+  $f\colon X\to X'$ is an isomorphism, then $\iota(f)\beta$ is Margaret compatible.
+\item If $\beta^i\colon K_i\to\iota X_i$ are Margaret compatible for $i\in I$ and
+  $\coprod_iX_i$ exists in $\cC$, then the cocone
+  $\coprod_iK_i\to\iota(\coprod_iX_i)$ with components $\inj_i\circ\beta^i_\alpha$
+  is Margaret compatible.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) Postcomposition with an isomorphism is bijective. (ii) For connected $Y$,
+\[
+\coprod_{(i,\alpha)}\cC(Y,L_{i,\alpha})=\coprod_i\coprod_\alpha\cC(Y,L_{i,\alpha})
+\xrightarrow{\ \coprod_im^{\beta^i}_Y\ }\coprod_i\cC(Y,X_i)\xrightarrow{\ \kappa\ }\cC\Bigl(Y,\coprod_iX_i\Bigr)
+\]
+is a composite of bijections, $\kappa$ being bijective by connectedness of $Y$,
+and it equals $m_Y$ for the coproduct cocone.
+\end{proof}
+

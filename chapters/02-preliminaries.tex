@@ -1,0 +1,322 @@
+\chapter{Categorical preliminaries}\label{ch:prelim}
+
+This chapter fixes conventions and collects the elementary facts on which the
+theory rests. Nothing in it is new; for general background we refer to
+\cite{MacLane1998,Riehl2016,Leinster2014,Borceux1994}.
+
+\section{Conventions}\label{sec:conventions}
+
+\begin{convention}[Size]\label{conv:size}
+We fix a Grothendieck universe $\mathbb U$. A set is \emph{small} if it is an
+element of $\mathbb U$. $\Set$ denotes the category of small sets. A category
+is \emph{locally small} if each of its hom-sets is in bijection with a small
+set, and \emph{small} if, in addition, its class of objects is small. Unless
+the contrary is stated, every category considered is locally small. We work in
+a set theory with the axiom of choice, which we use freely, for instance to
+choose limits and colimits, representatives of isomorphism classes, and
+elements of products of nonempty sets.
+\end{convention}
+
+\begin{convention}[Presheaves]\label{conv:presheaves}
+For a category $\cC$ we write $\PSh(\cC)$ for the category of functors
+$\cC^{\op}\to\Set$ and natural transformations between them. If $\cC$ is not
+small, $\PSh(\cC)$ need not be locally small; we use it as a category with
+possibly large hom-sets, and every hom-set of $\PSh(\cC)$ that enters into
+a statement of this monograph will be shown to be small. We write
+$y\colon\cC\to\PSh(\cC)$, $y(X)=\cC(-,X)$, for the Yoneda embedding.
+\end{convention}
+
+\begin{convention}[Composition and diagrams]\label{conv:diagrams}
+Composition is written $g\circ f$ or $gf$. A diagram in $\cC$ is said to
+\emph{commute} if, for every pair of vertices, all composites along directed
+paths from the first vertex to the second are equal.
+\end{convention}
+
+\section{Initial and terminal objects}\label{sec:initial-terminal}
+
+\begin{definition}\label{def:initial-terminal}
+An object $0$ of a category $\cC$ is \emph{initial} if for every object $X$
+the set $\cC(0,X)$ has exactly one element, denoted $!_X\colon 0\to X$.
+An object $1$ is \emph{terminal} if every $\cC(X,1)$ has exactly one element,
+denoted $!^X\colon X\to 1$. An object that is both initial and terminal is a
+\emph{zero object}, and $\cC$ is \emph{pointed} if it has a zero object. An
+initial object $0$ is \emph{strict} if every morphism $X\to 0$ is an
+isomorphism.
+\end{definition}
+
+The following lemma is the engine of cat theory; it will be invoked so often
+that we give it a name.
+
+\begin{lemma}[Parallel Morphism Lemma]\label{lem:parallel}
+Let $f,g\colon X\to Y$ be parallel morphisms in a category $\cC$. If $X$ is
+initial or $Y$ is terminal, then $f=g$.
+\end{lemma}
+
+\begin{proof}
+If $X$ is initial then $\cC(X,Y)$ has exactly one element, so $f=g$; the
+case of $Y$ terminal is dual.
+\end{proof}
+
+\begin{corollary}\label{cor:auto-commute}
+Let $D$ be a diagram in $\cC$ in which every pair of parallel directed paths
+has an initial common source or a terminal common target. Then $D$ commutes.
+\end{corollary}
+
+\begin{proof}
+Two parallel paths have composites with the same domain and codomain; if the
+domain is initial or the codomain terminal, \cref{lem:parallel} shows the
+composites agree.
+\end{proof}
+
+\begin{lemma}\label{lem:initial-unique}
+Let $\cC$ be a category.
+\begin{enumerate}
+\item If $H$ and $H'$ are initial objects, the unique morphism $H\to H'$ is an
+  isomorphism.
+\item An object isomorphic to an initial object is initial.
+\item If $T$ and $T'$ are terminal objects, the unique morphism $T\to T'$ is
+  an isomorphism, and an object isomorphic to a terminal object is terminal.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) Let $u\colon H\to H'$ and $v\colon H'\to H$ be the unique morphisms. Then
+$vu$ and $\id_H$ are endomorphisms of the initial object $H$, so
+$vu=\id_H$ by \cref{lem:parallel}; similarly $uv=\id_{H'}$.
+(ii) If $\theta\colon H'\to H$ is an isomorphism and $H$ is initial, then
+$f\mapsto f\theta$ is a bijection $\cC(H,X)\to\cC(H',X)$.
+(iii) is dual.
+\end{proof}
+
+\begin{lemma}\label{lem:pointed}
+Let $\cC$ have an initial object $0$ and a terminal object $1$. The following
+are equivalent:
+\begin{enumerate}
+\item $\cC$ is pointed;
+\item $0\iso 1$;
+\item $\cC(1,0)\neq\varnothing$;
+\item for every object $X$, $\cC(X,0)\neq\varnothing$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i)$\Rightarrow$(ii): a zero object is isomorphic to both $0$ and $1$ by
+\cref{lem:initial-unique}. (ii)$\Rightarrow$(iii) is clear.
+(iii)$\Rightarrow$(iv): compose $!^X\colon X\to 1$ with a morphism $1\to 0$.
+(iv)$\Rightarrow$(i): let $u\colon 1\to 0$. Then $u\circ{!_1}\colon 0\to 0$
+equals $\id_0$ and ${!_1}\circ u\colon 1\to 1$ equals $\id_1$ by
+\cref{lem:parallel}, where ${!_1}\colon 0\to 1$; so $0\iso 1$ and $0$ is a
+zero object by \cref{lem:initial-unique}.
+\end{proof}
+
+\section{Coproducts and connected objects}\label{sec:connected}
+
+For a small family $(Y_i)_{i\in I}$ of objects of $\cC$, a coproduct is an
+object $\coprod_i Y_i$ with morphisms $\inj_i\colon Y_i\to\coprod_iY_i$ such
+that $f\mapsto (f\circ\inj_i)_i$ is a bijection
+$\cC(\coprod_iY_i,Z)\to\prod_i\cC(Y_i,Z)$ for every $Z$. The coproduct of the
+empty family is an initial object.
+
+\begin{definition}\label{def:connected}
+An object $X$ of $\cC$ is \emph{connected} if for every small family
+$(Y_i)_{i\in I}$ of objects of $\cC$ that admits a coproduct in $\cC$, the
+canonical map
+\begin{equation}\label{eq:connected}
+\kappa\colon \coprod_{i\in I}\cC(X,Y_i)\too\cC\Bigl(X,\coprod_{i\in I}Y_i\Bigr),\qquad (i,g)\longmapsto \inj_i\circ g,
+\end{equation}
+is a bijection. We write $\cC^{\conn}$ for the full subcategory of $\cC$
+spanned by the connected objects.
+\end{definition}
+
+\begin{remark}\label{rem:connected-initial}
+If $\cC$ has an initial object $0$, then, applying \eqref{eq:connected} to the
+empty family, a connected object $X$ satisfies $\cC(X,0)=\varnothing$. In
+particular an initial object is never connected, and by \cref{lem:pointed} a
+pointed category has no connected objects at all. Connectedness is invariant
+under isomorphism. One may also consider related notions, for example being
+non-initial and admitting no nontrivial binary coproduct decomposition; we use
+only \cref{def:connected}.
+\end{remark}
+
+\begin{example}\label{ex:connected}
+\begin{enumerate}
+\item In $\Set$ the connected objects are precisely the one-element sets.
+  Indeed, a connected set $X$ is nonempty by \cref{rem:connected-initial};
+  if $X$ has two distinct elements, a surjection $X\to 1\sqcup 1$ which
+  separates them does not factor through either coprojection; and if
+  $X=\{x\}$ then $\Set(X,\coprod_iY_i)\iso\coprod_iY_i\iso\coprod_i\Set(X,Y_i)$
+  compatibly with $\kappa$.
+\item In the category $\Top$ of topological spaces and continuous maps, the
+  connected objects are the nonempty connected spaces. A continuous map from a
+  nonempty connected space into a disjoint union has connected image, which lies
+  in exactly one summand because the summands are disjoint and clopen; since the
+  coprojections are injective, the map factors uniquely through that summand, so
+  $\kappa$ is bijective. Conversely, a connected object is
+  nonempty, and if it were a disjoint union of two nonempty clopen subsets
+  $U\sqcup V$ the evident map to $1\sqcup 1$ would not factor through a
+  coprojection.
+\item Let $\Graph$ be the category whose objects are pairs $(V,E)$ consisting
+  of a small set $V$ and a symmetric relation $E\subseteq V\times V$, and whose
+  morphisms are relation-preserving maps. The connected objects are the
+  graphs that are nonempty and connected in the graph-theoretic sense, by the
+  argument of (ii) with connected components in place of clopen subsets; here
+  $1$ is the terminal graph, a single vertex with a loop, so that the map from a
+  disconnected graph to $1\sqcup1$ separating two components is a morphism.
+\item In $\Ab$, $\Grp$, $\Vect_k$ or the category $\Setp$ of pointed sets
+  there are no connected objects, these categories being pointed.
+\end{enumerate}
+\end{example}
+
+\section{Families}\label{sec:families}
+
+\begin{definition}\label{def:Fam}
+The category $\Fam(\cC)$ of \emph{small families} in $\cC$ has as objects
+pairs $(A,X)$ where $A$ is a small set and $X=(X_a)_{a\in A}$ is an
+$A$-indexed family of objects of $\cC$. A morphism $(\varphi,f)\colon(A,X)\to(B,Y)$
+consists of a function $\varphi\colon A\to B$ and a family of morphisms
+$f_a\colon X_a\to Y_{\varphi(a)}$ of $\cC$. Composition and identities are
+\[
+(\psi,g)\circ(\varphi,f)=\bigl(\psi\varphi,(g_{\varphi(a)}f_a)_{a\in A}\bigr),
+\qquad \id_{(A,X)}=(\id_A,(\id_{X_a})_{a\in A}).
+\]
+\end{definition}
+
+Associativity and unitality are inherited from $\Set$ and $\cC$.
+
+\begin{lemma}\label{lem:Fam-hom}
+For objects $(A,X)$ and $(B,Y)$ of $\Fam(\cC)$, the assignment
+$(\varphi,f)\mapsto\bigl((\varphi(a),f_a)\bigr)_{a\in A}$ is a bijection
+\[
+\Fam(\cC)\bigl((A,X),(B,Y)\bigr)\iso\prod_{a\in A}\coprod_{b\in B}\cC(X_a,Y_b).
+\]
+In particular $\Fam(\cC)$ is locally small.
+\end{lemma}
+
+\begin{proof}
+An element of the right-hand side assigns to each $a$ a pair $(b_a,f_a)$ with
+$f_a\colon X_a\to Y_{b_a}$; setting $\varphi(a)=b_a$ recovers $(\varphi,f)$
+uniquely. The right-hand side is small since $A$, $B$ and the hom-sets of $\cC$
+are.
+\end{proof}
+
+\begin{remark}\label{rem:Fam-classical}
+The category $\Fam(\cC)$ has small coproducts, given by
+\[
+\textstyle\coprod_i(A_i,X^i)=\bigl(\coprod_iA_i,(X^i_a)_{(i,a)}\bigr),
+\]
+and the functor
+$\cC\to\Fam(\cC)$, $X\mapsto(1,X)$, exhibits it as the free completion of $\cC$
+under small coproducts. This is well known; the projection $\Fam(\cC)\to\Set$,
+the \emph{family fibration}, is treated for instance in \cite{Jacobs1999}. We
+shall reprove everything we need in feline
+form (\cref{thm:universal-property}).
+\end{remark}
+
+\section{Adjoining extremal objects}\label{sec:joins}
+
+\begin{definition}\label{def:adjoin}
+Let $\cD$ be a category. The category $\cD^{\triangleleft}$ is obtained from
+$\cD$ by adjoining a new object $\bot$ with
+$\cD^{\triangleleft}(\bot,d)=\{*\}$ for all objects $d$ (including
+$d=\bot$, where $*=\id_\bot$) and $\cD^{\triangleleft}(d,\bot)=\varnothing$
+for $d\neq\bot$. Dually $\cD^{\triangleright}$ is obtained by adjoining a new
+object $\top$ with $\cD^{\triangleright}(d,\top)=\{*\}$ and
+$\cD^{\triangleright}(\top,d)=\varnothing$ for $d\neq\top$. Composition is
+forced.
+\end{definition}
+
+Thus $\bot$ is initial in $\cD^{\triangleleft}$ and $\top$ is terminal in
+$\cD^{\triangleright}$, and $(\cD^{\op})^{\triangleright}=(\cD^{\triangleleft})^{\op}$.
+For a set $A$ regarded as a discrete category, $(A^{\triangleleft})^{\triangleright}$
+is the poset obtained from the discrete poset $A$ by adjoining a bottom and a
+top element. For $n\geq 0$ we write $[n]$ for the totally ordered set
+$\{0<1<\dots<n\}$ regarded as a category; thus $[0]=\one$ and
+$[n]^{\triangleright}\iso[n+1]$.
+
+\section{Categories of elements}\label{sec:elements}
+
+\begin{definition}\label{def:elements}
+Let $P\colon\cD^{\op}\to\Set$ be a presheaf. Its \emph{category of elements}
+$\El P$ has objects the pairs $(d,x)$ with $x\in P(d)$, and morphisms
+$u\colon(d,x)\to(d',x')$ the morphisms $u\colon d\to d'$ of $\cD$ with
+$P(u)(x')=x$. For a covariant functor $Q\colon\cD\to\Set$, $\El Q$ has objects
+$(d,x)$ with $x\in Q(d)$ and morphisms $u\colon(d,x)\to(d',x')$ with
+$Q(u)(x)=x'$.
+\end{definition}
+
+A category is \emph{connected} if it is nonempty and any two objects are
+joined by a finite zigzag of morphisms. For a small category $\cE$ we write
+$\pi_0(\cE)$ for its set of connected components.
+
+\begin{lemma}\label{lem:colim-set}
+Let $\cD$ be small and $Q\colon\cD\to\Set$ a functor. Then $\colim Q\iso\pi_0(\El Q)$,
+with coprojections $Q(d)\to\pi_0(\El Q)$, $x\mapsto[(d,x)]$. In particular,
+for the constant functor $\mathrm{const}_1$ at a one-element set, $\colim_{\cD}\mathrm{const}_1\iso\pi_0(\cD)$,
+which is a singleton if and only if $\cD$ is connected.
+\end{lemma}
+
+\begin{proof}
+The colimit of $Q$ in $\Set$ is the quotient of $\coprod_dQ(d)$ by the
+equivalence relation generated by $(d,x)\sim(d',Q(u)(x))$ for
+$u\colon d\to d'$, with the evident coprojections; the classes of this
+relation are by definition the connected components of $\El Q$. For
+$Q=\mathrm{const}_1$ one has $\El Q\iso\cD$.
+\end{proof}
+
+\begin{lemma}\label{lem:colim-terminal}
+Let $F\colon\cD\to\cE$ be a functor. If $\cD$ has a terminal object $t$, then
+the cocone $(F(!^d)\colon F(d)\to F(t))_d$ is a colimit of $F$. Dually, if
+$\cD$ has an initial object $i$, then $(F(!_d)\colon F(i)\to F(d))_d$ is a
+limit of $F$.
+\end{lemma}
+
+\begin{proof}
+The family is a cocone because $!^{d'}\circ u=\,!^d$ for every
+$u\colon d\to d'$. Given a cocone $(c_d\colon F(d)\to Z)_d$, the morphism
+$c_t$ satisfies $c_t\circ F(!^d)=c_d$, and any $z$ with $z\circ F(!^d)=c_d$
+for all $d$ satisfies $z=z\circ F(\id_t)=c_t$. The second statement is dual.
+\end{proof}
+
+\section{Fibrations}\label{sec:fib-prelim}
+
+We recall the basic vocabulary of Grothendieck fibrations; standard references
+are \cite{SGA1,Jacobs1999,Borceux1994}.
+
+\begin{definition}\label{def:cartesian}
+Let $p\colon\cE\to\cB$ be a functor. A morphism $f\colon e'\to e$ of $\cE$ is
+\emph{cartesian} (for $p$) if for every morphism $g\colon e''\to e$ and every
+$v\colon p(e'')\to p(e')$ with $p(f)\circ v=p(g)$ there is a unique
+$h\colon e''\to e'$ with $p(h)=v$ and $f\circ h=g$. The functor $p$ is a
+\emph{fibration} if for every object $e$ of $\cE$ and every morphism
+$u\colon b\to p(e)$ there is a cartesian morphism $f$ with codomain $e$ and
+$p(f)=u$. Dually one defines \emph{opcartesian} morphisms and
+\emph{opfibrations}; a functor that is both is a \emph{bifibration}. A
+morphism $f$ is \emph{vertical} if $p(f)$ is an identity, and the \emph{fibre}
+$\cE_b$ over $b$ is the subcategory of objects over $b$ and vertical
+morphisms between them.
+\end{definition}
+
+\begin{definition}\label{def:groth-construction}
+Let $F\colon\cB^{\op}\to\CAT$ be a functor. The \emph{Grothendieck
+construction} $\El F$ is the category whose objects are pairs $(b,x)$ with
+$x$ an object of $F(b)$ and whose morphisms $(b,x)\to(b',x')$ are pairs
+$(u,f)$ with $u\colon b\to b'$ in $\cB$ and $f\colon x\to F(u)(x')$ in $F(b)$;
+composition is $(u',f')\circ(u,f)=(u'u,F(u)(f')\circ f)$.
+\end{definition}
+
+The projection $\El F\to\cB$ is a fibration in which $(u,\id)\colon(b,F(u)(x'))\to(b',x')$
+is a cartesian lift of $u$; this is standard \cite{Jacobs1999,Borceux1994}.
+
+\section{Further background}\label{sec:further-background}
+
+We use the following standard facts without further comment
+\cite{MacLane1998,Riehl2016}: right adjoints preserve all limits and left
+adjoints preserve all colimits; representable functors $\cC(X,-)$ preserve
+all limits; fully faithful functors reflect limits and colimits; adjoints are
+unique up to unique natural isomorphism; and an equivalence of categories
+preserves and reflects every property defined by a universal property.
+Monoidal categories, monoidal functors, monoids, and enriched categories are
+as in \cite{MacLane1998,Kelly1982}. For the nerve and classifying space of a
+small category we refer to \cite{Segal1968,Quillen1973}; we need only the fact
+that a natural transformation between functors $F,G\colon\cD\to\cD'$
+induces a homotopy between the induced maps of classifying spaces.

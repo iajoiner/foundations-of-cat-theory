@@ -1,0 +1,506 @@
+\chapter{Feline fibrations and derived constructions}\label{ch:fibrations}
+
+\begin{assumption}\label{ass:ch10}
+Throughout this chapter $\cC$ has an initial object $0$ and a terminal object
+$1$. Additional hypotheses are stated in each section.
+\end{assumption}
+
+\section{The leg fibration}\label{sec:leg-fibration}
+
+\begin{definition}\label{def:reindexing-functor}
+For a function $\varphi\colon A\to B$ and a cat $K'$ with leg set $B$, the
+\emph{reindexing} of $K'$ along $\varphi$ is the cat
+$\varphi^*K'\defeq\langle L'_{\varphi(\alpha)}\rangle_{\alpha\in A}$, and the
+\emph{canonical lift} of $\varphi$ is the morphism
+$\bar\varphi=(\varphi,(\id_{L'_{\varphi(\alpha)}})_\alpha)\colon\varphi^*K'\to K'$.
+\end{definition}
+
+\begin{theorem}\label{thm:fibration}
+The leg functor $\legs\colon\Fel(\cC)\to\Set$ is a Grothendieck fibration. A
+feline morphism is cartesian if and only if it is reindexing in the sense of
+\cref{def:reindexing}, that is, all of its leg components are isomorphisms.
+The canonical lifts form a cleavage which, on normalized cats, is split:
+$(\psi\varphi)^*=\varphi^*\psi^*$ and $\id^*=\id$. The fibre over a set $A$ is
+equivalent to $\cC^A$.
+\end{theorem}
+
+\begin{proof}
+Let $(\varphi,F)\colon K\to K'$ be reindexing. Given $(\psi,G)\colon M\to K'$
+and $\chi\colon\legs M\to A$ with $\varphi\chi=\psi$, a morphism
+$(\chi,H)\colon M\to K$ satisfies $(\varphi,F)(\chi,H)=(\psi,G)$ if and only if
+$F_{\chi(c)}H_c=G_c$ for all $c$, that is, $H_c=F_{\chi(c)}^{-1}G_c$. So
+$(\varphi,F)$ is cartesian. In particular canonical lifts are cartesian, and
+$\legs$ is a fibration. Conversely, suppose $(\varphi,F)\colon K\to K'$ is
+cartesian. Since $\bar\varphi\colon\varphi^*K'\to K'$ is also cartesian over
+$\varphi$, the universal properties provide vertical morphisms
+$(\id,V)\colon K\to\varphi^*K'$ and $(\id,W)\colon\varphi^*K'\to K$ with
+$\bar\varphi(\id,V)=(\varphi,F)$ and $(\varphi,F)(\id,W)=\bar\varphi$; uniqueness
+in the universal properties shows that they are mutually inverse. Comparing
+components, $V_\alpha=F_\alpha$, and $F_\alpha$ is an isomorphism. The
+splitting identities hold on normalized cats by inspection, and the statement
+about fibres is \cref{prop:fibre-legs}.
+\end{proof}
+
+\begin{remark}\label{rem:chloe-fibration}
+By \cref{prop:chloe-basic}(iii), cats satisfying the Chloe Condition are closed
+under reindexing, so the canonical lifts of \cref{thm:fibration} remain in the
+full subcategory $\Fel^\Chl(\cC)$, and the restriction of $\legs$ to
+$\Fel^\Chl(\cC)$ is again a fibration. The opcartesian lifts of
+\cref{thm:opfibration}, when they exist, need not remain in $\Fel^\Chl(\cC)$: in
+$\Set$, the opcartesian lift of $2\to1$ at the Chloe cat $\langle1,1\rangle$ has
+the two-element set as its leg, which is not connected.
+\end{remark}
+
+
+\begin{proposition}\label{prop:groth}
+Let $\cC^{(-)}\colon\Set^{\op}\to\CAT$ be the functor $A\mapsto\cC^A$,
+$\varphi\mapsto\varphi^*$ (precomposition). Then $\Fel^{\nrm}(\cC)$ is isomorphic,
+over $\Set$, to the Grothendieck construction $\El\cC^{(-)}$ of
+\cref{def:groth-construction}. Hence $\Fel(\cC)$ is equivalent over $\Set$ to
+$\El\cC^{(-)}$.
+\end{proposition}
+
+\begin{proof}
+An object of $\El\cC^{(-)}$ is a pair $(A,L)$ with $L\in\cC^A$, and a morphism
+$(A,L)\to(B,L')$ is a pair $(\varphi,F)$ with $F\colon L\to\varphi^*L'$ in $\cC^A$,
+that is, a family $F_\alpha\colon L_\alpha\to L'_{\varphi(\alpha)}$. The composite
+$(\psi,G)\circ(\varphi,F)=(\psi\varphi,\varphi^*(G)\circ F)$ has components
+$G_{\varphi(\alpha)}F_\alpha$. This is exactly $\Fel^{\nrm}(\cC)$ under
+\cref{prop:automatic}; the second assertion follows from
+\cref{prop:normalization}.
+\end{proof}
+
+\begin{theorem}\label{thm:opfibration}
+The leg functor is an opfibration, and hence a bifibration, if and only if
+$\cC$ has small coproducts. In that case a morphism $(\varphi,F)\colon K\to K'$
+is opcartesian if and only if, for each $\beta\in\legs K'$, the family
+$(F_\alpha\colon L_\alpha\to L'_\beta)_{\alpha\in\varphi^{-1}(\beta)}$ is a
+coproduct cocone. In particular the opcartesian lift of $\varphi\colon A\to B$
+at $K$ is $(\varphi,\inj)\colon K\to\varphi_!K\defeq\langle\coprod_{\varphi(\alpha)=\beta}L_\alpha\rangle_{\beta\in B}$.
+\end{theorem}
+
+\begin{proof}
+Suppose $(\varphi,F)$ has the stated property. Given $(\psi,G)\colon K\to M$
+and $\chi\colon B\to\legs M$ with $\chi\varphi=\psi$, a morphism
+$(\chi,H)\colon K'\to M$ with $(\chi,H)(\varphi,F)=(\psi,G)$ must satisfy
+$H_\beta F_\alpha=G_\alpha$ for all $\alpha\in\varphi^{-1}(\beta)$; since
+$(F_\alpha)_{\alpha\in\varphi^{-1}(\beta)}$ is a coproduct cocone and
+$G_\alpha\colon L_\alpha\to M_{\psi(\alpha)}=M_{\chi(\beta)}$, there is exactly
+one such $H_\beta$. So $(\varphi,F)$ is opcartesian, and if $\cC$ has small
+coproducts the morphisms $(\varphi,\inj)$ are opcartesian lifts.
+
+Conversely, let $(\varphi,F)\colon K\to K'$ be opcartesian and $\beta\in B$.
+Given a cocone $(g_\alpha\colon L_\alpha\to Z)_{\alpha\in\varphi^{-1}(\beta)}$,
+let $M$ be obtained from $K'$ by replacing the leg $\beta$ by $Z$, and let
+$(\varphi,G)\colon K\to M$ have components $g_\alpha$ for
+$\alpha\in\varphi^{-1}(\beta)$ and $F_\alpha$ otherwise. Taking $\chi=\id_B$,
+opcartesianness yields a unique vertical morphism $(\id,H)\colon K'\to M$ with
+$(\id,H)(\varphi,F)=(\varphi,G)$; its component $h_0=H_\beta$ satisfies
+$h_0F_\alpha=g_\alpha$ for all $\alpha\in\varphi^{-1}(\beta)$. If
+$h\colon L'_\beta\to Z$ is any morphism with the same property, let $(\id,H^h)$
+be the vertical morphism with component $h$ at $\beta$ and component $H_{\beta'}$
+at every $\beta'\neq\beta$. Then $(\id,H^h)(\varphi,F)=(\varphi,G)$, so
+$(\id,H^h)=(\id,H)$ and $h=h_0$. Hence $(F_\alpha)_{\alpha\in\varphi^{-1}(\beta)}$
+is a coproduct cocone. Finally, if $\legs$ is an opfibration, let $(X_s)_{s\in S}$
+be a small family in $\cC$ and take an opcartesian lift of $S\to1$ at
+$\langle X_s\rangle_S$; by what has been shown, its unique leg is a coproduct of
+the $X_s$.
+\end{proof}
+
+\begin{proposition}[Factorizations]\label{prop:factorization}
+Every feline morphism $(\varphi,F)\colon K\to K'$ factors as a vertical morphism
+followed by a cartesian one,
+\[
+(\varphi,F)=\bar\varphi\circ(\id_A,F)\colon K\too\varphi^*K'\too K',
+\]
+and this factorization is unique up to a unique vertical isomorphism. If $\cC$
+has small coproducts it also factors as an opcartesian morphism followed by a
+vertical one, $(\varphi,F)=(\id_B,\tilde F)\circ(\varphi,\inj)$, where
+$\tilde F_\beta\colon\coprod_{\varphi(\alpha)=\beta}L_\alpha\to L'_\beta$ is induced by
+the $F_\alpha$.
+\end{proposition}
+
+\begin{proof}
+Both identities are verified on gaits and components. Uniqueness up to
+unique vertical isomorphism is the general uniqueness of cartesian (resp.\
+opcartesian) lifts.
+\end{proof}
+
+\section{Tail-absorbing morphisms}\label{sec:tail-absorbing}
+
+\Cref{rem:morphism-functorial} described feline morphisms as pairs $(u,\theta)$
+with $u\colon\Fsh_A\to\Fsh_B$ leg-preserving. If $u$ is allowed to send legs to
+the tail, we obtain a larger class of morphisms.
+
+\begin{definition}\label{def:tail-absorbing}
+Let $K$ and $K'$ be cats with leg sets $A$ and $B$, and write
+$B_{\mathsf t}=B\sqcup\{\mathsf t\}$. A \emph{tail-absorbing morphism}
+$K\rightsquigarrow K'$ is a pair $(\varphi,F)$ where $\varphi\colon A\to B_{\mathsf t}$ and
+$F=(F_\alpha)_{\alpha\in\varphi^{-1}(B)}$ with $F_\alpha\colon L_\alpha\to L'_{\varphi(\alpha)}$.
+The composite of $(\varphi,F)\colon K\rightsquigarrow K'$ and
+$(\psi,G)\colon K'\rightsquigarrow K''$ has gait
+$\alpha\mapsto\mathsf t$ if $\varphi(\alpha)=\mathsf t$ and $\alpha\mapsto\psi(\varphi(\alpha))$
+otherwise, and components $G_{\varphi(\alpha)}F_\alpha$ for those $\alpha$ with
+$\psi(\varphi(\alpha))\neq\mathsf t$. The resulting category is
+denoted $\Fel^{\ta}(\cC)$.
+\end{definition}
+
+A leg sent to $\mathsf t$ is \emph{absorbed into the tail}; its component would
+be the unique morphism $L_\alpha\to T'$, and is omitted.
+
+\begin{proposition}\label{prop:tail-absorbing-functorial}
+Tail-absorbing morphisms $K\rightsquigarrow K'$ correspond bijectively to pairs
+$(u,\theta)$ where $u\colon\Fsh_A\to\Fsh_B$ is a functor fixing $\mathsf h$ and
+$\mathsf t$ and sending each $\ell_\alpha$ to some $\ell_\beta$ or to $\mathsf t$,
+and $\theta\colon K\Rightarrow K'\circ u$ is a natural transformation; composition
+corresponds to $(v,\zeta)\circ(u,\theta)=(vu,\zeta u\circ\theta)$.
+\end{proposition}
+
+\begin{proof}
+As in \cref{rem:morphism-functorial}: such $u$ correspond to functions
+$\varphi\colon A\to B_{\mathsf t}$, and the components of $\theta$ at $\mathsf h$,
+at $\mathsf t$ and at legs sent to $\mathsf t$ are forced, all naturality
+squares involving them commuting by \cref{lem:parallel}.
+\end{proof}
+
+\begin{proposition}\label{prop:kleisli}
+Let $\mathbb T$ be the monad $K\mapsto K\sqcup\Caudal$ on $\Fel(\cC)$, with unit
+the coprojection $K\to K\sqcup\Caudal$ and multiplication
+$K\sqcup\Caudal\sqcup\Caudal\to K\sqcup\Caudal$ the codiagonal on the two copies
+of $\Caudal$. Then $\Fel^{\ta}(\cC)$ is isomorphic to the Kleisli category
+$\Kl(\mathbb T)$, by an isomorphism that is the identity on objects.
+\end{proposition}
+
+\begin{proof}
+That $\mathbb T$ is a monad follows from the universal property of
+coproducts: both sides of each monad law are morphisms out of a coproduct, and
+they agree on each summand. Using the coproduct of \cref{prop:coproducts}, the leg set
+of $K'\sqcup\Caudal$ is $B\sqcup\{*\}$, which we identify with $B_{\mathsf t}$,
+and the leg at $\mathsf t$ is $1$. A Kleisli morphism $K\to K'\sqcup\Caudal$
+therefore consists of a function $\varphi\colon A\to B_{\mathsf t}$, components
+$L_\alpha\to L'_{\varphi(\alpha)}$ for $\varphi(\alpha)\in B$, and the unique
+components $L_\alpha\to1$ otherwise; this is a tail-absorbing morphism. Kleisli
+composition $\mu\circ\mathbb T(g)\circ f$ sends a leg absorbed by $f$ to the
+tail (via the codiagonal), and otherwise applies $g$; this is the composition
+of \cref{def:tail-absorbing}.
+\end{proof}
+
+\begin{example}\label{ex:partial}
+For $\cC=\one$, $\Fel(\one)\iso\Set$, and $\Fel^{\ta}(\one)$ is the category of
+small sets and partial functions, a leg absorbed into the tail being an
+element at which the function is undefined. This category is well known to be
+equivalent to the category $\Setp$ of pointed sets.
+\end{example}
+
+\begin{remark}\label{rem:head-absorbing}
+One may also let $u$ send legs to the head. A component $L_\alpha\to H'$ is then
+required, and such a component exists only if $L_\alpha$ admits a morphism to
+an initial object; if the initial object of $\cC$ is strict, this forces
+$L_\alpha$ to be initial. In $\Set$, for example, only empty legs may be absorbed
+into the head. We do not pursue \emph{head-absorbing} morphisms.
+\end{remark}
+
+\section{Kan extensions along the one-legged inclusion}\label{sec:kan}
+
+\begin{proposition}\label{prop:kan}
+Let $G\colon\cC\to\cE$ be a functor.
+\begin{enumerate}
+\item If $\cE$ has small coproducts, the functor $\widehat G\colon\Fel(\cC)\to\cE$,
+  $\widehat G(K)=\coprod_{\alpha}G(L_\alpha)$, with $\widehat G(\psi,F)$ restricting on
+  the $\alpha$-th summand to $\inj_{\psi(\alpha)}\circ G(F_\alpha)$, is a left Kan
+  extension of $G$ along $\iota$, and $\widehat G\circ\iota\iso G$.
+\item If $\cC$ has small coproducts, $G\circ\body$ is a right Kan extension of
+  $G$ along $\iota$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) We identify $\widehat G\iota X=\coprod_1G(X)$ with $G(X)$. Let
+$H\colon\Fel(\cC)\to\cE$ be a functor. Given $\sigma\colon G\Rightarrow H\iota$,
+let $\widehat\sigma_K\colon\widehat G(K)\to H(K)$ be the morphism whose restriction to
+the $\alpha$-th summand is $H(j_\alpha)\circ\sigma_{L_\alpha}$. For
+$(\psi,F)\colon K\to K'$, \eqref{eq:leg-inclusion-naturality} and naturality of
+$\sigma$ give
+\[
+H(\psi,F)H(j_\alpha)\sigma_{L_\alpha}=H(j_{\psi(\alpha)})H(\iota F_\alpha)\sigma_{L_\alpha}
+=H(j_{\psi(\alpha)})\sigma_{L'_{\psi(\alpha)}}G(F_\alpha),
+\]
+which is the restriction of $\widehat\sigma_{K'}\circ\widehat G(\psi,F)$ to the
+$\alpha$-th summand; so $\widehat\sigma$ is natural. Conversely, a natural
+transformation $\tau\colon\widehat G\Rightarrow H$ restricts to
+$\tau\iota\colon G\Rightarrow H\iota$. These constructions are mutually inverse:
+$\widehat\sigma\iota=\sigma$ because $j_*=\id$ for a unipedal cat; and the
+restriction of $\widehat{\tau\iota}_K$ to the $\alpha$-th summand is
+$H(j_\alpha)\tau_{\iota L_\alpha}=\tau_K\circ\widehat G(j_\alpha)$, by naturality of
+$\tau$, which is the restriction of $\tau_K$, since $\widehat G(j_\alpha)$ is the
+$\alpha$-th coprojection. The resulting bijection
+$\mathrm{Nat}(\widehat G,H)\iso\mathrm{Nat}(G,H\iota)$ is natural in $H$, which is
+the universal property of a left Kan extension.
+
+(ii) Let $\eta\colon\id\Rightarrow\iota\body$ and $\varepsilon\colon\body\iota\Rightarrow\id$
+be the unit and counit of $\body\dashv\iota$. For $H\colon\Fel(\cC)\to\cE$, the maps
+\begin{gather*}
+\mathrm{Nat}(H,G\body)\too\mathrm{Nat}(H\iota,G),\qquad \tau\mapsto G\varepsilon\circ\tau\iota,\\
+\mathrm{Nat}(H\iota,G)\too\mathrm{Nat}(H,G\body),\qquad \rho\mapsto\rho\body\circ H\eta,
+\end{gather*}
+are mutually inverse. Indeed, by naturality of $\rho$ and a triangle identity,
+\[
+G\varepsilon\circ\rho\body\iota\circ H\eta\iota=\rho\circ H(\iota\varepsilon\circ\eta\iota)=\rho,
+\]
+and by naturality of $\tau$ and the other triangle identity,
+\[
+G\varepsilon\body\circ\tau\iota\body\circ H\eta=G(\varepsilon\body\circ\body\eta)\circ\tau=\tau.
+\]
+\end{proof}
+
+\begin{remark}\label{rem:kan-pointwise}
+The comma category $\iota\downarrow K$ is isomorphic to $\coprod_\alpha\cC/L_\alpha$,
+each $\cC/L_\alpha$ having the terminal object $(L_\alpha,\id)$; by
+\cref{lem:colim-terminal}, $\widehat G(K)$ is therefore also the colimit of $G$
+over $\iota\downarrow K$, so the left Kan extension of (i) is pointwise. Dually,
+$K\downarrow\iota$ is the category of cocones on the legs of $K$, whose initial
+object is the coproduct cocone, so the right Kan extension of (ii) is pointwise
+as well.
+\end{remark}
+
+\begin{remark}\label{rem:kan-honest}
+Part (i) is the coproduct-preserving extension of \cref{thm:universal-property};
+part (ii) is an instance of the general fact that right Kan extension along a
+right adjoint is precomposition with its left adjoint.
+\end{remark}
+
+\section{The classifying space}\label{sec:nerve}
+
+Since $\Fel(\cC)$ is not small, we fix a second universe $\mathbb U'$ with
+$\mathbb U\in\mathbb U'$ and regard $\Fel(\cC)$ as a $\mathbb U'$-small category
+when $\cC$ is $\mathbb U$-small. The nerve and classifying space are then
+defined as usual, relative to $\mathbb U'$.
+
+\begin{theorem}\label{thm:contractible}
+Let $\cC$ be small. The classifying space of $\Fel(\cC)$ is contractible.
+More generally, every full subcategory of $\Fel(\cC)$ that contains a legless cat
+or a terminal cat has a contractible classifying space; this applies to
+$\Kit(\cC)$, to $\Fel_1(\cC)$, and to the full subcategory of cats with at least
+one leg.
+\end{theorem}
+
+\begin{proof}
+A category $\cD$ with an initial object $i$ has a natural transformation from
+the constant functor at $i$ to the identity functor; the induced homotopy
+between the identity of $B\cD$ and a constant map shows that $B\cD$ is
+contractible \cite{Segal1968,Quillen1973}. The dual argument applies to a
+terminal object. A legless cat is initial, and the caudal cat is terminal, in
+any full subcategory containing them.
+\end{proof}
+
+\begin{remark}\label{rem:nerve-honest}
+\Cref{thm:contractible} says that the homotopy type of the category of cats
+carries no information. This is a general property of categories with an
+initial or terminal object and has nothing to do with cats. The groupoid of
+cats and isomorphisms, considered next, is more informative.
+\end{remark}
+
+\section{The census of cats}\label{sec:census}
+
+\begin{definition}\label{def:multiplicity}
+Let $\Iso(\cC)$ be the class of isomorphism classes of objects of $\cC$. The
+\emph{multiplicity function} of a cat $K$ is the function
+$m_K\colon\Iso(\cC)\to\mathrm{Card}$,
+$m_K([X])=\bigl|\{\alpha\in\legs K:L_\alpha\iso X\}\bigr|$.
+\end{definition}
+
+The function $m_K$ has small support, and its values are small cardinals.
+
+\begin{theorem}[Census]\label{thm:census}
+Two cats $K$ and $K'$ are isomorphic if and only if $m_K=m_{K'}$. Every function
+$m\colon\Iso(\cC)\to\mathrm{Card}$ with small support and small values is the
+multiplicity function of some cat. Hence the isomorphism classes of
+$\cC$-cats are in bijection with such functions.
+\end{theorem}
+
+\begin{proof}
+If $(\varphi,F)\colon K\to K'$ is an isomorphism then $\varphi$ is a bijection
+with $L_\alpha\iso L'_{\varphi(\alpha)}$ (\cref{prop:iso}), so $\varphi$ restricts
+to bijections between the sets of legs in each isomorphism class, and
+$m_K=m_{K'}$. Conversely, if $m_K=m_{K'}$, choose for each class $[X]$ a
+bijection between the legs of $K$ in the class $[X]$ and those of $K'$, and for
+each leg an isomorphism with the corresponding leg (axiom of choice); this
+defines an isomorphism $K\to K'$ by \cref{prop:iso}. Given $m$, choose a
+representative $X$ of each class in the support and take the cat with $m([X])$
+legs equal to $X$ for each such class.
+\end{proof}
+
+\begin{theorem}\label{thm:automorphism}
+Let $K$ be a cat, and for each class $[X]$ in the support of $m_K$ fix a
+representative $X$ and let $S_{[X]}$ be the set of legs of $K$ in the class
+$[X]$. Then
+\[
+\Aut(K)\iso\prod_{[X]}\Aut(X)\wr\Sym(S_{[X]}),
+\]
+where for a group $G$ and a set $S$, $G\wr\Sym(S)$ denotes the set
+$G^S\times\Sym(S)$ with multiplication $(f,\sigma)(g,\tau)=((f\circ\tau)\cdot g,\sigma\tau)$,
+the product $\cdot$ being pointwise.
+\end{theorem}
+
+\begin{proof}
+Choosing isomorphisms $L_\alpha\iso X$ for each leg in the class $[X]$, we may
+assume, by transport of structure, that every leg of $K$ in the class $[X]$
+equals $X$. An automorphism $(\varphi,F)$ of $K$ has bijective gait preserving
+isomorphism classes of legs, so $\varphi$ is a family
+$(\varphi_{[X]})\in\prod_{[X]}\Sym(S_{[X]})$, and its components form a family
+$(F_\alpha)\in\prod_{[X]}\Aut(X)^{S_{[X]}}$. Composition is
+$(\varphi,F)(\psi,G)=(\varphi\psi,(F_{\psi(\alpha)}G_\alpha)_\alpha)$, which, on each
+factor, is the multiplication of the wreath product with $f=F$, $g=G$,
+$\sigma=\varphi$ and $\tau=\psi$.
+\end{proof}
+
+\begin{example}\label{ex:automorphisms}
+\begin{enumerate}
+\item In $\Fel(\one)\iso\Set$, $\Aut(A)=\Sym(A)$.
+\item In $\Fel(\Set)$, a cat with $n$ legs each of which is a singleton has
+  automorphism group $\Sym(n)$, and a cat with $n$ legs each of which has two
+  elements has automorphism group $(\mathbb Z/2)\wr\Sym(n)$, the hyperoctahedral
+  group of order $2^nn!$.
+\item A quadrupedal $\Set$-cat whose legs have $1$, $1$, $2$ and $3$ elements has
+  automorphism group $\Sym(2)\times(\mathbb Z/2)\times\Sym(3)$, of order $24$.
+\end{enumerate}
+\end{example}
+
+\section{The kitten rig}\label{sec:kitten-rig}
+
+In this section $\cC$ is essentially small and symmetric monoidal. Let
+$\Iso(\cC)$ be the set of isomorphism classes of objects, which is a commutative
+monoid under $[X][Y]=[X\otimes Y]$ with unit $[I]$. For a commutative monoid
+$M$ we write $\mathbb N[M]$ for the monoid semiring: finitely supported functions
+$M\to\mathbb N$ with pointwise addition and convolution product.
+
+\begin{theorem}\label{thm:kitten-rig}
+The set $\mathcal R(\cC)$ of isomorphism classes of $\cC$-kittens is a
+commutative semiring under $[K]+[K']=[K\sqcup K']$ and $[K][K']=[K\otimes K']$,
+with zero $[\Legless]$ and unit $[\mathbf I]$. The map $[K]\mapsto m_K$ is an
+isomorphism of semirings $\mathcal R(\cC)\iso\mathbb N[\Iso(\cC)]$, and the leg
+count $[K]\mapsto|\legs K|$ corresponds to the augmentation
+$\mathbb N[\Iso(\cC)]\to\mathbb N$, $m\mapsto\sum_xm(x)$.
+\end{theorem}
+
+\begin{proof}
+The operations are well defined on isomorphism classes since $\sqcup$ and
+$\otimes$ are functors. By \cref{thm:census}, $[K]\mapsto m_K$ is a bijection
+onto finitely supported functions $\Iso(\cC)\to\mathbb N$. It is additive since
+$m_{K\sqcup K'}=m_K+m_{K'}$ (\cref{prop:coproducts}), and multiplicative since
+the legs of $K\otimes K'$ are the $L_\alpha\otimes L'_\beta$, so that
+$m_{K\otimes K'}(z)=\sum_{xy=z}m_K(x)m_{K'}(y)$. The semiring axioms for
+$\mathcal R(\cC)$ follow, or may be read off from \cref{thm:monoidal} and
+\cref{prop:tensor-distributes}. The leg count is $\sum_xm_K(x)$.
+\end{proof}
+
+\begin{example}\label{ex:kitten-rig}
+\begin{enumerate}
+\item $\mathcal R(\one)\iso\mathbb N$.
+\item Let $\cC$ be the category of finite sets with the cocartesian monoidal
+  structure $\sqcup$. Then $\Iso(\cC)\iso(\mathbb N,+)$ and
+  $\mathcal R(\cC)\iso\mathbb N[x]$, the semiring of polynomials with
+  natural-number coefficients: a kitten whose legs have $n_1,\dots,n_k$
+  elements corresponds to $x^{n_1}+\dots+x^{n_k}$. The leg count is the value
+  at $x=1$, and the cardinality of the body is the value at $x=1$ of the
+  formal derivative.
+\item For finite sets with the cartesian structure, $\Iso(\cC)\iso(\mathbb N,\cdot)$
+  and $\mathcal R(\cC)\iso\mathbb N[(\mathbb N,\cdot)]$.
+\end{enumerate}
+\end{example}
+
+\section{Feline toposes}\label{sec:topos}
+
+\begin{assumption}\label{ass:topos}
+In this section $\cE$ is an elementary topos which has all small products. For
+example, $\cE$ may be any Grothendieck topos.
+\end{assumption}
+
+Recall that an elementary topos has finite limits and finite colimits (in
+particular an initial object), is cartesian closed, and has a subobject
+classifier $\top\colon1\to\Omega$. We write $Y^X$ for exponentials in $\cE$.
+
+\begin{proposition}\label{prop:exponential}
+$\Fel(\cE)$ is cartesian closed. For cats $K=\langle X_a\rangle_{a\in A}$ and
+$K'=\langle Y_b\rangle_{b\in B}$ the exponential is
+\[
+K'^{K}=\Bigl\langle\prod_{a\in A}Y_{\varphi(a)}^{X_a}\Bigr\rangle_{\varphi\in B^A},
+\]
+with evaluation $K'^K\times K\to K'$ of gait $(\varphi,a)\mapsto\varphi(a)$ and
+components the composites
+$\prod_{a'}Y_{\varphi(a')}^{X_{a'}}\times X_a\to Y_{\varphi(a)}^{X_a}\times X_a\to Y_{\varphi(a)}$.
+\end{proposition}
+
+\begin{proof}
+$\Fel(\cE)$ has finite products by \cref{thm:limits}. For a cat
+$M=\langle Z_q\rangle_{q\in Q}$, using \cref{cor:Fel-hom,cor:limit-formulas},
+\begin{align*}
+\Fel(\cE)(M\times K,K')&\iso\prod_{q\in Q}\prod_{a\in A}\coprod_{b\in B}\cE(Z_q\times X_a,Y_b)
+\iso\prod_{q}\prod_{a}\coprod_{b}\cE(Z_q,Y_b^{X_a})\\
+&\iso\prod_{q}\coprod_{\varphi\in B^A}\prod_{a}\cE(Z_q,Y_{\varphi(a)}^{X_a})
+\iso\prod_q\coprod_{\varphi}\cE\Bigl(Z_q,\prod_aY_{\varphi(a)}^{X_a}\Bigr)\\
+&\iso\Fel(\cE)(M,K'^K),
+\end{align*}
+naturally in $M$, where the third bijection is distributivity in $\Set$. Tracing
+the identity of $K'^K$ through these bijections shows that the counit is the
+stated evaluation.
+\end{proof}
+
+\begin{proposition}\label{prop:classifier}
+Let $\Omega_{\Fel}\defeq\langle\Omega,1\rangle$ be the two-legged cat with leg
+set $\{\mathsf{in},\mathsf{out}\}$, legs $\Omega$ at $\mathsf{in}$ and $1$ at
+$\mathsf{out}$, and let $\top_{\Fel}\colon\Caudal\to\Omega_{\Fel}$ have gait
+$*\mapsto\mathsf{in}$ and component $\top\colon1\to\Omega$. Then
+$\top_\Fel$ is a subobject classifier of $\Fel(\cE)$.
+\end{proposition}
+
+\begin{proof}
+By \cref{prop:mono} (which applies since $\cE$ has an initial object), a
+monomorphism into $K=\langle X_a\rangle_A$ is a morphism $(\varphi,m)$ with
+$\varphi$ injective and each $m_c$ monic. Two monomorphisms represent the same
+subobject if and only if they have the same image $A'\subseteq A$ of gaits and,
+for each $a\in A'$, the same subobject of $X_a$. Thus a subobject of $K$ is a
+pair $(A',(S_a)_{a\in A'})$ with $A'\subseteq A$ and $S_a$ a subobject of $X_a$.
+Given such a pair, define $\chi\colon K\to\Omega_\Fel$ with gait
+$a\mapsto\mathsf{in}$ for $a\in A'$ and $a\mapsto\mathsf{out}$ otherwise, and with
+component the classifying map $\chi_{S_a}\colon X_a\to\Omega$ for $a\in A'$ and
+the unique map $X_a\to1$ otherwise. By \cref{cor:limit-formulas}, the
+pullback of $\top_\Fel$ along $\chi$ has legs indexed by
+$\{a:\chi(a)=\mathsf{in}\}=A'$, with leg $X_a\times_\Omega1=S_a$ at $a$; so
+$\chi$ classifies $(A',S)$. Conversely, if $\chi'$ classifies $(A',S)$, then
+the pullback computation shows that the gait of $\chi'$ sends exactly $A'$ to
+$\mathsf{in}$, and that for $a\in A'$ the component of $\chi'$ classifies $S_a$;
+components at legs sent to $\mathsf{out}$ are unique. So $\chi'=\chi$.
+\end{proof}
+
+\begin{theorem}[Feline toposes]\label{thm:topos}
+If $\cE$ is an elementary topos with small products, then $\Fel(\cE)$ is an
+elementary topos, whose subobject classifier is the two-legged cat
+$\langle\Omega,1\rangle$.
+\end{theorem}
+
+\begin{proof}
+$\Fel(\cE)$ has finite limits by \cref{thm:limits}, is cartesian closed by
+\cref{prop:exponential}, and has a subobject classifier by
+\cref{prop:classifier}.
+\end{proof}
+
+\begin{example}\label{ex:sierpinski}
+For $\cE=\Set$, $\Fel(\Set)\eqv\Set^{\to}$ (\cref{cor:Fel-Set}), the topos of
+sheaves on the Sierpi\'nski space. Under this equivalence the classifier
+$\langle2,1\rangle$ corresponds to the function from a three-element set to a
+two-element set which sends two elements to $\mathsf{in}$ and one to
+$\mathsf{out}$, which is the familiar subobject classifier of $\Set^{\to}$.
+\end{example}
+
+\begin{remark}\label{rem:gluing}
+If $\cE$ is a Grothendieck topos, extensivity of $\cE$ shows that $\Fel(\cE)$ is
+equivalent to the comma category $\cE\downarrow\Delta$, where
+$\Delta\colon\Set\to\cE$ sends a set $S$ to the copower $S\cdot1$: a cat
+corresponds to the morphism $\body K\to\legs(K)\cdot1$. Since $\Delta$ is the
+inverse image of the global sections geometric morphism, it preserves finite
+limits, and $\cE\downarrow\Delta$ is the Artin gluing of $\Set$ and $\cE$ along
+$\Delta$, which is a topos \cite{Johnstone2002}. We have preferred the direct
+proof of \cref{thm:topos}, which uses no extensivity and applies to every
+elementary topos with small products.
+\end{remark}

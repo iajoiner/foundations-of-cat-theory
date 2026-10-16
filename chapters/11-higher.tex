@@ -1,0 +1,318 @@
+\chapter{Higher generalizations}\label{ch:higher}
+
+This chapter treats three generalizations: iterated cats, whose legs are
+themselves cats; gaited cats, whose legs form a diagram rather than a family;
+and two-dimensional cats in a $2$-category. In each case the analogue of
+\cref{prop:automatic} holds, and the theory reduces to a known one.
+
+\section{Iterated cats}\label{sec:iterated}
+
+\begin{assumption}\label{ass:iterated}
+In this section $\cC$ has an initial object $0$ and a terminal object $1$.
+\end{assumption}
+
+By \cref{prop:legless-initial,prop:terminal-cat}, $\Fel(\cC)$ has the initial
+object $\Legless$ and the terminal object $\Caudal$, which we take as its chosen
+extremal objects. Hence $\Fel(\Fel(\cC))$ is defined, and inductively we set
+$\Fel^0(\cC)=\cC$ and $\Fel^{n+1}(\cC)=\Fel(\Fel^n(\cC))$. An object of
+$\Fel^2(\cC)$ is a \emph{cat of cats}: a family of $\cC$-cats, equipped with a
+legless head and a terminal tail.
+
+\begin{proposition}\label{prop:flattening}
+The category $\Fel(\cC)$ has small coproducts, so its body functor
+\[
+\body_{\Fel(\cC)}\colon\Fel^2(\cC)\too\Fel(\cC),\qquad
+\langle K_a\rangle_{a\in A}\longmapsto\coprod_{a\in A}K_a=\langle L_{a,\alpha}\rangle_{(a,\alpha)\in\coprod_aA_a},
+\]
+exists and is left adjoint to the one-legged inclusion
+$\iota_{\Fel(\cC)}\colon\Fel(\cC)\to\Fel^2(\cC)$. We call it \emph{flattening}.
+It satisfies
+\[
+\body_{\Fel(\cC)}\circ\iota_{\Fel(\cC)}\iso\id_{\Fel(\cC)}\qquad\text{and}\qquad
+\body_{\Fel(\cC)}\circ\Fel(\iota_\cC)\iso\id_{\Fel(\cC)}.
+\]
+Its restriction to $\Fel(\Kit(\cC))$ is the flattening of litters of
+\cref{def:litter}.
+\end{proposition}
+
+\begin{proof}
+The first assertions are \cref{prop:coproducts,prop:body-adjoint} applied to
+$\Fel(\cC)$. The body of a unipedal cat of cats $\langle K\rangle_1$ is
+$K$ reindexed along $1\times A\iso A$. For a cat $K=\langle L_\alpha\rangle_A$,
+$\Fel(\iota_\cC)(K)=\langle\iota L_\alpha\rangle_A$, whose flattening is
+$\langle L_\alpha\rangle$ indexed by $\coprod_\alpha1\iso A$. Both isomorphisms
+have bijective gaits and identity components and are natural. The final
+statement is a comparison of definitions.
+\end{proof}
+
+\begin{remark}\label{rem:pseudomonad}
+\Cref{prop:flattening} supplies the unit $\iota$ and multiplication
+$\body_{\Fel(\cdot)}$ of what is, on families, the well-known pseudomonad of
+free coproduct completion, together with the two unit isomorphisms. We do not
+verify the remaining coherence conditions of a pseudomonad, and we make no use
+of them.
+\end{remark}
+
+\begin{theorem}\label{thm:iterated-point}
+For every $n\geq1$ there is an equivalence $\Fel^n(\one)\eqv\Set^{[n-1]}$,
+where $[n-1]=\{0<1<\dots<n-1\}$. Under it, an object of $\Fel^n(\one)$
+corresponds to a chain of functions $X_0\to X_1\to\dots\to X_{n-1}$ in which
+$X_{n-1}$ is the set of legs of the outermost cat.
+\end{theorem}
+
+\begin{proof}
+For $n=1$ this is \cref{prop:Fel-point}, as $\Set^{[0]}=\Set$. Suppose
+$\Fel^n(\one)\eqv\Set^{[n-1]}$. By \cref{cor:Fel-equivalence},
+$\Fel^{n+1}(\one)\eqv\Fel(\Set^{[n-1]})$, and by \cref{thm:Fel-Set-J},
+$\Fel(\Set^{[n-1]})\eqv\Set^{[n-1]^{\triangleright}}=\Set^{[n]}$, the adjoined
+terminal object $\top=n$ carrying the leg set.
+\end{proof}
+
+\begin{theorem}\label{thm:iterated-presheaf}
+Let $\cD$ be small, and let $\cD^{\triangleleft n}$ denote $\cD$ with $n$
+successively adjoined initial objects, $\cD^{\triangleleft 0}=\cD$ and
+$\cD^{\triangleleft(n+1)}=(\cD^{\triangleleft n})^{\triangleleft}$. Then
+$\Fel^n(\PSh(\cD))\eqv\PSh(\cD^{\triangleleft n})$.
+\end{theorem}
+
+\begin{proof}
+Induction on $n$, using \cref{cor:Fel-presheaf,cor:Fel-equivalence}.
+\end{proof}
+
+\begin{corollary}\label{cor:tower}
+\begin{enumerate}
+\item Let $\cD$ be another category with an initial and a terminal object. If
+  $\Fel^n(\cC)\eqv\Fel^n(\cD)$ for some $n\geq0$, then $\cC\eqv\cD$.
+\item For $m\neq n$, $\Fel^m(\one)\not\eqv\Fel^n(\one)$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+(i) Induction on $n$, using \cref{thm:reconstruction} for the categories
+$\Fel^{n-1}(\cC)$ and $\Fel^{n-1}(\cD)$, which have initial and terminal
+objects. (ii) Suppose $m>n$ and $\Fel^m(\one)\eqv\Fel^n(\one)$. Since
+$\Fel^m(\one)=\Fel^n(\Fel^{m-n}(\one))$, part (i) applied to
+$\cC=\Fel^{m-n}(\one)$ and $\cD=\one$ gives $\Fel^{m-n}(\one)\eqv\one$. But for $k\geq1$ the category $\Fel^k(\one)$ has the
+non-isomorphic objects $\Legless$ and $\Caudal$, so it is not equivalent to $\one$.
+\end{proof}
+
+\section{Gaited cats}\label{sec:gaits}
+
+\begin{assumption}\label{ass:gaits}
+In this section $\cC$ has an initial object $0$ and a terminal object $1$.
+\end{assumption}
+
+\begin{definition}\label{def:gaited-cat}
+Let $\mathbb G$ be a small category, called a \emph{gait}. A
+\emph{$\mathbb G$-gaited $\cC$-cat} is a tuple $(H,T,L)$ with $H$ initial, $T$
+terminal and $L\colon\mathbb G\to\cC$ a functor, together with the unique
+morphisms $H\to L(g)\to T$. A morphism $(H,T,L)\to(H',T',L')$ between cats with
+gaits $\mathbb G$ and $\mathbb G'$ is a tuple $(u,F_H,F_T,\theta)$ with
+$u\colon\mathbb G\to\mathbb G'$ a functor, $F_H\colon H\to H'$, $F_T\colon T\to T'$
+and $\theta\colon L\Rightarrow L'\circ u$ a natural transformation, such that the
+squares analogous to \eqref{eq:morphism-diagram} commute. We write
+$\Fel_{\mathrm{gait}}(\cC)$ for the resulting category.
+\end{definition}
+
+A gaited cat is the same as a functor $(\mathbb G^{\triangleleft})^{\triangleright}\to\cC$
+sending the adjoined initial and terminal objects to an initial and a terminal
+object of $\cC$; for discrete $\mathbb G$ this is \cref{prop:cat-as-functor}.
+
+Recall the category $\Diag(\cC)$ of small diagrams in $\cC$: objects are pairs
+$(\mathbb G,L)$ with $\mathbb G$ small and $L\colon\mathbb G\to\cC$, and morphisms
+$(\mathbb G,L)\to(\mathbb G',L')$ are pairs $(u,\theta)$ with $u\colon\mathbb G\to\mathbb G'$
+and $\theta\colon L\Rightarrow L'u$, composed by $(v,\zeta)(u,\theta)=(vu,\zeta u\circ\theta)$.
+It is the Grothendieck construction (\cref{def:groth-construction}) of the functor
+$\Cat^{\op}\to\CAT$, $\mathbb G\mapsto\Fun(\mathbb G,\cC)$, $u\mapsto u^*$, and is
+therefore fibred over $\Cat$.
+
+\begin{proposition}\label{prop:gaited-diag}
+The commutativity conditions in \cref{def:gaited-cat} are automatic, $F_H$ and
+$F_T$ are unique isomorphisms, and the functor
+$\Fel_{\mathrm{gait}}(\cC)\to\Diag(\cC)$ forgetting head and tail is an
+equivalence. Its restriction to discrete gaits is the equivalence
+$\Fel(\cC)\eqv\Fam(\cC)$ of \cref{thm:fundamental}, and $\Fam(\cC)$ is the full
+subcategory of $\Diag(\cC)$ on discrete diagrams.
+\end{proposition}
+
+\begin{proof}
+The proof of \cref{prop:automatic,thm:fundamental} applies verbatim. For the
+last assertion, a functor between discrete categories is a function and a
+natural transformation between diagrams on a discrete category is a family of
+morphisms.
+\end{proof}
+
+\begin{proposition}\label{prop:gait-string}
+Let $\legs_{\mathrm{gait}}\colon\Fel_{\mathrm{gait}}(\cC)\to\Cat$ send a gaited cat
+to its gait. Let $\Delta_X\mathbb G$ be the gaited cat with gait $\mathbb G$ and
+constant diagram at $X$, and let $\points_{\mathrm{gait}}(\mathbb G,L)$ be the
+category of elements of the functor $\cC(1,L(-))\colon\mathbb G\to\Set$. Then
+\[
+\Delta_0\dashv\legs_{\mathrm{gait}}\dashv\Delta_1\dashv\points_{\mathrm{gait}}.
+\]
+If $\cC$ has small colimits, then the functor
+$\colim\colon\Fel_{\mathrm{gait}}(\cC)\to\cC$ is left adjoint to the inclusion
+$X\mapsto(\one,X)$ of unipedal cats, and it restricts on discrete gaits to the
+body functor.
+\end{proposition}
+
+\begin{proof}
+Using \cref{prop:gaited-diag} we compute in $\Diag(\cC)$. A morphism
+$(\mathbb G,\Delta0)\to(\mathbb G',L')$ is a functor $u$ together with a natural
+transformation $\Delta0\Rightarrow L'u$, of which there is exactly one; so
+$\Diag(\cC)(\Delta_0\mathbb G,(\mathbb G',L'))\iso\Cat(\mathbb G,\mathbb G')$.
+Dually $\Diag(\cC)((\mathbb G,L),\Delta_1\mathbb G')\iso\Cat(\mathbb G,\mathbb G')$.
+A morphism $(\mathbb G,\Delta1)\to(\mathbb G',L')$ is a functor $u$ with a family
+$x_g\in\cC(1,L'(ug))$ such that $L'(u(f))\circ x_g=x_{g'}$ for $f\colon g\to g'$;
+this is precisely a functor $\mathbb G\to\points_{\mathrm{gait}}(\mathbb G',L')$,
+$g\mapsto(ug,x_g)$, $f\mapsto u(f)$. These bijections are natural. Finally,
+$\Diag(\cC)((\mathbb G,L),(\one,X))$ is the set of cocones from $L$ to $X$, which
+is $\cC(\colim L,X)$.
+\end{proof}
+
+\begin{remark}\label{rem:gait-honest}
+\Cref{prop:gait-string} specializes to \cref{thm:adjoint-string,prop:body-adjoint}
+for discrete gaits, where the category of elements of $\cC(1,L(-))$ is the
+discrete category on the set of points. All statements are standard facts
+about the category of diagrams.
+\end{remark}
+
+\section{Two-dimensional cats}\label{sec:two-dim}
+
+\begin{assumption}\label{ass:two-dim}
+In this section $\cK$ is a strict $2$-category. We write $\cK(X,Y)$ for its
+hom-categories, $\circ$ for composition of $1$-cells, $\cdot$ for vertical
+composition of $2$-cells, and $*$ for horizontal composition.
+\end{assumption}
+
+\begin{definition}\label{def:bi-initial}
+An object $H$ of $\cK$ is \emph{bi-initial} if every hom-category $\cK(H,X)$ is
+equivalent to the terminal category $\one$, and \emph{bi-terminal} if every
+$\cK(X,T)$ is equivalent to $\one$.
+\end{definition}
+
+\begin{lemma}\label{lem:contractible-hom}
+A category is equivalent to $\one$ if and only if it is nonempty and each of its
+hom-sets is a singleton. In particular, if $H$ is bi-initial, then for any two
+$1$-cells $f,g\colon H\to X$ there is exactly one $2$-cell $f\Rightarrow g$,
+and it is invertible.
+\end{lemma}
+
+\begin{proof}
+A category $\cA$ is equivalent to $\one$ if and only if the unique functor
+$\cA\to\one$ is an equivalence, that is, essentially surjective and fully
+faithful. It is essentially surjective if and only if $\cA$ is nonempty, and
+fully faithful if and only if every map $\cA(a,a')\to\one(*,*)$ is a bijection,
+that is, every hom-set of $\cA$ is a singleton. The unique $2$-cell $f\Rightarrow g$ has the unique $2$-cell
+$g\Rightarrow f$ as inverse.
+\end{proof}
+
+\begin{definition}\label{def:two-dim-cat}
+A \emph{two-dimensional $\cK$-cat} is a tuple
+\[
+K=\bigl(H,T,(L_\alpha)_{\alpha\in A},(h_\alpha),(t_\alpha),\sigma\bigr)
+\]
+where $H$ is bi-initial, $T$ is bi-terminal, the $L_\alpha$ are objects, and
+$h_\alpha\colon H\to L_\alpha$, $t_\alpha\colon L_\alpha\to T$ and
+$\sigma\colon H\to T$ are chosen $1$-cells. By \cref{lem:contractible-hom}
+there is a unique invertible $2$-cell $\omega_\alpha\colon t_\alpha\circ h_\alpha\Rightarrow\sigma$.
+\end{definition}
+
+Unlike the one-dimensional case, the canonical $1$-cells are now data: they
+are unique only up to unique invertible $2$-cell.
+
+\begin{definition}\label{def:two-dim-morphism}
+A \emph{pseudo-morphism} $F\colon K\to K'$ of two-dimensional $\cK$-cats is a
+tuple $(\varphi,F_H,F_T,(F_\alpha),(\lambda_\alpha),(\rho_\alpha),\kappa)$
+consisting of a function $\varphi\colon A\to B$, $1$-cells $F_H\colon H\to H'$,
+$F_T\colon T\to T'$, $F_\alpha\colon L_\alpha\to L'_{\varphi(\alpha)}$, and invertible
+$2$-cells
+\[
+\lambda_\alpha\colon F_\alpha\circ h_\alpha\Rightarrow h'_{\varphi(\alpha)}\circ F_H,\qquad
+\rho_\alpha\colon t'_{\varphi(\alpha)}\circ F_\alpha\Rightarrow F_T\circ t_\alpha,\qquad
+\kappa\colon F_T\circ\sigma\Rightarrow\sigma'\circ F_H,
+\]
+such that, for each $\alpha$, the $2$-cell $t'_{\varphi(\alpha)}\circ F_\alpha\circ h_\alpha\Rightarrow\sigma'\circ F_H$
+obtained by pasting $\lambda_\alpha$ and $\omega'_{\varphi(\alpha)}$ equals the one
+obtained by pasting $\rho_\alpha$, $\omega_\alpha$ and $\kappa$. A
+\emph{$2$-cell} $F\Rightarrow G$ between pseudo-morphisms with the \emph{same}
+gait $\varphi$ is a tuple of $2$-cells $\Theta_H\colon F_H\Rightarrow G_H$,
+$\Theta_T\colon F_T\Rightarrow G_T$, $\Theta_\alpha\colon F_\alpha\Rightarrow G_\alpha$
+compatible with the $\lambda$, $\rho$ and $\kappa$; there are no $2$-cells
+between pseudo-morphisms with different gaits. Composition is by composing
+$1$-cells and pasting $2$-cells. We write $\Fel_2(\cK)$ for the resulting
+$2$-category.
+\end{definition}
+
+\begin{proposition}[Automatic pseudo-commutativity]\label{prop:auto-pseudo}
+In \cref{def:two-dim-morphism}:
+\begin{enumerate}
+\item for any choice of $\varphi$, $F_H$, $F_T$ and $(F_\alpha)$ there exist
+  unique $2$-cells $\lambda_\alpha$, $\rho_\alpha$, $\kappa$, and they are
+  invertible;
+\item the coherence condition on a pseudo-morphism holds automatically;
+\item for pseudo-morphisms $F,G$ with the same gait and any family of $2$-cells
+  $\Theta_\alpha\colon F_\alpha\Rightarrow G_\alpha$, there are unique $\Theta_H$,
+  $\Theta_T$, and the compatibility conditions hold automatically.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The source and target $1$-cells of $\lambda_\alpha$ have the bi-initial domain
+$H$; those of $\rho_\alpha$ have the bi-terminal codomain $T'$; those of $\kappa$
+have domain $H$. By \cref{lem:contractible-hom} each of these $2$-cells exists,
+is unique and is invertible. The coherence condition in (ii) is an equation
+between two $2$-cells between the same pair of $1$-cells $H\to T'$, which holds
+by uniqueness. In (iii), $\Theta_H$ is a $2$-cell between $1$-cells $H\to H'$
+and $\Theta_T$ one between $1$-cells $T\to T'$, so both exist uniquely, and each
+compatibility condition is an equation between $2$-cells whose underlying
+$1$-cells have domain $H$ or codomain $T'$.
+\end{proof}
+
+Let $\Fam(\cK)$ be the $2$-category of small families in $\cK$: objects
+$(A,(L_\alpha))$, $1$-cells $(\varphi,(F_\alpha))$, and $2$-cells
+$(\varphi,F)\Rightarrow(\varphi,G)$ the families of $2$-cells
+$\Theta_\alpha\colon F_\alpha\Rightarrow G_\alpha$ (none between $1$-cells with
+different gaits).
+
+\begin{theorem}\label{thm:two-dim}
+The forgetful $2$-functor $U_2\colon\Fel_2(\cK)\to\Fam(\cK)$ is a local
+equivalence: each functor of hom-categories
+\[
+\Fel_2(\cK)(K,K')\too\Fam(\cK)(U_2K,U_2K')
+\]
+is surjective on objects and fully faithful. It is surjective on objects if and only if $\cK$ has a bi-initial and
+a bi-terminal object, in which case $U_2$ is a biequivalence.
+\end{theorem}
+
+\begin{proof}
+Surjectivity on objects of the hom-functors: given $(\varphi,(F_\alpha))$, the
+hom-categories $\cK(H,H')$ and $\cK(T,T')$ are nonempty, so $F_H$ and $F_T$
+may be chosen, and \cref{prop:auto-pseudo}(i),(ii) supply the remaining data.
+Full faithfulness is \cref{prop:auto-pseudo}(iii). For surjectivity on
+objects, a two-dimensional cat over a given family requires a bi-initial and a
+bi-terminal object, and conversely, given such objects, the $1$-cells
+$h_\alpha$, $t_\alpha$, $\sigma$ can be chosen since the relevant hom-categories
+are nonempty. A $2$-functor which is a local equivalence and surjective on
+objects is a biequivalence \cite{JohnsonYau2021}.
+\end{proof}
+
+\begin{example}\label{ex:two-dim-cat}
+Let $\cK=\Cat$, the $2$-category of small categories. The only bi-initial
+object is the empty category: if $H$ is nonempty then $\Cat(H,\varnothing)$ is
+empty. The bi-terminal objects are the categories equivalent to $\one$, for
+instance the indiscrete category on any nonempty small set. Thus a
+two-dimensional $\Cat$-cat may have as its tail the indiscrete category on
+$\mathbb N$, whereas a one-dimensional $\Cat$-cat must have a tail with exactly
+one object and one morphism. By \cref{thm:two-dim} this extra freedom is
+invisible up to biequivalence.
+\end{example}
+
+\begin{remark}\label{rem:infinity}
+One may similarly consider cats in an $(\infty,1)$-category, with the head
+initial and the tail terminal in the $\infty$-categorical sense. The
+commutativity data would then be parametrized by contractible spaces, and one
+expects the $\infty$-category of such cats to be equivalent to the
+$\infty$-category of set-indexed families. We have not written out a proof, and
+we make no claim to this effect.
+\end{remark}

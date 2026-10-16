@@ -1,0 +1,362 @@
+\chapter{Anatomy: kittens, headless, tailless and legless cats}\label{ch:anatomy}
+
+\begin{assumption}\label{ass:ch4}
+In \cref{sec:legless,sec:unipedal,sec:kittens,sec:litters,sec:chloe}, $\cC$ is a
+category with an initial object $0$ and a terminal object $1$. In
+\cref{sec:headless,sec:tailless,sec:anatomy-table} the hypotheses are stated
+individually, since the point of those sections is to vary them.
+\end{assumption}
+
+This chapter studies the full subcategories of $\Fel(\cC)$ obtained by
+restricting the number of legs, and the variants of \cref{def:cat} obtained by
+removing the head or the tail.
+
+\section{Legless cats}\label{sec:legless}
+
+\begin{definition}\label{def:legless}
+A $\cC$-cat is \emph{legless} if its leg set is empty. We write
+$\Fel_{\varnothing}(\cC)$ for the full subcategory of legless cats.
+\end{definition}
+
+A legless cat is a pair $(H,T)$ consisting of an initial and a terminal
+object, joined by its spine. The normalized legless cat is $\Legless=(0,1,\varnothing)$.
+
+\begin{proposition}\label{prop:legless-contractible}
+Between any two legless cats there is exactly one morphism, and it is an
+isomorphism. Hence $\Fel_\varnothing(\cC)$ is a nonempty groupoid in which
+every hom-set is a singleton, and the functor $\Fel_\varnothing(\cC)\to\one$
+is an equivalence.
+\end{proposition}
+
+\begin{proof}
+By \cref{cor:Fel-hom}, $\Fel(\cC)(K,K')$ is in bijection with the set of
+functions $\varnothing\to\varnothing$, which is a singleton. The unique
+morphism is an isomorphism by \cref{prop:iso}, the empty function being
+bijective.
+\end{proof}
+
+\begin{proposition}\label{prop:legless-initial}
+A $\cC$-cat is an initial object of $\Fel(\cC)$ if and only if it is legless.
+Moreover the initial object of $\Fel(\cC)$ is strict: every morphism $K\to\Legless$
+is an isomorphism.
+\end{proposition}
+
+\begin{proof}
+If $K$ is legless then $\Fel(\cC)(K,K')\iso\prod_{\alpha\in\varnothing}(\cdots)$
+is a singleton for every $K'$, by \cref{cor:Fel-hom}. Conversely, if $K$ is
+initial then there is a morphism $K\to\Legless$, whose gait is a function
+$\legs(K)\to\varnothing$; hence $\legs(K)=\varnothing$. The same argument shows
+that any $K$ admitting a morphism to $\Legless$ is legless, and then the
+morphism is an isomorphism by \cref{prop:legless-contractible}.
+\end{proof}
+
+\begin{warning}\label{warn:cephalic}
+The cephalic cat $\Cephalic=\iota(0)$, whose single leg is an initial object,
+is \emph{not} initial in $\Fel(\cC)$. Indeed, by \cref{cor:Fel-hom},
+\[
+\Fel(\cC)(\Cephalic,K)\iso\coprod_{\alpha\in\legs(K)}\cC(0,L_\alpha)\iso\legs(K),
+\]
+which is a singleton only when $K$ is unipedal. The functor $\iota$ therefore
+does not preserve initial objects. We return to this bijection in
+\cref{lem:legs-representable}, where it is the fact that makes the leg functor
+representable.
+\end{warning}
+
+\section{Unipedal and $n$-legged cats}\label{sec:unipedal}
+
+\begin{definition}\label{def:n-legged}
+For a cardinal $n$ (small), $\Fel_n(\cC)$ denotes the full subcategory of
+$n$-legged cats. A feline morphism is \emph{isopodal} if its gait is a
+bijection and \emph{vertical} if its gait is an identity.
+\end{definition}
+
+By \cref{prop:iota-ff}, $\iota\colon\cC\to\Fel_1(\cC)$ is an equivalence. For
+$n\ge 2$ the category $\Fel_n(\cC)$ is not equivalent to $\cC^n$ in general,
+since its morphisms may have arbitrary, not necessarily bijective, gaits. For
+example, for $\cC=\one$ and $n=2$, all objects of $\Fel_2(\one)$ are isomorphic and
+each has an endomorphism monoid with four elements (the functions $2\to2$),
+whereas $\one^2$ is the terminal category.
+
+\begin{proposition}\label{prop:fibre-legs}
+For a small set $A$, let $\Fel(\cC)_A$ denote the subcategory of cats with leg
+set $A$ and vertical morphisms. Then $\Fel(\cC)_A\eqv\cC^A$, the $A$-fold power
+of $\cC$, and this restricts to an isomorphism on normalized cats.
+\end{proposition}
+
+\begin{proof}
+A vertical morphism $K\to K'$ between cats with leg set $A$ is, by
+\cref{prop:automatic}, a family $(F_\alpha\colon L_\alpha\to L'_\alpha)_\alpha$,
+that is, a morphism in $\cC^A$. The functor $K\mapsto(L_\alpha)_\alpha$ is
+therefore fully faithful; it is bijective on normalized cats, and every cat
+is vertically isomorphic to its normalization by \cref{prop:normalization}.
+\end{proof}
+
+\section{Kittens}\label{sec:kittens}
+
+\begin{definition}\label{def:kitten}
+A \emph{$\cC$-kitten} is a $\cC$-cat whose leg set is finite. We write
+$\Kit(\cC)$ for the full subcategory of $\Fel(\cC)$ spanned by kittens.
+\end{definition}
+
+Let $\Fam_{\mathrm{fin}}(\cC)$ denote the full subcategory of $\Fam(\cC)$ on
+families indexed by finite sets.
+
+\begin{proposition}\label{prop:kit-fam}
+The equivalence of \cref{thm:fundamental} restricts to an equivalence
+$\Kit(\cC)\eqv\Fam_{\mathrm{fin}}(\cC)$. In particular $\Kit(\one)\eqv\mathbf{FinSet}$,
+the category of finite sets.
+\end{proposition}
+
+\begin{proof}
+$U$ preserves leg sets. The second assertion follows from
+\cref{prop:Fel-point}.
+\end{proof}
+
+\begin{proposition}\label{prop:kit-coproducts}
+The full subcategory $\Kit(\cC)$ contains the legless cat and the caudal cat
+and is closed under finite coproducts in $\Fel(\cC)$. A coproduct in
+$\Fel(\cC)$ of an infinite family of kittens is a kitten if and only if all but
+finitely many of the summands are legless.
+\end{proposition}
+
+\begin{proof}
+By \cref{prop:coproducts} below, the leg set of a coproduct is the disjoint
+union of the leg sets. A finite disjoint union of finite sets is finite; an
+infinite disjoint union of finite sets is finite if and only if all but
+finitely many of them are empty.
+\end{proof}
+
+(The forward reference is harmless: \cref{prop:coproducts} is proved directly
+from \cref{cor:Fel-hom}.)
+
+\begin{remark}\label{rem:kittens-later}
+Kittens reappear in three places: in \cref{cor:kit-limits} we show that
+$\Kit(\cC)$ is closed under the finite limits that exist in $\Fel(\cC)$; in
+\cref{thm:kitten-approx} we show that every cat is canonically a filtered
+colimit of kittens; and in \cref{sec:kitten-rig} we compute the rig of
+isomorphism classes of kittens.
+\end{remark}
+
+\section{Litters}\label{sec:litters}
+
+Since $\Kit(\cC)$ has the initial object $\Legless$ and the terminal object
+$\Caudal$ of $\Fel(\cC)$ (the latter by \cref{prop:terminal-cat} below), the
+notion of a $\Kit(\cC)$-cat is defined.
+
+\begin{definition}\label{def:litter}
+A \emph{litter} in $\cC$ is a $\Kit(\cC)$-cat, that is, a small family of
+$\cC$-kittens equipped with a legless head and a terminal tail (a unipedal
+kitten whose leg is terminal). The \emph{flattening} of a litter, written in
+normalized form $\mathcal L=\langle K_a\rangle_{a\in A}$, with
+$K_a=\langle L_{a,\alpha}\rangle_{\alpha\in A_a}$, is the cat
+$\flat(\mathcal L)=\langle L_{a,\alpha}\rangle_{(a,\alpha)\in\coprod_aA_a}$;
+on morphisms, $\flat(\varphi,(\varphi_a,F_a)_a)$ is the morphism with gait
+$(a,\alpha)\mapsto(\varphi(a),\varphi_a(\alpha))$ and components
+$F_{a,\alpha}$.
+\end{definition}
+
+\begin{proposition}\label{prop:litters}
+Flattening is a functor $\flat\colon\Fel(\Kit(\cC))\to\Fel(\cC)$. It is
+essentially surjective. It is not faithful, and it is not full, as soon as
+$\cC$ is nonempty (which it is, having an initial object).
+\end{proposition}
+
+\begin{proof}
+Functoriality is the associativity of composition of gaits and of
+components. Every cat $K$ is isomorphic to the flattening of the litter
+$\langle\iota(L_\alpha)\rangle_{\alpha\in A}$ of its unipedal kittens.
+
+Not faithful: let $\mathcal L=\langle\Legless\rangle_{1}$ be the litter with a
+single, legless, kitten, and $\mathcal L'=\langle\Legless,\Legless\rangle_{2}$.
+There are two morphisms $\mathcal L\to\mathcal L'$ (with gaits the two
+functions $1\to 2$), and both flatten to the unique morphism
+$\Legless\to\Legless$.
+
+Not full: fix an object $X$ of $\cC$, and let $\mathcal L=\langle\langle X,X\rangle\rangle_1$
+be the litter consisting of one two-legged kitten and
+$\mathcal L'=\langle\iota X,\iota X\rangle_2$ the litter of two unipedal
+kittens. Both flatten to two-legged cats with both legs equal to $X$, so there
+is an isomorphism $\flat(\mathcal L)\to\flat(\mathcal L')$ with bijective gait
+and identity components. It is not the flattening of a morphism
+$\mathcal L\to\mathcal L'$: such a morphism maps the unique kitten of
+$\mathcal L$ into a single unipedal kitten of $\mathcal L'$, so its flattening
+has a gait that is not injective.
+\end{proof}
+
+\begin{remark}\label{rem:flattening-body}
+Flattening is a special case of the body functor of \cref{def:body}, applied
+to the category $\Fel(\cC)$, which has small coproducts; see
+\cref{prop:flattening}.
+\end{remark}
+
+\section{Chloe cats}\label{sec:chloe}
+
+The following class of cats is defined in terms of the connected objects of
+\cref{def:connected}. It plays a r\^ole in \cref{ch:cmg}, and we record its
+elementary properties here.
+
+\begin{definition}[Chloe Condition]\label{def:chloe}
+A $\cC$-cat $K$ satisfies the \emph{Chloe Condition} if every leg of $K$ is a
+connected object of $\cC$. A cat satisfying the Chloe Condition is called a
+\emph{Chloe cat}, and $\Fel^{\Chl}(\cC)$ denotes the full subcategory of Chloe
+cats. By extension, an object $X$ of $\cC$ satisfies the Chloe Condition if the
+unipedal cat $\iota X$ does, that is, if $X$ is connected.
+\end{definition}
+
+\begin{proposition}\label{prop:chloe-basic}
+\begin{enumerate}
+\item Every legless cat satisfies the Chloe Condition.
+\item No leg of a Chloe cat is initial. In particular the cephalic cat
+  $\Cephalic$ does not satisfy the Chloe Condition.
+\item $\Fel^\Chl(\cC)$ is closed in $\Fel(\cC)$ under isomorphisms, under the
+  small coproducts of \cref{prop:coproducts}, and under reindexing: if $K'$ is
+  Chloe and $\varphi\colon A\to\legs K'$, then
+  $\langle L'_{\varphi(\alpha)}\rangle_{\alpha\in A}$ is Chloe.
+\item The equivalence $U$ of \cref{thm:fundamental} restricts to an equivalence
+  $\Fel^\Chl(\cC)\eqv\Fam(\cC^\conn)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) is vacuous. (ii) is \cref{rem:connected-initial}. (iii) Connectedness is
+invariant under isomorphism, and the legs of $\coprod_iK_i$ and of $\varphi^*K'$
+are legs of the $K_i$ and of $K'$, by \cref{prop:iso,prop:coproducts}. (iv) The legs of a Chloe cat form a family
+in $\cC^\conn$.
+\end{proof}
+
+\begin{remark}\label{rem:pointed-no-chloe}
+If $\cC$ is pointed then $\cC^\conn$ is empty (\cref{rem:connected-initial}),
+and the only Chloe cats are the legless ones. Thus in $\Ab$, $\Grp$ or
+$\Vect_k$, every cat with at least one leg fails the Chloe Condition.
+\end{remark}
+
+\begin{example}\label{ex:chloe}
+\begin{enumerate}
+\item In $\Set$, a cat satisfies the Chloe Condition if and only if each of its
+  legs is a singleton (\cref{ex:connected}). The leg functor restricts to an
+  equivalence $\Fel^\Chl(\Set)\eqv\Set$.
+\item In $\Top$, a cat satisfies the Chloe Condition if and only if each of its
+  legs is a nonempty connected space.
+\item Consider the category $\Fel(\cC)$ itself, which has the initial object
+  $\Legless$ and the terminal object $\Caudal$ (\cref{prop:legless-initial,prop:terminal-cat}).
+  We shall see in \cref{prop:connected-unipedal} that the connected objects of
+  $\Fel(\cC)$ are the unipedal cats; hence a $\Fel(\cC)$-cat (a cat of cats)
+  satisfies the Chloe Condition if and only if each of its legs is a unipedal
+  cat.
+\end{enumerate}
+\end{example}
+
+\section{Headless cats}\label{sec:headless}
+
+In this section $\cC$ is an arbitrary category.
+
+\begin{definition}\label{def:headless}
+A \emph{headless} (or \emph{acephalous}) $\cC$-cat is a pair
+$(T,(L_\alpha)_{\alpha\in A})$ with $T$ a terminal object, $A$ a small set,
+and $L_\alpha$ objects of $\cC$, equipped with the hips $t_\alpha\colon L_\alpha\to T$.
+A morphism $(T,L)\to(T',L')$ is a tuple $(\varphi,F_T,(F_\alpha))$ such that
+$t'_{\varphi(\alpha)}F_\alpha=F_Tt_\alpha$ for all $\alpha$. The resulting
+category is $\Fel^{\hl}(\cC)$; it is empty if $\cC$ has no terminal object.
+\end{definition}
+
+\begin{proposition}\label{prop:headless}
+Let $\cC$ be any category.
+\begin{enumerate}
+\item The conditions on a morphism of headless cats are automatic, $F_T$ is
+  uniquely determined and invertible, and the forgetful functor
+  $\Fel^{\hl}(\cC)\to\Fam(\cC)$ is fully faithful.
+\item $\Fel^{\hl}(\cC)\eqv\Fam(\cC)$ if and only if $\cC$ has a terminal object.
+\item If $\cC$ has an initial object, the \emph{decapitation} functor
+  $\Fel(\cC)\to\Fel^{\hl}(\cC)$, $(H,T,L)\mapsto(T,L)$, is an equivalence.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) is proved exactly as \cref{prop:automatic}\ref{it:auto-FT},\ref{it:auto-squares}.
+(ii) is proved as \cref{thm:fundamental}\ref{it:fund-eq}. For (iii), the
+composite of decapitation with the forgetful functor to $\Fam(\cC)$ is the
+functor $U$ of \cref{thm:fundamental}; if $\cC$ has no terminal object both
+$\Fel(\cC)$ and $\Fel^{\hl}(\cC)$ are empty, and otherwise $U$ and
+$\Fel^{\hl}(\cC)\to\Fam(\cC)$ are equivalences, so decapitation is one by the
+two-out-of-three property of equivalences.
+\end{proof}
+
+\begin{example}\label{ex:nonempty-sets}
+Let $\Set_{\neq\varnothing}$ be the category of nonempty small sets. It has
+terminal objects but no initial object, so it has no cats, while $\Fel^{\hl}(\Set_{\neq\varnothing})\eqv\Fam(\Set_{\neq\varnothing})$.
+Under the equivalence of \cref{cor:Fel-Set} below, the latter corresponds to
+the full subcategory of $\Set^{\to}$ on surjections.
+\end{example}
+
+\section{Tailless cats}\label{sec:tailless}
+
+In this section $\cC$ is an arbitrary category.
+
+\begin{definition}\label{def:tailless}
+A \emph{tailless} (or \emph{acaudal}) $\cC$-cat is a pair
+$(H,(L_\alpha)_{\alpha\in A})$ with $H$ initial, equipped with its shoulders
+$h_\alpha\colon H\to L_\alpha$. Morphisms are tuples $(\varphi,F_H,(F_\alpha))$
+with $F_\alpha h_\alpha=h'_{\varphi(\alpha)}F_H$. The resulting category is
+$\Fel^{\tl}(\cC)$.
+\end{definition}
+
+\begin{proposition}\label{prop:tailless}
+Let $\cC$ be any category.
+\begin{enumerate}
+\item The forgetful functor $\Fel^{\tl}(\cC)\to\Fam(\cC)$ is fully faithful,
+  and it is an equivalence if and only if $\cC$ has an initial object.
+\item Suppose $\cC$ has an initial object. The \emph{caudectomy} functor
+  $\Fel(\cC)\to\Fel^{\tl}(\cC)$, $(H,T,L)\mapsto(H,L)$, is fully faithful; it is
+  an equivalence if and only if $\cC$ has a terminal object.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) is proved as \cref{prop:headless}. (ii): full faithfulness follows from
+\cref{prop:automatic}. If $\cC$ has a terminal object then caudectomy is an
+equivalence by two-out-of-three as before. If $\cC$ has no terminal object
+then $\Fel(\cC)$ is empty but $\Fel^{\tl}(\cC)$ contains $(0,\varnothing)$.
+\end{proof}
+
+\begin{example}\label{ex:tailless-N}
+For the poset $(\mathbb N,\le)$ we have $\Fel(\mathbb N)=\varnothing$ but
+$\Fel^{\tl}(\mathbb N)\eqv\Fam(\mathbb N)$, whose objects are small families of
+natural numbers $(n_\alpha)_{\alpha\in A}$ and whose morphisms
+$(n_\alpha)_A\to(m_\beta)_B$ are functions $\varphi\colon A\to B$ with
+$n_\alpha\le m_{\varphi(\alpha)}$.
+\end{example}
+
+\section{Summary of the anatomical variants}\label{sec:anatomy-table}
+
+Let $\Fel^{\hl,\tl}(\cC)$ denote the category of cats with neither head nor
+tail; by definition, it is $\Fam(\cC)$. The preceding results combine as
+follows.
+
+\begin{theorem}\label{thm:anatomy}
+For an arbitrary category $\cC$ (with $\Fel(\cC)$ interpreted as empty when
+$\cC$ lacks an initial or a terminal object):
+\begin{enumerate}
+\item $\Fel(\cC)\eqv\Fam(\cC)$ if and only if $\cC$ has an initial and a terminal object;
+\item $\Fel^{\hl}(\cC)\eqv\Fam(\cC)$ if and only if $\cC$ has a terminal object;
+\item $\Fel^{\tl}(\cC)\eqv\Fam(\cC)$ if and only if $\cC$ has an initial object;
+\item $\Fel^{\hl,\tl}(\cC)=\Fam(\cC)$.
+\end{enumerate}
+In each case the equivalence is the functor forgetting the head and the tail.
+\end{theorem}
+
+\begin{proof}
+In each case the forgetful functor is fully faithful by the Parallel Morphism
+Lemma, and it is essentially surjective exactly when the required extremal
+objects exist, because $\Fam(\cC)$ is never empty.
+\end{proof}
+
+\begin{remark}\label{rem:anatomy-moral}
+\Cref{thm:anatomy} shows that the head and the tail contribute nothing to the
+structure of the category of cats, but the existence of an initial and a
+terminal object in $\cC$ determines whether cats exist at all. The existence of
+an initial object also bears on the relation between $\cC$ and $\Fam(\cC)$, as
+shown in \cref{ch:limits}: when $\cC$ has an initial object, $\Fam(\cC)$ has
+limits of a given shape exactly when $\cC$ does (\cref{thm:limits}), whereas
+without one $\Fam(\cC)$ may have limits that $\cC$ lacks
+(\cref{cex:headless-products}).
+\end{remark}

@@ -1,0 +1,356 @@
+\chapter{Monoidal and enriched cats}\label{ch:monoidal}
+
+\begin{assumption}\label{ass:ch9}
+In \cref{sec:feline-tensor,sec:graded,sec:self-enrichment}, $\cC$ is a category
+with initial and terminal objects $0$ and $1$. In \cref{sec:feline-tensor,sec:graded}
+it carries a monoidal structure $(\otimes,I,a,l,r)$, with associator
+$a_{X,Y,Z}\colon(X\otimes Y)\otimes Z\to X\otimes(Y\otimes Z)$ and unitors
+$l_X\colon I\otimes X\to X$, $r_X\colon X\otimes I\to X$. The hypotheses of
+\cref{sec:additive} are stated there.
+\end{assumption}
+
+\section{The feline tensor product}\label{sec:feline-tensor}
+
+\begin{definition}\label{def:feline-tensor}
+The \emph{feline tensor product} of cats $K=\langle L_\alpha\rangle_{\alpha\in A}$
+and $K'=\langle L'_\beta\rangle_{\beta\in B}$ (normalized without loss of
+generality) is
+\[
+K\otimes K'\defeq\bigl\langle L_\alpha\otimes L'_\beta\bigr\rangle_{(\alpha,\beta)\in A\times B},
+\]
+and on morphisms $(\varphi,F)\otimes(\psi,G)\defeq(\varphi\times\psi,(F_\alpha\otimes G_\beta)_{(\alpha,\beta)})$.
+The \emph{feline unit} is $\mathbf I\defeq\iota(I)$. The associator
+$\mathbf a_{K,K',K''}$ has gait $((\alpha,\beta),\gamma)\mapsto(\alpha,(\beta,\gamma))$
+and components $a_{L_\alpha,L'_\beta,L''_\gamma}$; the unitors $\mathbf l_K$ and
+$\mathbf r_K$ have gaits $(*,\alpha)\mapsto\alpha$ and $(\alpha,*)\mapsto\alpha$
+and components $l_{L_\alpha}$ and $r_{L_\alpha}$.
+\end{definition}
+
+\begin{theorem}\label{thm:monoidal}
+$(\Fel(\cC),\otimes,\mathbf I,\mathbf a,\mathbf l,\mathbf r)$ is a monoidal
+category. If $\cC$ is braided (resp.\ symmetric) with braiding $c$, then
+$\Fel(\cC)$ is braided (resp.\ symmetric) with braiding of gait
+$(\alpha,\beta)\mapsto(\beta,\alpha)$ and components $c_{L_\alpha,L'_\beta}$.
+The leg functor is a strict monoidal functor
+$(\Fel(\cC),\otimes,\mathbf I)\to(\Set,\times,1)$, and $\iota$ is a strong
+monoidal functor.
+\end{theorem}
+
+\begin{proof}
+Functoriality of $\otimes$ follows from that of $\times$ on $\Set$ and of
+$\otimes$ on $\cC$. The associator and unitors are isomorphisms by
+\cref{prop:iso}, and natural because their gaits are natural in $\Set$ and
+their components are natural in $\cC$. Every coherence axiom (the pentagon and
+triangle axioms, and in the braided case the hexagon axioms and, in the
+symmetric case, $c_{Y,X}c_{X,Y}=\id$) is an equation between morphisms of
+cats; by \cref{prop:automatic} such an equation holds if and only if it holds
+on gaits and on each leg component. On gaits it is the corresponding axiom for
+the cartesian monoidal structure of $\Set$, and on leg components it is the
+corresponding axiom in $\cC$. The leg functor sends $K\otimes K'$ to $A\times B$,
+$\mathbf I$ to $1$, and the structural isomorphisms to those of $\Set$, so it is
+strict monoidal. Finally $\iota X\otimes\iota Y=\langle X\otimes Y\rangle_{1\times1}$,
+which is isomorphic to $\iota(X\otimes Y)$ by the isomorphism with gait
+$1\times1\to1$ and identity component; these isomorphisms, together with
+$\mathbf I=\iota I$, make $\iota$ strong monoidal, the coherence conditions
+again reducing to identities on gaits and components.
+\end{proof}
+
+\begin{proposition}\label{prop:tensor-distributes}
+For every cat $K$, the functors $K\otimes-$ and $-\otimes K$ preserve small
+coproducts. In particular $K\otimes\Legless\iso\Legless\iso\Legless\otimes K$.
+This holds whether or not $\otimes$ preserves coproducts in $\cC$.
+\end{proposition}
+
+\begin{proof}
+For a family $(K_i)$ with leg sets $B_i$, the canonical morphism
+$\coprod_i(K\otimes K_i)\to K\otimes\coprod_iK_i$ has gait the canonical bijection
+$\coprod_i(A\times B_i)\to A\times\coprod_iB_i$ and identity components, so it
+is an isomorphism by \cref{prop:iso}.
+\end{proof}
+
+\begin{remark}\label{rem:tensor-chloe}
+If the tensor product of two connected objects of $\cC$ is connected, then the
+feline tensor product of two cats satisfying the Chloe Condition satisfies it,
+since the legs of $K\otimes K'$ are the objects $L_\alpha\otimes L'_\beta$. This holds
+for $(\Set,\times)$ and $(\Top,\times)$ but not for $(\Graph,\times)$; the
+consequences for Gideon Decompositions are drawn in \cref{sec:cmg-tensor}.
+\end{remark}
+
+
+\begin{proposition}\label{prop:body-monoidal}
+Suppose $\cC$ has small coproducts. For cats $K$ and $K'$ let
+$\mu_{K,K'}\colon\body(K\otimes K')\to\body K\otimes\body K'$ be the morphism whose
+restriction to the summand $L_\alpha\otimes L'_\beta$ is $\inj_\alpha\otimes\inj_\beta$.
+Then $\mu_{K,K'}$ is an isomorphism for all $K,K'$ if and only if $\otimes$
+preserves small coproducts in each variable separately. In that case
+$\body$, with the inverses of the $\mu_{K,K'}$ and the canonical isomorphism
+$\body\mathbf I=\coprod_1I\iso I$, is a strong monoidal functor.
+\end{proposition}
+
+\begin{proof}
+If $\otimes$ preserves coproducts in each variable, $\mu_{K,K'}$ is the
+composite of the canonical isomorphisms
+$\coprod_{\alpha,\beta}L_\alpha\otimes L'_\beta\iso\coprod_\alpha(L_\alpha\otimes\coprod_\beta L'_\beta)\iso(\coprod_\alpha L_\alpha)\otimes\coprod_\beta L'_\beta$.
+Conversely, taking $K=\iota X$ shows that the canonical map
+$\coprod_\beta X\otimes L'_\beta\to X\otimes\coprod_\beta L'_\beta$ is invertible for
+every family $(L'_\beta)$, and similarly in the other variable. The coherence
+conditions for a strong monoidal functor hold because both sides are induced
+by the coproduct injections.
+\end{proof}
+
+\begin{remark}\label{rem:naive-tensor}
+One might attempt to define the tensor product of cats componentwise, as
+$(H\otimes H',T\otimes T',(L_\alpha\otimes L'_\beta))$. This is a cat for all
+$K,K'$ if and only if $0\otimes0$ is initial and $1\otimes1$ is terminal, since
+any initial object is isomorphic to $0$ and any terminal object to $1$. Neither
+condition holds in general. In $\Set^{\op}$ with its cartesian monoidal
+structure, the product of two copies of the initial object (a singleton) is a
+two-element set, which is not initial in $\Set^{\op}$. In $\Set$ with the
+cocartesian monoidal structure $\sqcup$, the tensor $1\sqcup1$ of two copies of
+the terminal object is not terminal. This is why \cref{def:feline-tensor}
+renormalizes the head and the tail.
+\end{remark}
+
+\section{Monoidal cats and graded monoids}\label{sec:graded}
+
+\begin{definition}\label{def:monoidal-cat}
+A \emph{monoidal $\cC$-cat} is a monoid in the monoidal category
+$(\Fel(\cC),\otimes,\mathbf I)$: a cat $K$ with morphisms
+$\mu\colon K\otimes K\to K$ and $\eta\colon\mathbf I\to K$ satisfying the
+associativity and unit axioms. A morphism of monoidal cats is a monoid
+morphism. The category of monoidal $\cC$-cats is denoted $\Mon(\Fel(\cC))$.
+\end{definition}
+
+\begin{definition}\label{def:graded-monoid}
+Let $M$ be a monoid in $\Set$ with unit $e$. An \emph{$M$-graded monoid} in
+$\cC$ is a family $(X_m)_{m\in M}$ of objects with morphisms
+$\mu_{m,n}\colon X_m\otimes X_n\to X_{mn}$ and $\eta\colon I\to X_e$ such that
+for all $m,n,p\in M$
+\begin{gather*}
+\mu_{mn,p}\circ(\mu_{m,n}\otimes\id)=\mu_{m,np}\circ(\id\otimes\mu_{n,p})\circ a,\\
+\mu_{e,m}\circ(\eta\otimes\id)=l,\qquad\mu_{m,e}\circ(\id\otimes\eta)=r.
+\end{gather*}
+A morphism $(M,X)\to(N,Y)$ of graded monoids is a monoid homomorphism
+$f\colon M\to N$ together with morphisms $g_m\colon X_m\to Y_{f(m)}$ commuting with
+the multiplications and units. We write $\GrMon(\cC)$ for the resulting category.
+\end{definition}
+
+\begin{theorem}\label{thm:graded-monoids}
+There is an equivalence $\Mon(\Fel(\cC))\eqv\GrMon(\cC)$, which is an
+isomorphism on normalized cats. Under it, the underlying set of legs of a
+monoidal cat, with the multiplication given by the gait of $\mu$, is the
+grading monoid.
+\end{theorem}
+
+\begin{proof}
+Let $(K,\mu,\eta)$ be a monoidal cat with $K=\langle L_\alpha\rangle_A$. The
+morphism $\mu$ has a gait $m\colon A\times A\to A$ and components
+$\mu_{\alpha,\beta}\colon L_\alpha\otimes L_\beta\to L_{m(\alpha,\beta)}$; the
+morphism $\eta$ has a gait $1\to A$, picking out $e\in A$, and a component
+$\eta\colon I\to L_e$. By \cref{prop:automatic}, the associativity and unit
+axioms of the monoid $K$ hold if and only if they hold on gaits and on
+components. Since $\legs$ is strict monoidal (\cref{thm:monoidal}), the axioms
+on gaits say that $(A,m,e)$ is a monoid in $\Set$, and the axioms on components
+are exactly those of \cref{def:graded-monoid}. Similarly, a morphism of
+monoidal cats is a morphism of cats whose gait is a monoid homomorphism and
+whose components satisfy the compatibilities of \cref{def:graded-monoid}.
+\end{proof}
+
+\begin{example}\label{ex:graded}
+\begin{enumerate}
+\item For $(\cC,\otimes)=(\Ab,\otimes_{\mathbb Z})$, an $M$-graded monoid is
+  a family of abelian groups $(X_m)$ with bilinear associative unital
+  multiplications $X_m\times X_n\to X_{mn}$; taking the direct sum, this is the
+  same as an $M$-graded ring. Thus monoidal $\Ab$-cats with leg monoid $M$ are
+  $M$-graded rings, and monoidal $\Ab$-cats with leg monoid $\mathbb N$ are
+  $\mathbb N$-graded rings.
+\item For $(\cC,\otimes)=(\Set,\times)$, an $M$-graded monoid in $\Set$ is the
+  same as a monoid $N=\coprod_mX_m$ together with a monoid homomorphism $N\to M$
+  (sending $X_m$ to $m$). Thus $\Mon(\Fel(\Set))$ is equivalent to the arrow
+  category of the category of monoids, in accordance with $\Fel(\Set)\eqv\Set^{\to}$
+  (\cref{cor:Fel-Set}).
+\item For $\cC=\one$, a monoidal $\one$-cat is a monoid in $\Set$.
+\end{enumerate}
+\end{example}
+
+\begin{remark}\label{rem:graded-honest}
+\Cref{thm:graded-monoids} identifies monoidal cats with graded monoids, a
+classical notion. When $\cC$ is symmetric, commutative monoids in $\Fel(\cC)$
+correspond to graded monoids with commutative grading monoid and commutative
+multiplication in the sense determined by the symmetry of $\cC$. Any signs
+in this commutativity come from the symmetry of $\cC$ (for instance, the
+Koszul signs of chain complexes involve the homological degree of the legs),
+not from the grading monoid: a commutative monoid in $\Fel(\Ab)$ with leg
+monoid $\mathbb N$ is a commutative, not a graded-commutative, $\mathbb N$-graded
+ring.
+\end{remark}
+
+\section{Self-enrichment}\label{sec:self-enrichment}
+
+The category $\Fel(\Set)$ has finite products (\cref{thm:limits}), and so is a
+cartesian monoidal category. The following theorem shows that every category
+of cats is enriched in $\Set$-cats.
+
+\begin{theorem}\label{thm:self-enrichment}
+For $\cC$-cats $K=\langle L_\alpha\rangle_A$ and $K'=\langle L'_\beta\rangle_B$, let
+\[
+[K,K']\defeq\Bigl\langle\prod_{\alpha\in A}\cC(L_\alpha,L'_{\varphi(\alpha)})\Bigr\rangle_{\varphi\in\Set(A,B)}\in\Fel(\Set).
+\]
+Let $\mathrm c\colon[K',K'']\times[K,K']\to[K,K'']$ be the morphism of
+$\Set$-cats with gait $(\psi,\varphi)\mapsto\psi\varphi$ and components
+$(G,F)\mapsto(G_{\varphi(\alpha)}F_\alpha)_\alpha$, and let
+$\mathrm u\colon\Caudal\to[K,K]$ have gait $*\mapsto\id_A$ and component
+$*\mapsto(\id_{L_\alpha})_\alpha$. These data make $\Fel(\cC)$ a category
+enriched in $(\Fel(\Set),\times,\Caudal)$, whose underlying ordinary category,
+computed with $\points=\Fel(\Set)(\Caudal,-)$, is $\Fel(\cC)$.
+\end{theorem}
+
+\begin{proof}
+By \cref{cor:limit-formulas}, $[K',K'']\times[K,K']$ has legs indexed by pairs
+$(\psi,\varphi)$, with leg the product of the corresponding legs, so
+$\mathrm c$ is well typed. The associativity and unit axioms of an enriched
+category are equations between morphisms of $\Set$-cats, and by
+\cref{prop:automatic} they reduce to equations on gaits, which are
+associativity and unitality of composition of functions, and on components,
+which are associativity and unitality of composition in $\cC$. Finally,
+$\points[K,K']=\coprod_\varphi\prod_\alpha\cC(L_\alpha,L'_{\varphi(\alpha)})\iso\Fel(\cC)(K,K')$
+by \cref{cor:Fel-hom}, and the composition induced by $\mathrm c$ on points is
+that of $\Fel(\cC)$.
+\end{proof}
+
+\begin{remark}\label{rem:self-enrichment-honest}
+Under $\Fel(\Set)\eqv\Set^{\to}$, a category enriched in $(\Set^{\to},\times)$
+amounts to a pair of ordinary categories with the same objects and an
+identity-on-objects functor between them. The enrichment of
+\cref{thm:self-enrichment} corresponds to the identity-on-objects functor from
+$\Fel(\cC)$ to the category whose objects are cats and whose morphisms are
+functions between leg sets, that is, to the leg functor. No information beyond
+$\legs$ is contained in the self-enrichment.
+\end{remark}
+
+\section{Additive enrichment}\label{sec:additive}
+
+In this section $\cC$ is a \emph{preadditive} category, that is, a category
+enriched in abelian groups, possessing an initial object.
+
+\begin{lemma}\label{lem:Ab-zero}
+In a preadditive category every initial object is a zero object. In
+particular head and tail of every $\cC$-cat are zero objects, and $\cC$-cats
+exist.
+\end{lemma}
+
+\begin{proof}
+Let $0$ be initial. Then $\cC(0,0)$ is the trivial group, so $\id_0$ is the zero
+morphism. For any $f\colon X\to0$, bilinearity of composition gives
+$f=\id_0\circ f=0\circ f=0$. Hence $\cC(X,0)$ is a singleton.
+\end{proof}
+
+In particular $\cC$ is pointed, so by \cref{rem:pointed-no-chloe} the only
+$\cC$-cats satisfying the Chloe Condition are the legless ones, and by
+\cref{ex:gideon}(iv) only the zero objects of $\cC$ admit Gideon
+Decompositions.
+
+
+\begin{definition}\label{def:Fel-Ab}
+The \emph{additively enriched category of cats} $\Fel_{\Ab}(\cC)$ has as
+objects the $\cC$-cats and as hom-groups
+\[
+\Fel_\Ab(\cC)(K,K')\defeq\prod_{\alpha\in A}\ \bigoplus_{\beta\in B}\cC(L_\alpha,L'_\beta),
+\]
+whose elements we write as matrices $(f_{\beta\alpha})$ with
+$f_{\beta\alpha}\colon L_\alpha\to L'_\beta$ such that for each $\alpha$ only
+finitely many $f_{\beta\alpha}$ are nonzero (\emph{column-finite matrices}).
+Composition is matrix multiplication, $(gf)_{\gamma\alpha}=\sum_\beta g_{\gamma\beta}f_{\beta\alpha}$,
+and identities are identity matrices.
+\end{definition}
+
+\begin{lemma}\label{lem:Fel-Ab-category}
+$\Fel_\Ab(\cC)$ is a preadditive category.
+\end{lemma}
+
+\begin{proof}
+The sum defining $(gf)_{\gamma\alpha}$ is finite because $f$ is column-finite.
+For fixed $\alpha$, $(gf)_{\gamma\alpha}\neq0$ only if $g_{\gamma\beta}\neq0$ for
+one of the finitely many $\beta$ with $f_{\beta\alpha}\neq0$, and each of these
+columns of $g$ is finite; hence $gf$ is column-finite. Associativity,
+unitality and bilinearity follow from the corresponding properties in $\cC$
+and the finiteness of all sums involved.
+\end{proof}
+
+\begin{theorem}\label{thm:Ab-collapse}
+Let $\cC$ be preadditive with an initial object $0$.
+\begin{enumerate}
+\item In $\Fel_\Ab(\cC)$, every cat $K$ is the coproduct of the unipedal cats
+  $\iota(L_\alpha)$, the $\alpha$-th coprojection being the matrix whose only
+  possibly nonzero entry is $\id_{L_\alpha}$, in row $\alpha$; if $K$ is a kitten,
+  this is a biproduct.
+\item In $\Fel_\Ab(\cC)$ the cephalic cat $\Cephalic=\iota(0)$ is isomorphic to
+  the legless cat $\Legless$.
+\item If $\cC$ has binary biproducts, then $\iota(X\oplus Y)\iso\langle X,Y\rangle$ in
+  $\Fel_\Ab(\cC)$.
+\item Consequently, the number of legs is not an isomorphism invariant in
+  $\Fel_\Ab(\cC)$, and there is no functor $P$ from the underlying category of
+  $\Fel_\Ab(\cC)$ to $\Set$ with $P(K)$ in bijection with $\legs(K)$ for all
+  $K$.
+\item The underlying ordinary category of $\Fel_\Ab(\cC)$ is not equivalent to
+  $\Fel(\cC_0)$, where $\cC_0$ is the underlying ordinary category of $\cC$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) By definition,
+\[
+\Fel_\Ab(\cC)(K,M)=\prod_\alpha\bigoplus_\beta\cC(L_\alpha,M_\beta)=\prod_\alpha\Fel_\Ab(\cC)(\iota L_\alpha,M),
+\]
+and the bijection is precomposition with the stated coprojections. For finite
+$A$ a coproduct in a preadditive category is a biproduct.
+
+(ii) $\Fel_\Ab(\cC)(\Cephalic,\Legless)=\bigoplus_{\varnothing}=0$ and
+$\Fel_\Ab(\cC)(\Legless,\Cephalic)=\prod_\varnothing=0$, and
+$\Fel_\Ab(\cC)(\Cephalic,\Cephalic)=\cC(0,0)=0$; so the zero morphisms are mutually
+inverse.
+
+(iii) The matrices $\binom{p_X}{p_Y}\colon\iota(X\oplus Y)\to\langle X,Y\rangle$
+and $(i_X\ i_Y)\colon\langle X,Y\rangle\to\iota(X\oplus Y)$, formed from the
+biproduct projections and injections, are mutually inverse by the biproduct
+identities.
+
+(iv) By (ii), $\Cephalic\iso\Legless$ although $|\legs\Cephalic|=1\neq0=|\legs\Legless|$.
+A functor preserves isomorphisms, so $P(\Cephalic)\iso P(\Legless)$, which is
+incompatible with $P(\Cephalic)\iso1$ and $P(\Legless)\iso\varnothing$.
+
+(v) The underlying category of $\Fel_\Ab(\cC)$ is preadditive and has the
+initial object $\Legless$ (by (i), as the empty coproduct), which is therefore a
+zero object by \cref{lem:Ab-zero}. In $\Fel(\cC_0)$ the initial object
+$\Legless$ is strict (\cref{prop:legless-initial}); if it were also terminal,
+then every cat would admit a morphism to $\Legless$ and hence be legless,
+which fails for $\iota(0)$. So $\Fel(\cC_0)$ is not pointed, and an equivalence
+would preserve pointedness. (For instance, if $\cC$ is the trivial preadditive
+category, $\Fel_\Ab(\cC)$ is equivalent to the terminal category, every cat
+being a coproduct of zero objects, while $\Fel(\cC_0)\iso\Set$.)
+\end{proof}
+
+\begin{example}\label{ex:free-abelian}
+Let $\cC$ be the full subcategory of $\Ab$ on the objects $0$ and $\mathbb Z$. The
+functor sending a cat $K$ to $\bigoplus_\alpha L_\alpha$ is an equivalence
+between $\Fel_\Ab(\cC)$ and the category of free abelian groups. Indeed, it is
+fully faithful because a homomorphism
+$\bigoplus_{\alpha}L_\alpha\to\bigoplus_\beta L'_\beta$ is determined by its
+restrictions to the summands, each of which lands in a finite sub-sum; and it
+is essentially surjective since every free abelian group is of the form
+$\bigoplus_A\mathbb Z$. The legs equal to $0$ are invisible, in accordance with
+\cref{thm:Ab-collapse}(ii).
+\end{example}
+
+\begin{remark}\label{rem:enrichment-moral}
+\Cref{thm:Ab-collapse} shows that the naive enrichment of cat theory over
+abelian groups does not merely enrich the theory of \cref{ch:cats} but changes
+it: legs may be merged and split, and a leg equal to the head may be
+amputated without changing the isomorphism class of the cat. The
+felinization of an enriched category is therefore not the enrichment of the
+felinization. We do not develop enrichment over a general base $\cV$. One
+would expect the formula $\prod_\alpha\coprod_\beta\cC(L_\alpha,L'_\beta)$ for
+hom-objects to define a $\cV$-category when $\cV$ has small products and small
+coproducts and $\otimes$ preserves coproducts in each variable, but we have not
+verified the axioms and make no claim to this effect.
+\end{remark}

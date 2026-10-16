@@ -1,0 +1,135 @@
+% ---------------------------------------------------------------------
+%  Preamble for "Foundations of Cat Theory"
+% ---------------------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{bbm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{longtable}
+\usepackage{microtype}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz-cd}
+\usepackage[colorlinks=true,linkcolor=MidnightBlue,citecolor=MidnightBlue,urlcolor=MidnightBlue,bookmarksnumbered=true]{hyperref}
+\usepackage[capitalise,nameinlink]{cleveref}
+
+\setlist[enumerate]{label=\textup{(\roman*)},ref=\textup{(\roman*)}}
+
+% ---------------------------------------------------------------------
+%  Theorem environments (one counter per chapter)
+% ---------------------------------------------------------------------
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{maintheorem}{Theorem}
+\newtheorem{mainthm}{Theorem}
+\renewcommand{\themainthm}{\Alph{mainthm}}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem*{definition*}{Definition}
+\newtheorem{assumption}[theorem]{Standing Assumption}
+\newtheorem{convention}[theorem]{Convention}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{counterexample}[theorem]{Counterexample}
+\newtheorem{construction}[theorem]{Construction}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{warning}[theorem]{Warning}
+
+\crefname{mainthm}{Theorem}{Theorems}
+\crefname{assumption}{Standing Assumption}{Standing Assumptions}
+\crefname{convention}{Convention}{Conventions}
+\crefname{notation}{Notation}{Notation}
+\crefname{counterexample}{Counterexample}{Counterexamples}
+\crefname{construction}{Construction}{Constructions}
+\crefname{warning}{Warning}{Warnings}
+
+\numberwithin{equation}{chapter}
+
+% ---------------------------------------------------------------------
+%  Macros
+% ---------------------------------------------------------------------
+% Ambient categories
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cA}{\mathcal{A}}
+
+% Named categories
+\newcommand{\Set}{\mathbf{Set}}
+\newcommand{\Cat}{\mathbf{Cat}}
+\newcommand{\CAT}{\mathbf{CAT}}
+\newcommand{\Top}{\mathbf{Top}}
+\newcommand{\Ab}{\mathbf{Ab}}
+\newcommand{\Grp}{\mathbf{Grp}}
+\newcommand{\Ring}{\mathbf{Ring}}
+\newcommand{\Mon}{\mathbf{Mon}}
+\newcommand{\Graph}{\mathbf{Gph}}
+\newcommand{\Vect}{\mathbf{Vect}}
+\newcommand{\Setp}{\mathbf{Set}_{*}}
+\newcommand{\one}{\mathbbm{1}}
+
+% Cat-theoretic constructions
+\newcommand{\Fel}{\mathsf{Fel}}
+\newcommand{\Fam}{\mathsf{Fam}}
+\newcommand{\Kit}{\mathsf{Kit}}
+\newcommand{\PSh}{\mathsf{PSh}}
+\newcommand{\Fun}{\mathsf{Fun}}
+\newcommand{\FelFun}{\mathsf{FelFun}}
+\newcommand{\Diag}{\mathsf{Diag}}
+\newcommand{\Kl}{\mathsf{Kl}}
+\newcommand{\GrMon}{\mathsf{GrMon}}
+\newcommand{\Core}{\mathsf{Core}}
+\newcommand{\Iso}{\mathsf{Iso}}
+\newcommand{\Aut}{\mathrm{Aut}}
+\newcommand{\Sym}{\mathrm{Sym}}
+\newcommand{\El}{\textstyle\int}
+\newcommand{\Lan}{\mathrm{Lan}}
+\newcommand{\Ran}{\mathrm{Ran}}
+
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\ob}{\mathrm{ob}}
+\newcommand{\colim}{\operatorname*{colim}}
+\newcommand{\coeq}{\mathrm{coeq}}
+\newcommand{\pr}{\mathrm{pr}}
+\newcommand{\ev}{\mathrm{ev}}
+
+% Feline structure
+\newcommand{\legs}{\pi}                 % leg functor
+\newcommand{\body}{\Sigma}              % body functor
+\newcommand{\points}{\Gamma}            % points functor
+\newcommand{\Yon}{\mathbb{Y}}           % feline Yoneda functor
+\newcommand{\Fsh}{\mathfrak{F}}         % feline shape
+\newcommand{\Legless}{\mathbf{0}}       % normalized legless cat
+\newcommand{\Caudal}{\mathbf{1}}        % caudal cat (terminal)
+\newcommand{\Cephalic}{\mathbf{h}}      % cephalic cat iota(0)
+\newcommand{\Chl}{\mathrm{Ch}}          % Chloe superscript
+\newcommand{\Gid}{\mathrm{G}}           % Gideon superscript
+\newcommand{\conn}{\circ}               % connected objects superscript
+\newcommand{\hl}{\mathrm{hl}}           % headless
+\newcommand{\tl}{\mathrm{tl}}           % tailless
+\newcommand{\nrm}{\mathrm{nrm}}         % normalized
+\newcommand{\ta}{\mathrm{ta}}           % tail-absorbing
+\newcommand{\inj}{\mathrm{in}}
+
+\newcommand{\iso}{\cong}
+\newcommand{\eqv}{\simeq}
+\newcommand{\too}{\longrightarrow}
+\newcommand{\defeq}{\coloneqq}
+\newcommand{\coprodd}{\textstyle\coprod}
+\newcommand{\prodd}{\textstyle\prod}
+
+\DeclareMathOperator{\im}{im}

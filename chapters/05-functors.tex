@@ -1,0 +1,314 @@
+\chapter{Feline functors and natural transformations}\label{ch:functors}
+
+\begin{assumption}\label{ass:ch5}
+Throughout this chapter, $\cC$, $\cD$ and $\cE$ are categories each possessing
+an initial and a terminal object, chosen as in \cref{ass:normalized}. Functors
+between them are \emph{not} assumed to preserve initial or terminal objects.
+\end{assumption}
+
+\section{Felinization}\label{sec:felinization}
+
+\begin{definition}\label{def:Fel-functor}
+Let $F\colon\cC\to\cD$ be a functor. Its \emph{felinization} is the functor
+\[
+\begin{aligned}
+\Fel(F)\colon\Fel(\cC)&\too\Fel(\cD),\\
+\bigl(H,T,(L_\alpha)_{\alpha\in A}\bigr)&\longmapsto\langle F L_\alpha\rangle_{\alpha\in A},\\
+(\varphi,(f_\alpha))&\longmapsto(\varphi,(Ff_\alpha)).
+\end{aligned}
+\]
+For a natural transformation $\tau\colon F\Rightarrow G$ between functors
+$\cC\to\cD$, its felinization $\Fel(\tau)\colon\Fel(F)\Rightarrow\Fel(G)$ has
+components $\Fel(\tau)_K=(\id_A,(\tau_{L_\alpha})_{\alpha\in A})$.
+\end{definition}
+
+The head and tail of $\Fel(F)(K)$ are the chosen objects $0_\cD$ and $1_\cD$,
+not $F(H)$ and $F(T)$; this is why no preservation hypothesis on $F$ is needed.
+
+\begin{proposition}\label{prop:Fel-2functor}
+\begin{enumerate}
+\item $\Fel(F)$ is a functor and $\Fel(\tau)$ is a natural transformation.
+\item $\Fel(G\circ F)=\Fel(G)\circ\Fel(F)$ for $F\colon\cC\to\cD$ and
+  $G\colon\cD\to\cE$, and $\Fel(\id_\cC)=N$ is the normalization functor of
+  \cref{prop:normalization}, which is naturally isomorphic to $\id_{\Fel(\cC)}$.
+\item $\Fel$ preserves vertical composition and identities of natural
+  transformations, and whiskering: $\Fel(W\tau)=\Fel(W)\Fel(\tau)$ and
+  $\Fel(\tau F')=\Fel(\tau)\Fel(F')$.
+\item $\legs_\cD\circ\Fel(F)=\legs_\cC$ and $\Fel(F)\circ\iota_\cC=\iota_\cD\circ F$.
+\end{enumerate}
+In particular the restriction of $\Fel$ to normalized cats is a strict
+$2$-functor $\Fel^{\nrm}$ from the $2$-category of locally small categories
+with chosen initial and terminal objects, arbitrary functors, and arbitrary
+natural transformations, to the $2$-category of (large) locally small
+categories.
+\end{proposition}
+
+\begin{proof}
+(i) $\Fel(F)$ preserves composition because
+\[
+(\psi,(Fg_\beta))\circ(\varphi,(Ff_\alpha))=(\psi\varphi,(Fg_{\varphi(\alpha)}Ff_\alpha))=(\psi\varphi,(F(g_{\varphi(\alpha)}f_\alpha))),
+\]
+and preserves identities since $F$ does. Naturality of $\Fel(\tau)$ at
+$(\varphi,f)\colon K\to K'$ requires
+\[
+(\varphi,(Gf_\alpha))\circ(\id_A,(\tau_{L_\alpha}))=(\id_B,(\tau_{L'_\beta}))\circ(\varphi,(Ff_\alpha)),
+\]
+that is, $Gf_\alpha\circ\tau_{L_\alpha}=\tau_{L'_{\varphi(\alpha)}}\circ Ff_\alpha$,
+which is naturality of $\tau$.
+(ii) Both sides send $K$ to $\langle GFL_\alpha\rangle$ and $(\varphi,f)$ to
+$(\varphi,GFf)$. The statement about $\id_\cC$ is the definition of $N$.
+(iii) and (iv) are verified componentwise in the same manner.
+The final assertion follows since on normalized cats $N$ is the identity.
+\end{proof}
+
+\begin{example}\label{ex:Fel-of-point}
+Let $\one$ be the terminal category, and recall $\Fel(\one)\iso\Set$
+(\cref{prop:Fel-point}). The functors $\one\to\cC$ correspond to objects of
+$\cC$; we write $\ulcorner X\urcorner\colon\one\to\cC$ for the functor with value
+$X$. Then, under $\Fel(\one)\iso\Set$:
+\begin{enumerate}
+\item $\Fel(\ulcorner X\urcorner)\colon\Set\to\Fel(\cC)$ sends a set $S$ to
+  the cat $\langle X\rangle_{s\in S}$ with $S$ legs, each equal to $X$;
+\item $\Fel(!_\cC)\colon\Fel(\cC)\to\Set$, for the unique functor
+  $!_\cC\colon\cC\to\one$, is the leg functor $\legs$.
+\end{enumerate}
+We write $\Delta_X\defeq\Fel(\ulcorner X\urcorner)$. The functors
+$\Delta_0$ and $\Delta_1$ will play a central r\^ole in \cref{ch:adjunctions}.
+\end{example}
+
+\begin{proposition}\label{prop:Fel-properties}
+Let $F\colon\cC\to\cD$ be a functor and let $P$ be one of the properties
+\emph{faithful}, \emph{full}, \emph{fully faithful}, \emph{essentially
+surjective}, \emph{equivalence}. Then $F$ has $P$ if and only if $\Fel(F)$
+has $P$.
+\end{proposition}
+
+\begin{proof}
+By \cref{cor:Fel-hom} the action of $\Fel(F)$ on hom-sets is the map
+\[
+\coprod_{\varphi}\prod_{\alpha}\cC(L_\alpha,L'_{\varphi(\alpha)})\too\coprod_{\varphi}\prod_{\alpha}\cD(FL_\alpha,FL'_{\varphi(\alpha)})
+\]
+given by $F$ in each factor. A coproduct of products of injections is
+injective, and a coproduct of products of surjections is surjective (the
+latter using the axiom of choice for infinite products). Hence $F$ faithful
+(resp.\ full) implies $\Fel(F)$ faithful (resp.\ full). If $F$ is essentially
+surjective, choose for each leg $Y_\beta$ of a $\cD$-cat an object $X_\beta$
+with an isomorphism $FX_\beta\iso Y_\beta$; then $\Fel(F)\langle X_\beta\rangle\iso\langle Y_\beta\rangle$
+by \cref{prop:iso}. Conversely, since $\Fel(F)\iota_\cC=\iota_\cD F$ and
+$\iota_\cC,\iota_\cD$ are fully faithful (\cref{prop:iota-ff}), the action of
+$F$ on $\cC(X,Y)$ is identified with the action of $\Fel(F)$ on
+$\Fel(\cC)(\iota X,\iota Y)$; so $\Fel(F)$ faithful or full implies the same
+for $F$. If $\Fel(F)$ is essentially surjective then for each $Y$ there is $K$
+with $\Fel(F)K\iso\iota Y$; then $K$ is unipedal by \cref{prop:iso}, say
+$K\iso\iota X$, and $FX\iso Y$ by full faithfulness of $\iota_\cD$. An
+equivalence is a fully faithful essentially surjective functor.
+\end{proof}
+
+\section{Feline functors}\label{sec:feline-functors}
+
+\begin{definition}\label{def:reindexing}
+A feline morphism $(\varphi,F)$ is \emph{reindexing} if each of its leg
+components $F_\alpha$ is an isomorphism.
+\end{definition}
+
+For example, the leg inclusions $j_\alpha\colon\iota(L_\alpha)\to K$ are
+reindexing. In \cref{thm:fibration} we show that the reindexing morphisms are
+exactly the cartesian morphisms for the leg functor.
+
+\begin{definition}\label{def:feline-functor}
+A functor $\Phi\colon\Fel(\cC)\to\Fel(\cD)$ is \emph{feline} if
+$\legs_\cD\circ\Phi=\legs_\cC$. A feline functor is \emph{fibred} if it maps
+reindexing morphisms to reindexing morphisms. A \emph{feline natural
+transformation} $\tau\colon\Phi\Rightarrow\Psi$ between feline functors is a
+natural transformation each of whose components is vertical. We write
+$\FelFun(\cC,\cD)$ for the category of fibred feline functors and feline
+natural transformations.
+\end{definition}
+
+When $\cC$ is not small, the categories $\Fun(\cC,\cD)$ and $\FelFun(\cC,\cD)$
+may have large hom-sets; this is an exception to \cref{conv:size}, which is
+harmless since we make no use of the size of these hom-sets.
+
+By \cref{prop:Fel-2functor}, felinization defines a functor
+\[
+\Fel_{\cC,\cD}\colon\Fun(\cC,\cD)\too\FelFun(\cC,\cD),
+\]
+since $\Fel(F)$ is feline and preserves isomorphisms of legs, and $\Fel(\tau)$
+is vertical.
+
+\begin{definition}\label{def:restriction}
+For a feline functor $\Phi\colon\Fel(\cC)\to\Fel(\cD)$, its \emph{unipedal
+restriction} $\Phi^\natural\colon\cC\to\cD$ is defined as follows. For an
+object $X$, the cat $\Phi(\iota X)$ has leg set $\legs(\iota X)=1$; let
+$\Phi^\natural(X)$ be its unique leg. For $g\colon X\to Y$, the morphism
+$\Phi(\iota g)$ has gait $\legs(\iota g)=\id_1$; let $\Phi^\natural(g)$ be its
+unique leg component. For a feline natural transformation $\tau\colon\Phi\Rightarrow\Psi$
+let $\tau^\natural_X$ be the unique leg component of $\tau_{\iota X}$.
+\end{definition}
+
+$\Phi^\natural$ is a functor because $\Phi$ and $\iota$ are, and $\tau^\natural$
+is natural because $\tau$ is.
+
+\begin{theorem}[Classification of feline functors]\label{thm:feline-functors}
+The felinization functor $\Fel_{\cC,\cD}$ from $\Fun(\cC,\cD)$ to
+$\FelFun(\cC,\cD)$ is an equivalence of categories. A quasi-inverse is given by unipedal restriction
+$\Phi\mapsto\Phi^\natural$, and $\Fel(F)^\natural=F$ for every functor $F$.
+\end{theorem}
+
+\begin{proof}
+The identity $\Fel(F)^\natural=F$ holds by construction, as does
+$\Fel(\tau)^\natural=\tau$. It therefore suffices to show (a) that
+$\Fel_{\cC,\cD}$ is full, and (b) that every fibred feline functor $\Phi$ is
+isomorphic in $\FelFun(\cC,\cD)$ to $\Fel(\Phi^\natural)$. Faithfulness is
+immediate from $\Fel(\tau)^\natural=\tau$. Once $\Fel_{\cC,\cD}$ is known to be
+an equivalence, unipedal restriction $R\colon\Phi\mapsto\Phi^\natural$, which is a
+functor $\FelFun(\cC,\cD)\to\Fun(\cC,\cD)$ with $R\circ\Fel_{\cC,\cD}=\id$, is a
+quasi-inverse: if $E$ is a quasi-inverse of $\Fel_{\cC,\cD}$, then
+$R\iso R\circ\Fel_{\cC,\cD}\circ E=E$.
+
+We first establish an identity in $\Fel(\cC)$. Let $(\psi,G)\colon K\to K'$ be a
+morphism, with $K=\langle L_\alpha\rangle_{\alpha\in A}$ up to normalization,
+$K'$ with leg set $B$, and $\alpha\in A$. Then
+\begin{equation}\label{eq:leg-inclusion-naturality}
+(\psi,G)\circ j_\alpha=j_{\psi(\alpha)}\circ\iota(G_\alpha)\colon\iota(L_\alpha)\too K',
+\end{equation}
+since both sides have gait $1\to B$ with value $\psi(\alpha)$ and leg component
+$G_\alpha$.
+
+(b) Let $\Phi$ be a fibred feline functor and $K$ a cat with leg set $A$. For
+$\alpha\in A$, the morphism $\Phi(j_\alpha)\colon\Phi(\iota L_\alpha)\to\Phi(K)$
+has gait $\legs(j_\alpha)=\alpha$ and is reindexing, since $j_\alpha$ is; so
+its unique leg component is an isomorphism
+\[
+c_{K,\alpha}\colon\Phi^\natural(L_\alpha)\xrightarrow{\ \iso\ }\Phi(K)_\alpha,
+\]
+where $\Phi(K)_\alpha$ denotes the $\alpha$-th leg of $\Phi(K)$. Define
+$\theta_K\colon\Phi(K)\to\Fel(\Phi^\natural)(K)$ to be the vertical morphism
+with components $c_{K,\alpha}^{-1}$. It is an isomorphism by
+\cref{prop:iso}. For naturality, let $(\psi,G)\colon K\to K'$. Applying $\Phi$
+to \eqref{eq:leg-inclusion-naturality} and comparing the leg components of
+the two sides gives
+\[
+\Phi(\psi,G)_\alpha\circ c_{K,\alpha}=c_{K',\psi(\alpha)}\circ\Phi^\natural(G_\alpha),
+\]
+where $\Phi(\psi,G)_\alpha\colon\Phi(K)_\alpha\to\Phi(K')_{\psi(\alpha)}$ is the
+$\alpha$-th leg component of $\Phi(\psi,G)$, whose gait is $\psi$ because $\Phi$
+is feline. Rearranged, this says
+$c_{K',\psi(\alpha)}^{-1}\circ\Phi(\psi,G)_\alpha=\Phi^\natural(G_\alpha)\circ c_{K,\alpha}^{-1}$
+for all $\alpha$, which is the equation
+$\theta_{K'}\circ\Phi(\psi,G)=\Fel(\Phi^\natural)(\psi,G)\circ\theta_K$.
+
+(a) Let $\sigma\colon\Fel(F)\Rightarrow\Fel(G)$ be a feline natural
+transformation, and set $\tau=\sigma^\natural\colon F\Rightarrow G$. For a cat
+$K$ and $\alpha\in\legs(K)$, naturality of $\sigma$ with respect to $j_\alpha$
+gives $\sigma_K\circ\Fel(F)(j_\alpha)=\Fel(G)(j_\alpha)\circ\sigma_{\iota L_\alpha}$.
+Both $\Fel(F)(j_\alpha)$ and $\Fel(G)(j_\alpha)$ have identity leg components,
+so comparing leg components yields $(\sigma_K)_\alpha=\tau_{L_\alpha}$. Hence
+$\sigma=\Fel(\tau)$.
+\end{proof}
+
+\begin{remark}\label{rem:feline-functors-honest}
+\Cref{thm:feline-functors} is the feline form of the familiar fact that
+fibred functors between family fibrations $\Fam(\cC)\to\Set$ and
+$\Fam(\cD)\to\Set$ correspond, up to isomorphism, to functors $\cC\to\cD$; see
+\cite{Jacobs1999} for the general theory of fibred functors.
+\end{remark}
+
+\begin{counterexample}[A feline functor that is not fibred]\label{cex:body-sharing}
+Suppose $\cC$ has small coproducts. Define $\Phi_\body\colon\Fel(\cC)\to\Fel(\cC)$
+by
+\[
+\Phi_\body(K)=\Bigl\langle\coprod_{\gamma\in A}L_\gamma\Bigr\rangle_{\alpha\in A},
+\qquad
+\Phi_\body(\varphi,F)=\Bigl(\varphi,\bigl(\textstyle\coprod_\gamma F_\gamma\bigr)_{\alpha\in A}\Bigr),
+\]
+where $\coprod_\gamma F_\gamma\colon\coprod_{\gamma\in A}L_\gamma\to\coprod_{\delta\in B}L'_\delta$
+is the morphism whose restriction to the $\gamma$-th summand is
+$\inj_{\varphi(\gamma)}\circ F_\gamma$. Thus every leg of $\Phi_\body(K)$ is a copy
+of the coproduct of all the legs of $K$. This is a feline functor. It is not
+fibred when $\cC=\Set$: for the two-legged cat $K=\langle\{*\},\{*\}\rangle_{\{a,b\}}$,
+the leg inclusion $j_a\colon\iota\{*\}\to K$ is reindexing, but $\Phi_\body(j_a)$
+has leg component the coprojection
+$1\to1\sqcup1$, which is not an isomorphism. Consequently $\Phi_\body$ is not
+isomorphic, via a feline natural isomorphism, to $\Fel(F)$ for any functor
+$F$, since fibredness is invariant under vertical natural isomorphism. The
+hypothesis of fibredness in \cref{thm:feline-functors} is therefore
+necessary.
+\end{counterexample}
+
+\section{Feline adjunctions and equivalences}\label{sec:feline-adjunctions}
+
+\begin{proposition}\label{prop:Fel-adjunction}
+Let $F\colon\cC\to\cD$ and $G\colon\cD\to\cC$ be functors. Then $F\dashv G$ if
+and only if $\Fel(F)\dashv\Fel(G)$. More precisely, every adjunction
+$F\dashv G$ induces an adjunction $\Fel(F)\dashv\Fel(G)$, and every adjunction
+$\Fel(F)\dashv\Fel(G)$ restricts along $\iota$ to an adjunction $F\dashv G$.
+\end{proposition}
+
+\begin{proof}
+Suppose given natural bijections $\vartheta_{X,Y}\colon\cD(FX,Y)\iso\cC(X,GY)$.
+For $K=\langle L_\alpha\rangle_A$ and $K'=\langle L'_\beta\rangle_B$,
+\cref{cor:Fel-hom} gives bijections
+\begin{align*}
+\Fel(\cD)(\Fel(F)K,K')&\iso\prod_{\alpha}\coprod_{\beta}\cD(FL_\alpha,L'_\beta)
+\xrightarrow{\ \prod\coprod\vartheta\ }\prod_{\alpha}\coprod_{\beta}\cC(L_\alpha,GL'_\beta)\\
+&\iso\Fel(\cC)(K,\Fel(G)K'),
+\end{align*}
+which preserve gaits. Naturality in $K$ and $K'$ reduces, leg by leg, to
+naturality of $\vartheta$. (For non-normalized $K$ we compose with the
+normalization isomorphism.) Conversely, an adjunction $\Fel(F)\dashv\Fel(G)$
+gives natural bijections
+\[
+\cD(FX,Y)\iso\Fel(\cD)(\Fel(F)\iota X,\iota Y)\iso\Fel(\cC)(\iota X,\Fel(G)\iota Y)\iso\cC(X,GY),
+\]
+using $\Fel(F)\iota=\iota F$, $\Fel(G)\iota=\iota G$ and the full faithfulness
+of $\iota$.
+\end{proof}
+
+\begin{corollary}\label{cor:first-string}
+There are adjunctions $\Delta_0\dashv\legs\dashv\Delta_1$ between
+$\Set\iso\Fel(\one)$ and $\Fel(\cC)$.
+\end{corollary}
+
+\begin{proof}
+An object $X$ of $\cC$ is initial if and only if $\ulcorner X\urcorner\colon\one\to\cC$
+is left adjoint to $!_\cC\colon\cC\to\one$, and terminal if and only if
+$\ulcorner X\urcorner$ is right adjoint to $!_\cC$. Hence
+$\ulcorner0\urcorner\dashv\ !_\cC\dashv\ulcorner1\urcorner$. Apply
+\cref{prop:Fel-adjunction} and \cref{ex:Fel-of-point}.
+\end{proof}
+
+\Cref{cor:first-string} will be extended in \cref{thm:adjoint-string}. We note
+that the adjunctions $\Delta_0\dashv\legs\dashv\Delta_1$ are merely the
+felinizations of the definitions of initial and terminal object.
+
+\begin{corollary}\label{cor:Fel-equivalence}
+$\cC\eqv\cD$ implies $\Fel(\cC)\eqv\Fel(\cD)$, by a feline equivalence.
+\end{corollary}
+
+\begin{proof}
+Apply \cref{prop:Fel-properties} to an equivalence $F\colon\cC\to\cD$.
+\end{proof}
+
+The converse of \cref{cor:Fel-equivalence} holds as well, for arbitrary (not
+necessarily feline) equivalences; see \cref{thm:reconstruction}.
+
+\section{Functors that are not feline}\label{sec:non-feline}
+
+Many natural endofunctors of $\Fel(\cC)$ change the number of legs. For a
+fixed cat $M$, the functor $K\mapsto K\sqcup M$ (with $\sqcup$ the coproduct of
+\cref{prop:coproducts}) has leg sets $\legs(K)\sqcup\legs(M)$, and, if $\cC$ has
+binary products, the functor $K\mapsto K\times M$ of \cref{thm:limits} has leg
+sets $\legs(K)\times\legs(M)$. If $M$ is not legless, respectively not
+unipedal, these functors are not isomorphic to any feline functor, since they
+change the cardinality of the leg set of some cat (for instance of $\iota(0)$),
+and a natural isomorphism preserves leg sets up to bijection.
+
+By contrast, the functors $\Delta_1\circ\legs$, which replaces every leg by the
+tail, and $\Delta_0\circ\legs$, which replaces every leg by the head, are feline,
+and in fact fibred, since every morphism in their image has identity leg
+components; in accordance with
+\cref{thm:feline-functors} they are the felinizations of the constant functors
+$\cC\to\cC$ with values $1$ and $0$. They are also the monad
+$\Delta_1\legs$ of the adjunction $\legs\dashv\Delta_1$ and the comonad
+$\Delta_0\legs$ of the adjunction $\Delta_0\dashv\legs$.

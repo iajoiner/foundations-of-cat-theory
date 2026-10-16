@@ -1,0 +1,87 @@
+\chapter{Concluding remarks}\label{ch:conclusion}
+
+\section{Summary}
+
+We have defined $\cC$-cats for a category $\cC$ with an initial object,
+defined their morphisms by commutative diagrams, and developed the resulting
+theory through the topics customary in a monograph on a new categorical
+structure: subclasses of objects, functors and natural transformations,
+limits and colimits, adjunctions, Yoneda-type theorems, monoidal and enriched
+structure, fibrations, higher-dimensional variants, and representation and
+decomposition theorems. We have also introduced the Chloe Condition, Margaret
+Compatibility and Gideon Decompositions, and proved the CMG Correspondence
+Theorem and a recognition theorem for categories of cats.
+
+Every result in the theory has been proved, and we know of no inconsistency
+in it. It is also, in a precise sense, empty. By the Automatic Commutativity
+Proposition (\cref{prop:automatic}), the diagrams that define a morphism of cats
+impose no conditions, and by the Fundamental Theorem (\cref{thm:fundamental}),
+the category of cats is equivalent to the category of families. Every
+subsequent result is therefore a statement about families, and in most cases
+we have identified the classical statement in question; the remaining results
+(for instance \cref{thm:slice,prop:image,cor:tower}) are elementary consequences
+of the same identification.
+
+The head and the tail of a particular cat never carry information. What does
+have a visible effect is the existence, or the relation between, the initial
+and terminal objects of $\cC$. The existence of an initial object makes the leg
+functor representable by the cephalic cat (\cref{lem:legs-representable}), with
+consequences for limits and monomorphisms (\cref{thm:limits,prop:mono}) that
+fail for headless cats (\cref{cex:headless-products,cex:mono-headless}). The
+existence of a terminal object makes the leg functor a left adjoint, which is
+used in the analysis of colimits (\cref{thm:colimits}), and is built into the
+notion of a Gideon Decomposition (\cref{rem:recognition-tail}). Whether the
+initial and terminal objects coincide governs the length of the feline adjoint
+string (\cref{prop:Delta0-left,prop:Gamma-right,prop:pointed-infinite}) and the
+existence of natural transformations from legs to points
+(\cref{prop:basic-nat}).
+
+\section{Points at which the theory is not trivial}
+
+For the reader who wishes to know which of the results above required any
+thought, we list them. None is new.
+\begin{enumerate}
+\item The necessity halves of \cref{thm:limits,thm:colimits}, which use the
+  representability of the leg functor and its left adjointness respectively.
+\item The equivalence $\Fel(\Set^\cJ)\eqv\Set^{\cJ^{\triangleright}}$ of
+  \cref{thm:Fel-Set-J} and its consequences, in particular that $\Fel(\PSh(\cD))$
+  is a presheaf topos.
+\item The direct proof that $\Fel(\cE)$ is a topos (\cref{thm:topos}), whose
+  subobject classifier has two legs.
+\item The adjoint string of \cref{thm:adjoint-string} and the precise conditions
+  under which it extends (\cref{prop:Delta0-left,prop:Gamma-right,prop:set-string}).
+\item The behaviour of the additive enrichment (\cref{thm:Ab-collapse}), in which
+  a leg equal to the head can be removed without changing the isomorphism type
+  of the cat.
+\item The counterexample $\Fel(\cD)\times[1]$ of \cref{cex:recognition}, which
+  shows that the Gideon condition in the recognition theorem is independent of
+  the others.
+\end{enumerate}
+
+\section{Questions not pursued}
+
+We list some directions that we have not pursued. We do not regard any of them
+as important, and we expect each to be routine.
+\begin{enumerate}
+\item Cats in an $(\infty,1)$-category (\cref{rem:infinity}). We expect the
+  $\infty$-category of such cats to be equivalent to that of set-indexed
+  families, by the same argument as \cref{thm:fundamental}, with contractible
+  spaces in place of singletons.
+\item Enrichment over a general monoidal base $\cV$ (\cref{rem:enrichment-moral}).
+  The additive case shows that the answer depends on how $\otimes$ interacts with
+  coproducts in $\cV$, and that it is not obtained by enriching $\Fel(\cC)$.
+\item Head-absorbing morphisms (\cref{rem:head-absorbing}) and retrograde cats
+  (\cref{rem:retrograde}). The latter are objects of the free product
+  completion of $\cC$, and their theory is the dual of the theory of
+  $\Fel(\cC^{\op})$.
+\item Gaited cats with structured gaits, for instance gaits that are posets or
+  groupoids. By \cref{prop:gaited-diag}, these are diagrams of the relevant
+  shapes.
+\end{enumerate}
+
+\section{A final remark}
+
+The reader may ask what has been gained by recording the head and the tail at
+all. Formally, nothing: \cref{thm:anatomy} shows that, up to equivalence,
+removing them changes the category of cats only by deciding whether it is
+empty.

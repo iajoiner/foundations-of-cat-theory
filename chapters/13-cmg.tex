@@ -1,0 +1,358 @@
+\chapter{The CMG Correspondence}\label{ch:cmg}
+
+\begin{assumption}\label{ass:ch13}
+Throughout this chapter $\cC$ is a locally small category with an initial
+object $0$ and a terminal object $1$. Small coproducts in $\cC$ are not assumed
+unless stated. We write $\cC^\conn$ for the full subcategory of connected
+objects (\cref{def:connected}).
+\end{assumption}
+
+This chapter proves the CMG Correspondence Theorem, which relates three notions
+introduced in earlier chapters:
+\begin{itemize}
+\item the \emph{Chloe Condition} on a cat (\cref{def:chloe}): every leg is
+  connected;
+\item \emph{Margaret Compatibility} of a cocone $\beta\colon K\to\iota X$
+  (\cref{def:margaret}): every morphism from a connected object to $X$ factors
+  uniquely through exactly one leg;
+\item \emph{Gideon Decompositions} of an object $X$ (\cref{def:gideon}): a cat
+  satisfying the Chloe Condition together with a coproduct cocone from its legs
+  to $X$.
+\end{itemize}
+We then deduce a recognition theorem for categories of cats and study the
+interaction of the three notions with the monoidal structure of
+\cref{ch:monoidal}. The identification of each notion with a familiar one is
+recorded in \cref{rem:cmg-honest}.
+
+\section{The CMG Correspondence Theorem}\label{sec:cmg-theorem}
+
+\begin{theorem}[CMG Correspondence]\label{thm:cmg}
+Let $X$ be an object of $\cC$, let $K$ be a $\cC$-cat, and let $\beta\colon K\to\iota X$
+be a cocone. Consider the conditions:
+\begin{itemize}
+\item[\textup{(C)}] $K$ satisfies the Chloe Condition;
+\item[\textup{(M)}] $\beta$ is Margaret compatible;
+\item[\textup{(G)}] $(K,\beta)$ is a Gideon Decomposition of $X$.
+\end{itemize}
+Then:
+\begin{enumerate}
+\item\label{it:cmg-forward} \textup{(G)} implies \textup{(C)} and \textup{(M)}.
+\item\label{it:cmg-backward} Suppose that $X$ admits a Gideon Decomposition
+  $(K_0,\beta_0)$. If \textup{(C)} and \textup{(M)} hold, then there is a unique
+  morphism of cats $\theta\colon K\to K_0$ with $\beta_0\theta=\beta$; this
+  $\theta$ is an isomorphism, and \textup{(G)} holds.
+\item\label{it:cmg-unique} The category $\mathsf{Gid}(X)$ is either empty or
+  equivalent to $\one$: any two Gideon Decompositions of $X$ are related by a
+  unique morphism, and it is an isomorphism.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\ref{it:cmg-forward} (C) is part of the definition of a Gideon Decomposition.
+For (M), let $Y$ be connected. Since $X$, with the coprojections $\beta_\alpha$,
+is a coproduct of the family $(L_\alpha)$, the map $m^\beta_Y$ is precisely the
+canonical map \eqref{eq:connected} for this family, which is bijective because
+$Y$ is connected.
+
+\ref{it:cmg-backward} By \ref{it:cmg-forward}, $K_0$ satisfies (C) and $\beta_0$
+satisfies (M). By \cref{prop:margaret-equiv}, $\Yon^\conn(\beta)\colon\Yon^\conn K\to y^\conn X$
+and $\Yon^\conn(\beta_0)\colon\Yon^\conn K_0\to y^\conn X$ are isomorphisms. Since $K$
+satisfies the Chloe Condition, \cref{prop:restricted-yoneda} shows that
+$\Yon^\conn\colon\Fel(\cC)(K,K_0)\to\PSh(\cC^\conn)(\Yon^\conn K,\Yon^\conn K_0)$ is
+a bijection; let $\theta$ be the unique morphism with
+$\Yon^\conn(\theta)=\Yon^\conn(\beta_0)^{-1}\circ\Yon^\conn(\beta)$. Applying the same
+proposition to the pair $(K,\iota X)$, the map
+$\Yon^\conn\colon\Fel(\cC)(K,\iota X)\to\PSh(\cC^\conn)(\Yon^\conn K,y^\conn X)$ is a
+bijection. Since $\Yon^\conn(\beta_0\theta)=\Yon^\conn(\beta)$, we obtain
+$\beta_0\theta=\beta$. If $\theta'$ also satisfies $\beta_0\theta'=\beta$, then
+$\Yon^\conn(\beta_0)\Yon^\conn(\theta')=\Yon^\conn(\beta)$, so
+$\Yon^\conn(\theta')=\Yon^\conn(\theta)$ and $\theta'=\theta$. Since $K$ and
+$K_0$ both satisfy the Chloe Condition, \cref{prop:restricted-yoneda} shows that
+$\Yon^\conn$ is fully faithful on the full subcategory spanned by $K$ and $K_0$,
+and so reflects isomorphisms there; as $\Yon^\conn(\theta)$ is an isomorphism,
+so is $\theta$. Finally, write $\theta=(\varphi,(\theta_\alpha))$. By
+\cref{prop:iso}, $\varphi$ is bijective and each $\theta_\alpha$ is invertible, so
+the family $\beta_\alpha=\beta_{0,\varphi(\alpha)}\circ\theta_\alpha$ is a coproduct cocone,
+being obtained from the coproduct cocone $\beta_0$ by reindexing along a
+bijection and precomposing with isomorphisms. Hence (G) holds.
+
+\ref{it:cmg-unique} Given Gideon Decompositions $(K,\beta)$ and $(K_0,\beta_0)$,
+part \ref{it:cmg-forward} shows that $(K,\beta)$ satisfies (C) and (M), and part
+\ref{it:cmg-backward} provides a unique morphism $(K,\beta)\to(K_0,\beta_0)$,
+which is an isomorphism.
+\end{proof}
+
+\begin{corollary}\label{cor:cmg-iff}
+If $X$ is Gideon-decomposable, then a cocone $\beta\colon K\to\iota X$ from a cat
+satisfying the Chloe Condition is a Gideon Decomposition if and only if it is
+Margaret compatible. In symbols: under the hypothesis that $\mathsf{Gid}(X)\neq\varnothing$,
+\[
+\textup{(G)}\iff\textup{(C)}\wedge\textup{(M)}.
+\]
+\end{corollary}
+
+\begin{proof}
+Combine \cref{thm:cmg}\ref{it:cmg-forward},\ref{it:cmg-backward}.
+\end{proof}
+
+\subsection*{Sharpness}
+
+Each hypothesis in \cref{thm:cmg,cor:cmg-iff} is necessary.
+
+\begin{counterexample}[Existence cannot be dropped]\label{cex:cmg-existence}
+In each of the following, the object $X$ admits no Gideon Decomposition.
+\begin{enumerate}
+\item In $\Top$, the cocone of \cref{ex:margaret}(iii) from the cat
+  $K=\langle\{q\}\rangle_{q\in\mathbb Q}$ to $\mathbb Q$ satisfies (C) and (M) but
+  not (G). Here $\mathbb Q$ admits no Gideon Decomposition (\cref{ex:gideon}(ii)).
+\item In $\Ab$, for any nonzero abelian group $X$, the unique cocone from the
+  legless cat to $X$ satisfies (C) vacuously and (M) vacuously
+  (\cref{ex:margaret}(ii)), but not (G), since $X$ is not initial.
+\end{enumerate}
+\end{counterexample}
+
+\begin{counterexample}[The Chloe Condition cannot be dropped]\label{cex:cmg-chloe}
+In $\Set$ let $Y$ be a set with at least one element and $X=Y\sqcup Y$. The
+unipedal cat $\iota X$ with the identity cocone, and the two-legged cat
+$\langle Y,Y\rangle$ with the coprojections, are both Margaret compatible cocones
+exhibiting $X$ as a coproduct of their legs. They are not isomorphic over $X$,
+since their leg sets have different cardinalities. Without (C), therefore,
+neither the implication \textup{(M)}$\Rightarrow$\textup{(G)} nor the uniqueness
+of \cref{thm:cmg}\ref{it:cmg-unique} survives. In this example both cocones
+are coproduct cocones; the following shows that without (C), Margaret
+Compatibility does not even force a coproduct cocone, although $X$ is
+Gideon-decomposable. In $\Ab$, the object $X=0$ has the legless Gideon
+Decomposition. The cocone from $\iota(\mathbb Z)$ to $0$ is Margaret compatible,
+vacuously, since $\Ab$ has no connected objects, but it is not a coproduct
+cocone, since $\mathbb Z$ is not a zero object.
+\end{counterexample}
+
+\begin{counterexample}[Margaret Compatibility cannot be dropped]\label{cex:cmg-margaret}
+In $\Set$, the unipedal cat $\iota(1)$ with the cocone $1\to2$ picking out one
+element satisfies (C), and $2$ is Gideon-decomposable, but the cocone is
+neither Margaret compatible nor a Gideon Decomposition.
+\end{counterexample}
+
+\begin{remark}\label{rem:cmg-honest}
+We identify the three notions and the theorem with classical ones.
+\begin{enumerate}
+\item The Chloe Condition on a cat is the condition that its legs be connected
+  objects; Chloe cats are, up to equivalence, families of connected objects
+  (\cref{prop:chloe-basic}(iv)).
+\item Margaret Compatibility of a cocone is the invertibility of the induced
+  map of restricted Yoneda presheaves on connected objects
+  (\cref{prop:margaret-equiv}).
+\item A Gideon Decomposition is a decomposition of an object as a coproduct of
+  connected objects, i.e.\ a decomposition into connected components.
+\item \Cref{thm:cmg}\ref{it:cmg-unique} is the uniqueness of decompositions into
+  connected components, and \cref{thm:cmg}\ref{it:cmg-backward} is the
+  observation that, between coproducts of connected objects, a morphism is
+  determined by, and is invertible if and only if it induces a bijection on,
+  morphisms out of connected objects.
+\end{enumerate}
+We are not aware of any application of the CMG Correspondence Theorem outside
+this monograph. Within it, the theorem is used only to show that the Gideon
+number (\cref{def:gideon-number}) is well defined and in the proof of
+\cref{thm:recognition}.
+\end{remark}
+
+\begin{definition}\label{def:gideon-number}
+For a Gideon-decomposable object $X$, its \emph{Gideon number} $\gamma(X)$ is the
+cardinality of the leg set of any Gideon Decomposition of $X$. It is well
+defined by \cref{thm:cmg}\ref{it:cmg-unique} and \cref{prop:iso}.
+\end{definition}
+
+\begin{proposition}\label{prop:gideon-number}
+\begin{enumerate}
+\item $\gamma(X)=0$ if and only if $X$ is initial, and $\gamma(X)=1$ if and
+  only if $X$ is connected.
+\item If $\cC$ has small coproducts and the $X_i$ are Gideon-decomposable,
+  then $\gamma(\coprod_iX_i)=\sum_i\gamma(X_i)$.
+\item $\gamma(X)=|X|$ for a set $X$; $\gamma(X)$ is the number of connected
+  components of a space whose components are open; and, in $\Fel(\cC)$, the
+  Gideon number of a cat is its number of legs.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) A legless Gideon Decomposition exhibits $X$ as an empty coproduct; a unipedal
+one exhibits $X$ as isomorphic to a connected object; conversely an initial
+object has the legless Gideon Decomposition and a connected object $X$ has
+$(\iota X,\id)$. (ii) Coproducts of Gideon Decompositions are Gideon
+Decompositions, by \cref{prop:chloe-basic}(iii) and the associativity of
+coproducts. (iii) follows from \cref{ex:gideon}.
+\end{proof}
+
+\section{Recognition of categories of cats}\label{sec:recognition}
+
+Let $\cE$ be a locally small category with small coproducts. Then $\cE$ has an
+initial object (the empty coproduct). Recall that $\cE^\conn$ is the full
+subcategory of connected objects and $y^\conn\colon\cE\to\PSh(\cE^\conn)$ the
+restricted Yoneda functor. As noted after \cref{def:gideon}, the notions of
+$\cE$-cat and of Gideon Decomposition in $\cE$ make sense without assuming a
+terminal object, but there are no $\cE$-cats unless $\cE$ has one. Consequently,
+if some object of $\cE$ admits a Gideon Decomposition, or is the vertex of a
+cocone from an $\cE$-cat, then $\cE$ has a terminal object.
+
+\begin{theorem}[Recognition]\label{thm:recognition}
+For a locally small category $\cE$ the following are equivalent.
+\begin{enumerate}
+\item\label{it:rec-fel} $\cE\eqv\Fel(\cD)$ for some category $\cD$ with an
+  initial and a terminal object.
+\item\label{it:rec-gideon} $\cE$ has small coproducts, $\cE$ admits Gideon
+  Decompositions, and $\cE^\conn$ has an initial object.
+\item\label{it:rec-margaret} $\cE$ has small coproducts, $\cE^\conn$ has an
+  initial object, the restricted Yoneda functor
+  $y^\conn\colon\cE\to\PSh(\cE^\conn)$ is conservative, and every object of $\cE$
+  is the vertex of a Margaret compatible cocone from an $\cE$-cat satisfying the
+  Chloe Condition.
+\end{enumerate}
+In this case $\cD\eqv\cE^\conn$, and $\cE$ has a terminal object.
+\end{theorem}
+
+\begin{proof}
+\ref{it:rec-fel}$\Rightarrow$\ref{it:rec-gideon}. Each property in
+\ref{it:rec-gideon} is invariant under equivalence, so we may take
+$\cE=\Fel(\cD)$. It has small coproducts (\cref{prop:coproducts}) and the
+terminal object $\Caudal$ (\cref{prop:terminal-cat}); it admits Gideon
+Decompositions (\cref{ex:gideon}(v)); and $\Fel(\cD)^\conn$ is the full
+subcategory of unipedal cats (\cref{prop:connected-unipedal}), which is
+equivalent to $\cD$ via $\iota$ and so has the initial object $\Cephalic$.
+
+\ref{it:rec-gideon}$\Rightarrow$\ref{it:rec-fel}. Let $\cD=\cE^\conn$. By the
+remarks preceding the theorem, $\cE$ has a terminal object, so
+\cref{prop:chloe-body} applies, and by \cref{prop:chloe-body}(iv),
+$\body\colon\Fam(\cD)\to\cE$ is an equivalence. By hypothesis $\cD$ has an
+initial object $0_\cD$. The terminal object of $\cE$
+corresponds to a terminal object $(S,Z)$ of $\Fam(\cD)$. Since $\cD$ has an
+initial object, $\Fam(\cD)((1,0_\cD),(S,Z))\iso S$ as in
+\cref{lem:legs-representable}, and this set is a singleton; so $S=1$, and
+$Z$ is terminal in $\cD$ because $\cD(W,Z)\iso\Fam(\cD)((1,W),(1,Z))$ is a
+singleton for every $W$. Thus $\cD$ has an initial and a terminal object, and
+$\cE\eqv\Fam(\cD)\eqv\Fel(\cD)$ by \cref{thm:fundamental}.
+
+\ref{it:rec-gideon}$\Rightarrow$\ref{it:rec-margaret}. By \cref{thm:cmg}\ref{it:cmg-forward},
+a Gideon Decomposition of $X$ is a Margaret compatible cocone from a Chloe
+$\cE$-cat. For conservativity: by \cref{prop:chloe-body}, every object is
+isomorphic to $\body K$ for a Chloe cat $K$, and $y^\conn(\body K)\iso\Yon^\conn K$
+naturally in $K$, by connectedness of the objects of $\cE^\conn$. By
+\cref{prop:restricted-yoneda,prop:chloe-body}(i), $y^\conn$ is therefore fully
+faithful, and in particular conservative.
+
+\ref{it:rec-margaret}$\Rightarrow$\ref{it:rec-gideon}. As before, $\cE$ has a
+terminal object. Let $X$ be an object and
+$\beta\colon K\to\iota X$ a Margaret compatible cocone with $K$ Chloe. Let
+$\beta^\flat\colon\body K\to X$ be its transpose. For connected $Y$,
+\[
+\coprod_\alpha\cE(Y,L_\alpha)\xrightarrow{\ \kappa\ }\cE(Y,\body K)\xrightarrow{\ \beta^\flat\circ-\ }\cE(Y,X)
+\]
+composes to $m^\beta_Y$, which is bijective, and $\kappa$ is bijective by
+connectedness of $Y$; hence $y^\conn(\beta^\flat)$ is an isomorphism. Since
+$y^\conn$ is conservative, $\beta^\flat$ is an isomorphism, and $(K,\beta)$ is a
+Gideon Decomposition.
+
+The final assertion follows from \cref{thm:reconstruction} or directly from the
+proof of \ref{it:rec-gideon}$\Rightarrow$\ref{it:rec-fel}.
+\end{proof}
+
+\begin{remark}\label{rem:recognition-honest}
+The equivalence of \ref{it:rec-fel} and \ref{it:rec-gideon}, with $\Fam$ in place
+of $\Fel$ and without the conditions on initial and terminal objects, is the
+well-known and elementary characterization of free coproduct completions: a
+category with small coproducts is a free coproduct completion if and only if
+every object is a coproduct of connected objects. We have given a complete
+proof and have not attempted to trace the statement to its origin. The
+additional conditions record the existence of a head (an initial connected
+object) and of a tail (a terminal object, which is built into the notion of a
+Gideon Decomposition).
+\end{remark}
+
+\begin{counterexample}[Independence of the conditions]\label{cex:recognition}
+Each of the three conditions in \cref{thm:recognition}\ref{it:rec-gideon} is
+independent of the other two. In each example below, all conditions but the
+named one hold.
+\begin{enumerate}
+\item \emph{Small coproducts.} $\cE=\Kit(\cC)$. The leg functor
+  $\legs\colon\Kit(\cC)\to\mathbf{FinSet}$ is left adjoint to $\Delta_1$, so it
+  preserves every coproduct that exists in $\Kit(\cC)$. Hence a family of kittens
+  has a coproduct in $\Kit(\cC)$ only if all but finitely many of its members are
+  legless, and in that case the coproduct of \cref{prop:coproducts} is a kitten
+  and is a coproduct in $\Kit(\cC)$. In particular $\Kit(\cC)$ has finite
+  coproducts but lacks the coproduct of countably many copies of $\Caudal$, which
+  would be sent to a coproduct of countably many copies of $1$ in
+  $\mathbf{FinSet}$. With coproducts so described, the proof of
+  \cref{prop:connected-unipedal} shows that the connected objects of $\Kit(\cC)$
+  are the unipedal kittens, which have the initial object $\Cephalic$; and every
+  kitten is a finite coproduct of unipedal kittens, so $\Kit(\cC)$ admits Gideon
+  Decompositions.
+\item \emph{Initial connected object.} $\cE=\Graph$. It has small coproducts, the
+  terminal object consisting of one vertex with a loop, and Gideon
+  Decompositions. A connected graph $G_0$ admitting a morphism to the one-vertex
+  graph without loop has no edges, hence is a single vertex, and then it admits
+  two morphisms to the connected graph with two vertices and one edge. So
+  $\Graph^\conn$ has no initial object.
+\item \emph{Gideon Decompositions.} $\cE=\Fel(\cD)\times[1]$, where $[1]=\{0<1\}$
+  and $\cD$ has initial and terminal objects. Coproducts are computed
+  componentwise (in $[1]$ they are suprema), and $(\Caudal,1)$ is terminal. One
+  checks from the definitions that the connected objects are the objects
+  isomorphic to $(\iota X,0)$: for these,
+  $\cE((\iota X,0),\coprod_i(K_i,e_i))\iso\Fel(\cD)(\iota X,\coprod_iK_i)\iso\coprod_i\cE((\iota X,0),(K_i,e_i))$;
+  if $K$ is not legless, the identity of $(K,1)\iso(K,0)\sqcup(\Legless,1)$
+  factors through neither coprojection, because $\cE((K,1),(K,0))=\varnothing$
+  (as $1\not\le0$) and $\cE((K,1),(\Legless,1))=\varnothing$; the object
+  $(\Legless,1)$ fails connectedness for the family $((\Legless,1),(\Legless,1))$,
+  whose coproduct is $(\Legless,1)$ and which yields two elements on the left of
+  \eqref{eq:connected} but one on the right;
+  and since $\cE((K,0),(M,e))=\Fel(\cD)(K,M)$ for every $(M,e)$, an object
+  $(K,0)$ is connected in $\cE$ if and only if $K$ is connected in $\Fel(\cD)$,
+  that is, unipedal (\cref{prop:connected-unipedal}). Thus $\cE^\conn\eqv\cD$ has the initial object
+  $(\Cephalic,0)$. But $(K,1)$ is not a coproduct of connected objects, since such
+  coproducts have second coordinate $0$.
+\end{enumerate}
+The last example also shows that conservativity in
+\cref{thm:recognition}\ref{it:rec-margaret} cannot be omitted: the cocone from
+the Chloe $\cE$-cat $\langle(\iota L_\alpha,0)\rangle_\alpha$ to $(K,1)$, with
+components $(j_\alpha,0\le1)$, is Margaret compatible, but it is not a Gideon
+Decomposition, and the morphism $(K,0)\to(K,1)$ is inverted by $y^\conn$ without
+being an isomorphism.
+\end{counterexample}
+
+\begin{remark}\label{rem:recognition-tail}
+The category $\Fam(\mathbb N,\le)$ has small coproducts, every object is a
+coproduct of connected objects (one-element families), and its connected objects
+form a category equivalent to $(\mathbb N,\le)$, which has an initial object. It is
+nevertheless not equivalent to any $\Fel(\cD)$, since it has no terminal object.
+It does not contradict \cref{thm:recognition}, because, having no terminal object,
+it has no cats and hence no Gideon Decompositions. This is one point at which the
+requirement that a cat have a tail affects the formulation of a theorem.
+\end{remark}
+
+\section{CMG and the tensor product}\label{sec:cmg-tensor}
+
+\begin{proposition}\label{prop:gideon-tensor}
+Let $\cC$ be monoidal, with $\otimes$ preserving those small coproducts that exist
+in each variable, and suppose that the tensor product of two connected objects
+is connected. If $(K,\beta)$ and $(K',\beta')$ are Gideon Decompositions of $X$
+and $X'$, then $K\otimes K'$, with the cocone
+$(\beta_\alpha\otimes\beta'_{\alpha'})_{(\alpha,\alpha')}$, is a Gideon Decomposition of
+$X\otimes X'$. Consequently $\cC^\Gid$ is closed under $\otimes$, and
+$\gamma(X\otimes X')=\gamma(X)\gamma(X')$.
+\end{proposition}
+
+\begin{proof}
+$K\otimes K'$ is Chloe by hypothesis. Preservation of coproducts in each variable
+gives $X\otimes X'\iso(\coprod_\alpha L_\alpha)\otimes X'\iso\coprod_\alpha(L_\alpha\otimes\coprod_{\alpha'}L'_{\alpha'})\iso\coprod_{\alpha,\alpha'}L_\alpha\otimes L'_{\alpha'}$,
+with coprojections $\beta_\alpha\otimes\beta'_{\alpha'}$.
+\end{proof}
+
+\begin{example}\label{ex:gideon-tensor}
+The hypotheses of \cref{prop:gideon-tensor} hold for $(\Set,\times)$ and for
+$(\Top,\times)$, products of connected spaces being connected and products
+distributing over disjoint unions. They fail for $(\Graph,\times)$: the product
+of the connected graph $K_2$ (two vertices joined by an edge, no loops) with
+itself has vertices $(i,j)$ with $(i,j)\sim(i',j')$ if and only if $i\neq i'$
+and $j\neq j'$, and so consists of the two disjoint edges
+$\{(0,0),(1,1)\}$ and $\{(0,1),(1,0)\}$. Thus $\gamma(K_2\times K_2)=2\neq1=\gamma(K_2)^2$,
+and the conclusion of \cref{prop:gideon-tensor} fails, although $\times$ distributes
+over coproducts in $\Graph$.
+\end{example}

@@ -1,0 +1,178 @@
+\chapter{Introduction}\label{ch:intro}
+
+\section{The basic definition}
+
+Let $\cC$ be a category possessing an initial object. The central object of
+study in this monograph is the following.
+
+\begin{definition*}[informal version of \cref{def:cat}]
+A \emph{$\cC$-cat} is a tuple $K=(H,T,(L_\alpha)_{\alpha\in A})$ in which $H$
+is an initial object of $\cC$, $T$ is a terminal object of $\cC$, $A$ is a
+small set, and each $L_\alpha$ is an object of $\cC$, together with the
+canonical morphisms
+\[
+\begin{tikzcd}
+  & L_\alpha \arrow[dr, "t_\alpha"] & \\
+  H \arrow[ur, "h_\alpha"] \arrow[rr, "\sigma"'] & & T
+\end{tikzcd}
+\]
+for $\alpha\in A$.
+\end{definition*}
+
+The object $H$ is the \emph{head}, $T$ the \emph{tail}, and the $L_\alpha$
+the \emph{legs} of $K$; the morphism $\sigma$ is the \emph{spine}. A morphism
+of $\cC$-cats consists of a reindexing function between the sets of legs and
+morphisms between corresponding heads, legs and tails, subject to the
+commutativity of a family of squares (\cref{def:morphism}). The resulting
+category is denoted $\Fel(\cC)$.
+
+\section{An immediate reduction}
+
+The first substantive observation of the theory, which we record here so that
+it is not obscured by what follows, is that the head and tail of a cat carry no
+information.
+
+\begin{maintheorem}[Fundamental Theorem of Cat Theory; \cref{thm:fundamental}]
+Let $\cC$ be a category with an initial object. Every commutativity condition
+in the definition of a morphism of $\cC$-cats is automatically satisfied. The
+functor $\Fel(\cC)\to\Fam(\cC)$ which forgets the head and the tail is fully
+faithful, and it is an equivalence of categories if and only if $\cC$ has a
+terminal object. It is an isomorphism of categories if and only if $\cC$ has
+exactly one initial object and exactly one terminal object.
+\end{maintheorem}
+
+Here $\Fam(\cC)$ is the category of small families of objects of $\cC$, which
+is, by a classical observation, the free completion of $\cC$ under small
+coproducts. The Fundamental Theorem converts every subsequent question about
+$\cC$-cats into a question about families. We have nevertheless chosen to
+state and prove all results in feline terms, partly in order to verify that
+the feline formalism is internally consistent and partly because certain
+features of families (for instance, the r\^ole played by the initial object
+of $\cC$ in the existence of limits) become visible only when the head is
+recorded explicitly.
+
+\section{Principal results}
+
+We list the principal results. The labels refer to the body of the text.
+
+\begin{mainthm}[Limits and colimits; \cref{thm:limits,thm:colimits}]\label{mthm:limits}
+Let $\cC$ have an initial and a terminal object. For every small category
+$\cJ$, the category $\Fel(\cC)$ has all limits of shape $\cJ$ if and only if
+$\cC$ does. The category $\Fel(\cC)$ has all small colimits if and only if
+$\cC$ has all small connected colimits. The hypothesis that $\cC$ have an
+initial object is essential for the first statement.
+\end{mainthm}
+
+\begin{mainthm}[The feline adjoint string; \cref{thm:adjoint-string,prop:Delta0-left,prop:Gamma-right}]\label{mthm:string}
+The leg functor $\legs\colon\Fel(\cC)\to\Set$ sits in a string of adjunctions
+\[
+\Delta_0\dashv \legs \dashv \Delta_1 \dashv \points,
+\]
+where $\Delta_0$ (resp.\ $\Delta_1$) sends a set $S$ to the cat with $S$
+legs, each of which is a head (resp.\ a tail), and $\points$ sends a cat to
+the set of global elements of its legs. The functor $\Delta_0$ has a left
+adjoint if and only if $\cC$ is pointed, and $\points$ has a right adjoint
+if and only if $\cC$ is pointed or the global-sections functor
+$\cC(1,-)\colon\cC\to\Set$ has a right adjoint. For $\cC=\Set$ the string
+extends to five functors and cannot be extended further.
+\end{mainthm}
+
+\begin{mainthm}[Feline Yoneda; \cref{thm:yoneda-ff,thm:yoneda-image,thm:head-tail-eval}]\label{mthm:yoneda}
+The functor $\Yon\colon\Fel(\cC)\to\PSh(\cC)$ sending a cat to the coproduct
+of the presheaves represented by its legs is fully faithful. Its essential
+image consists of those presheaves whose category of elements is a disjoint
+union of categories with terminal objects. Under $\Yon$, the leg functor is
+evaluation at the head and the points functor is evaluation at the tail.
+\end{mainthm}
+
+\begin{mainthm}[Reconstruction; \cref{thm:reconstruction}]\label{mthm:reconstruction}
+If $\Fel(\cC)\eqv\Fel(\cD)$, then $\cC\eqv\cD$.
+\end{mainthm}
+
+\begin{mainthm}[Computations; \cref{thm:Fel-Set-J,cor:Fel-presheaf,thm:iterated-point}]\label{mthm:computations}
+For every small category $\cJ$ there is an equivalence
+$\Fel(\Set^{\cJ})\eqv\Set^{\cJ^{\triangleright}}$, where $\cJ^{\triangleright}$
+is $\cJ$ with a terminal object adjoined. Consequently
+$\Fel(\PSh(\cD))\eqv\PSh(\cD^{\triangleleft})$ for every small $\cD$, the
+$n$-fold iterated category of cats over the terminal category is equivalent to
+$\Set^{[n-1]}$, and in all cases the leg functor corresponds to evaluation at
+the adjoined object.
+\end{mainthm}
+
+\begin{mainthm}[Feline toposes; \cref{thm:topos}]\label{mthm:topos}
+If $\cE$ is an elementary topos with small products, then $\Fel(\cE)$ is an
+elementary topos. Its subobject classifier is a two-legged cat whose legs are
+the subobject classifier of $\cE$ and the terminal object.
+\end{mainthm}
+
+\begin{mainthm}[CMG Correspondence; \cref{thm:cmg}]\label{mthm:cmg}
+Let $X$ be an object of $\cC$. Every Gideon Decomposition of $X$ satisfies the
+Chloe Condition and is Margaret compatible. Conversely, if $X$ admits at least
+one Gideon Decomposition, then a cocone from a cat satisfying the Chloe
+Condition to $X$ is a Gideon Decomposition if and only if it is Margaret
+compatible; Gideon Decompositions of $X$ are unique up to unique isomorphism.
+Neither hypothesis can be omitted.
+\end{mainthm}
+
+\begin{mainthm}[Recognition; \cref{thm:recognition}]\label{mthm:recognition}
+A locally small category $\cE$ is equivalent to $\Fel(\cD)$ for some category
+$\cD$ with an initial and a terminal object if and only if $\cE$ has small
+coproducts, every object of $\cE$ admits a Gideon Decomposition, and the full
+subcategory of connected objects of $\cE$ (equivalently, of objects satisfying
+the Chloe Condition) has an initial object. The existence of a terminal object
+in $\cE$ is implied by these conditions, a Gideon Decomposition being a cat and
+therefore having a tail.
+\end{mainthm}
+
+\section{The CMG framework}
+
+Three notions recur in the later chapters. The \emph{Chloe Condition}
+(\cref{sec:chloe}) is a condition on a cat: that each of its legs be a connected object of $\cC$.
+\emph{Margaret Compatibility} is a condition on a cocone from the legs of a
+cat to an object $X$: that every morphism from a connected object into $X$
+factor uniquely through exactly one leg (\cref{sec:margaret}). A
+\emph{Gideon Decomposition} of $X$ (\cref{sec:gideon}) is a cat satisfying the Chloe Condition together with a coproduct cocone
+from its legs to $X$. The CMG Correspondence Theorem (\cref{mthm:cmg}),
+proved in \cref{ch:cmg}, shows
+that, in the presence of at least one Gideon Decomposition, Margaret
+Compatibility characterizes Gideon Decompositions among cocones from cats
+satisfying the Chloe Condition, and that Gideon Decompositions are essentially
+unique. We identify these notions with familiar ones in
+\cref{rem:cmg-honest}: the Chloe Condition is connectedness of legs, Margaret
+Compatibility is the invertibility of a comparison of restricted Yoneda
+presheaves, and Gideon Decompositions are decompositions into connected
+components. The three notions are introduced where they arise (in
+\cref{ch:anatomy,ch:yoneda,ch:representation} respectively), recur in
+\cref{ch:limits,ch:adjunctions,ch:monoidal,ch:fibrations}, and are brought
+together in \cref{ch:cmg}.
+
+\section{Relation to the literature}
+
+We make no claim of novelty. The category of small families $\Fam(\cC)$, its
+description as the free coproduct completion, the family fibration
+$\Fam(\cC)\to\Set$, and the elementary facts concerning its limits,
+colimits, connected objects and Yoneda embedding are classical; general
+references are \cite{Borceux1994,Jacobs1999,Johnstone2002,MacLane1998,Riehl2016}.
+The characterization of coproduct completions by connected objects, which
+underlies \cref{mthm:recognition}, is likewise well known and elementary. We have included
+complete proofs because the feline formulation of each statement differs
+superficially from the classical one and because we wished the account to be
+self-contained. Where we have not located a statement in the literature in
+precisely the form given, we have nevertheless refrained from describing it as
+new: in every such case the statement is an elementary consequence of the
+Fundamental Theorem together with well-known facts.
+
+The terminology of this monograph (heads, tails, legs, kittens, the Chloe
+Condition, Margaret Compatibility, Gideon Decompositions, and so on) is new,
+but new terminology does not constitute new mathematics. The reader is
+referred to \cref{app:dictionary} for a translation of every feline term into
+standard language.
+
+\section{Conventions}
+
+Our set-theoretic and categorical conventions are fixed in \cref{sec:conventions}.
+We write composition of morphisms in applicative order, $g\circ f$ or $gf$
+for ``first $f$, then $g$''. Diagrams are said to commute if all composites
+of parallel paths between any two vertices agree. Throughout, \emph{the}
+category $\cC$ is a fixed ambient category; the standing hypotheses on it are
+stated at the beginning of each chapter.

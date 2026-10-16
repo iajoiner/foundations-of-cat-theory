@@ -1,0 +1,430 @@
+\chapter{Limits and colimits}\label{ch:limits}
+
+\begin{assumption}\label{ass:ch6}
+Throughout this chapter $\cC$ has an initial object $0$ and a terminal object
+$1$. In \cref{cex:headless-products,cex:mono-headless} we consider headless
+cats in categories without initial objects; this is stated explicitly there.
+\end{assumption}
+
+\section{Extremal objects}\label{sec:extremal}
+
+We have already shown (\cref{prop:legless-initial}) that the initial objects of
+$\Fel(\cC)$ are precisely the legless cats, and that the initial object is
+strict.
+
+\begin{proposition}\label{prop:terminal-cat}
+The caudal cat $\Caudal=\iota(1)$ is a terminal object of $\Fel(\cC)$. A cat is
+terminal if and only if it is unipedal and its leg is a terminal object of $\cC$.
+\end{proposition}
+
+\begin{proof}
+For every cat $K'$, $\Fel(\cC)(K',\Caudal)\iso\prod_{\alpha}\cC(L'_\alpha,1)$
+by \cref{cor:Fel-hom}, which is a singleton. Terminal objects are isomorphic
+to $\Caudal$, and by \cref{prop:iso} the cats isomorphic to $\Caudal$ are
+precisely the unipedal cats whose leg is isomorphic to $1$.
+\end{proof}
+
+\begin{lemma}\label{lem:legs-representable}
+The leg functor is representable by the cephalic cat: there is a natural
+isomorphism $\legs\iso\Fel(\cC)(\Cephalic,-)$, whose component at $K$ sends
+$\alpha\in\legs(K)$ to the morphism $(\alpha,{!_{L_\alpha}})\colon\Cephalic\to K$.
+\end{lemma}
+
+\begin{proof}
+By \cref{cor:Fel-hom}, $\Fel(\cC)(\Cephalic,K)\iso\coprod_{\alpha}\cC(0,L_\alpha)$,
+and each $\cC(0,L_\alpha)$ is a singleton. Naturality: for $(\varphi,F)\colon K\to K'$,
+$(\varphi,F)\circ(\alpha,!)=(\varphi(\alpha),F_\alpha\circ{!})=(\varphi(\alpha),!)$.
+\end{proof}
+
+\begin{remark}\label{rem:head-detects}
+The head of any particular cat carries no information. What
+\cref{lem:legs-representable} uses is the existence of an initial object in
+$\cC$, which makes the set of legs of a cat \emph{representable}, so that the
+leg functor preserves all limits. In \cref{prop:head-represent} we show that,
+for headless cats in a category $\cC$ with a terminal object, the leg functor is
+representable if and only if $\cC$ has an initial object.
+\end{remark}
+
+\section{Coproducts and extensivity}\label{sec:coproducts}
+
+\begin{proposition}\label{prop:coproducts}
+Let $(K_i)_{i\in I}$ be a small family of cats, where $K_i$ has legs
+$(L_{i,\alpha})_{\alpha\in A_i}$. The cat
+\[
+\coprod_{i\in I}K_i\defeq\bigl\langle L_{i,\alpha}\bigr\rangle_{(i,\alpha)\in\coprod_iA_i},
+\]
+with coprojections $\inj_i=(\alpha\mapsto(i,\alpha),\id)\colon K_i\to\coprod_iK_i$,
+is a coproduct of the family. In particular $\Fel(\cC)$ has all small
+coproducts, and $\legs$ preserves them.
+\end{proposition}
+
+\begin{proof}
+By \cref{cor:Fel-hom}, for any cat $M$ with legs $(M_\beta)_{\beta\in B}$,
+\begin{align*}
+\Fel(\cC)\Bigl(\coprod_iK_i,M\Bigr)&\iso\prod_{(i,\alpha)}\coprod_\beta\cC(L_{i,\alpha},M_\beta)
+=\prod_i\prod_{\alpha\in A_i}\coprod_\beta\cC(L_{i,\alpha},M_\beta)\\
+&\iso\prod_i\Fel(\cC)(K_i,M),
+\end{align*}
+and the composite bijection is precomposition with the coprojections.
+\end{proof}
+
+\begin{corollary}\label{cor:leg-decomposition-preview}
+Every cat $K$ is the coproduct of its unipedal subcats: the leg inclusions
+$j_\alpha\colon\iota(L_\alpha)\to K$ exhibit $K$ as $\coprod_{\alpha}\iota(L_\alpha)$.
+\end{corollary}
+
+\begin{proof}
+Apply \cref{prop:coproducts} to the family $(\iota L_\alpha)_\alpha$; the
+resulting coproduct is isomorphic to $K$ by an isomorphism with bijective gait
+$(\alpha,*)\mapsto\alpha$ and identity components, under which the
+coprojections correspond to the $j_\alpha$.
+\end{proof}
+
+Recall that a category $\cE$ with small coproducts is (infinitary)
+\emph{extensive} if, for every small family $(X_i)_{i\in I}$ of objects, the
+functor
+\begin{equation}\label{eq:extensive}
+\coprod\colon\prod_{i\in I}\cE/X_i\too\cE\Big/\coprod_iX_i,\qquad (Y_i\to X_i)_i\longmapsto\Bigl(\coprod_iY_i\to\coprod_iX_i\Bigr)
+\end{equation}
+is an equivalence of categories. For the finitary notion and its theory see
+\cite{CarboniLackWalters1993}.
+
+\begin{proposition}\label{prop:extensive}
+$\Fel(\cC)$ is extensive. Moreover coproducts in $\Fel(\cC)$ are disjoint: for
+$i\neq j$ the pullback of $\inj_i$ and $\inj_j$ exists and is the legless cat.
+\end{proposition}
+
+\begin{proof}
+Let $(K_i)_{i\in I}$ be a family with leg sets $A_i$, and let
+$(\gamma,G)\colon M\to\coprod_iK_i$ be an object of the slice over the
+coproduct, $M$ having leg set $B$. For each $i$ let $B_i=\gamma^{-1}(\{i\}\times A_i)$
+and let $M_i$ be the cat $\langle M_\beta\rangle_{\beta\in B_i}$ with the morphism
+$G_i\colon M_i\to K_i$ given by $\beta\mapsto\gamma(\beta)$ (read in $A_i$) and
+the components $G_\beta$. Since $B=\coprod_iB_i$, there is an isomorphism over
+$\coprod_iK_i$ between $\coprod_i(M_i\to K_i)$ and $(M\to\coprod_iK_i)$ with
+bijective gait and identity components; so \eqref{eq:extensive} is essentially
+surjective. A morphism over $\coprod_iK_i$ between $\coprod_iM_i$ and
+$\coprod_iM'_i$ has a gait compatible with the maps to $\coprod_iA_i$, hence
+maps $B_i$ into $B'_i$ for each $i$; it is therefore the coproduct of a unique
+family of morphisms $M_i\to M'_i$ over $K_i$. So \eqref{eq:extensive} is fully
+faithful. For disjointness, a cone $(P\to K_i,P\to K_j)$ over the cospan
+$(\inj_i,\inj_j)$ must have a gait sending each leg of $P$ into both
+$\{i\}\times A_i$ and $\{j\}\times A_j$, which are disjoint; hence $P$ is
+legless, and the legless cat, being initial, is the pullback.
+\end{proof}
+
+\section{Limits}\label{sec:limits}
+
+\begin{theorem}\label{thm:limits}
+Let $\cJ$ be a small category. Then $\Fel(\cC)$ has all limits of shape $\cJ$
+if and only if $\cC$ does. In that case, the limit of a diagram
+$D\colon\cJ\to\Fel(\cC)$, $j\mapsto K_j=\langle L_{j,a}\rangle_{a\in A_j}$,
+$(u\colon j\to j')\mapsto(\varphi_u,F_u)$, is
+\[
+\lim_{j}K_j=\Bigl\langle\,\lim_{j\in\cJ}L_{j,a_j}\Bigr\rangle_{(a_j)_j\in\lim_jA_j},
+\]
+where $\lim_jA_j$ is computed in $\Set$ and, for $a=(a_j)_j\in\lim_jA_j$, the
+limit $\lim_jL_{j,a_j}$ is that of the diagram $D_a\colon\cJ\to\cC$ given by
+$j\mapsto L_{j,a_j}$ and $u\mapsto(F_u)_{a_j}$. The leg functor preserves all
+limits that exist.
+\end{theorem}
+
+\begin{proof}
+The leg functor preserves all limits because it is representable
+(\cref{lem:legs-representable}).
+
+\emph{Sufficiency.} Suppose $\cC$ has limits of shape $\cJ$. For
+$a=(a_j)\in\lim_jA_j$ we have $\varphi_u(a_j)=a_{j'}$ for every $u\colon j\to j'$,
+so $(F_u)_{a_j}\colon L_{j,a_j}\to L_{j',a_{j'}}$ is well typed, and
+functoriality of $D$ (that is, $(\varphi_{vu},F_{vu})=(\varphi_v,F_v)(\varphi_u,F_u)$,
+whose components give $(F_{vu})_{a_j}=(F_v)_{a_{j'}}(F_u)_{a_j}$) shows that $D_a$
+is a functor. Choose a limit $(\Lambda_a,(p_{a,j})_j)$ of $D_a$ and set
+$\Lambda=\langle\Lambda_a\rangle_{a\in\lim A_j}$. Define $P_j\colon\Lambda\to K_j$
+to have gait the projection $\pr_j\colon\lim_jA_j\to A_j$ and components
+$p_{a,j}$. These form a cone: $(\varphi_u,F_u)P_j$ has gait $\varphi_u\pr_j=\pr_{j'}$
+and components $(F_u)_{a_j}p_{a,j}=p_{a,j'}$. Let
+$(Q_j=(\psi_j,G_j)\colon M\to K_j)_j$ be another cone, $M=\langle M_b\rangle_{b\in B}$.
+The gaits $\psi_j$ form a cone in $\Set$, so there is a unique
+$\psi\colon B\to\lim_jA_j$ with $\pr_j\psi=\psi_j$. For each $b$, the
+morphisms $(G_j)_b\colon M_b\to L_{j,\psi_j(b)}$ form a cone over
+$D_{\psi(b)}$, by the cone condition on the $Q_j$; hence there is a unique
+$g_b\colon M_b\to\Lambda_{\psi(b)}$ with $p_{\psi(b),j}g_b=(G_j)_b$. The morphism
+$(\psi,(g_b))\colon M\to\Lambda$ satisfies $P_j(\psi,g)=Q_j$, and it is the
+unique such morphism because its gait and components are forced.
+
+\emph{Necessity.} Suppose $\Fel(\cC)$ has limits of shape $\cJ$ and let
+$E\colon\cJ\to\cC$ be a diagram. Let $\Lambda$ be a limit of $\iota E$. Since
+$\legs$ preserves limits, $\legs(\Lambda)\iso\lim_j\legs(\iota E_j)=\lim_j1$,
+which is a singleton. Hence $\Lambda$ is unipedal, so $\Lambda\iso\iota(X)$ for
+some $X$ (\cref{prop:iota-ff}), and the limit cone lies, up to isomorphism, in
+the image of the fully faithful functor $\iota$. Fully faithful functors
+reflect limits, so $X$ is a limit of $E$.
+\end{proof}
+
+\begin{corollary}\label{cor:limit-formulas}
+Suppose the relevant limits exist in $\cC$.
+\begin{enumerate}
+\item The product of cats $K=\langle L_\alpha\rangle_A$ and $K'=\langle L'_\beta\rangle_B$ is
+  $K\times K'=\langle L_\alpha\times L'_\beta\rangle_{(\alpha,\beta)\in A\times B}$.
+\item The equalizer of $(\varphi,F),(\psi,G)\colon K\to K'$ is
+  $\langle\mathrm{Eq}(F_\alpha,G_\alpha)\rangle_{\alpha\in A_0}$ where
+  $A_0=\{\alpha:\varphi(\alpha)=\psi(\alpha)\}$.
+\item The pullback of $K\to M\leftarrow K'$ with gaits $\varphi\colon A\to\legs M$
+  and $\psi\colon B\to\legs M$ has legs $L_\alpha\times_{M_{\varphi(\alpha)}}L'_\beta$
+  indexed by $\{(\alpha,\beta)\in A\times B:\varphi(\alpha)=\psi(\beta)\}$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+These are the cases of \cref{thm:limits} for the discrete category with two
+objects, the parallel pair, and the cospan.
+\end{proof}
+
+\begin{corollary}\label{cor:kit-limits}
+The full subcategory $\Kit(\cC)$ of kittens is closed under all finite limits
+that exist in $\Fel(\cC)$.
+\end{corollary}
+
+\begin{proof}
+By \cref{thm:limits}, the leg set of a limit of a finite diagram of kittens is
+the limit of a finite diagram of finite sets, which is a subset of a finite
+product of finite sets.
+\end{proof}
+
+\begin{remark}\label{rem:chloe-limits}
+The full subcategory of cats satisfying the Chloe Condition (\cref{def:chloe})
+is closed under coproducts (\cref{prop:chloe-basic}) but not, in general, under
+products. In the category $\Graph$ of \cref{ex:connected}, which has an initial
+object, a terminal object (a vertex with a loop) and finite products, the cat
+$\iota(K_2)$, whose leg is the graph with two vertices joined by an edge, is
+Chloe, while $\iota(K_2)\times\iota(K_2)\iso\iota(K_2\times K_2)$ is not, because
+$K_2\times K_2$ is disconnected (\cref{ex:gideon-tensor}). In $\Set$ and $\Top$,
+where products of connected objects are connected and the terminal object is
+connected, Chloe cats are closed under finite products.
+\end{remark}
+
+
+\begin{remark}\label{rem:limits-honest}
+The sufficiency half of \cref{thm:limits} is the elementary computation of
+limits in $\Fam(\cC)$. The necessity half depends on the initial object of
+$\cC$, through \cref{lem:legs-representable}. The following counterexample
+shows that it fails for headless cats.
+\end{remark}
+
+\begin{counterexample}\label{cex:headless-products}
+Let $\cC$ be the poset $\{x,y,\top\}$ with $x<\top$ and $y<\top$ and $x,y$
+incomparable. It has a terminal object $\top$ and no initial object, and the
+product $x\times y$ (that is, the meet $x\wedge y$) does not exist, since $x$
+and $y$ have no common lower bound. Nevertheless the category of headless
+cats $\Fel^{\hl}(\cC)\eqv\Fam(\cC)$ has all binary products. For families
+$(X_a)_{a\in A}$ and $(Y_b)_{b\in B}$, let
+$P=\{(a,b)\in A\times B: X_a\wedge Y_b\text{ exists}\}$, which excludes exactly
+the pairs with $\{X_a,Y_b\}=\{x,y\}$, and set $Z_{(a,b)}=X_a\wedge Y_b$, with
+projections $(P,Z)\to(A,X)$ and $(P,Z)\to(B,Y)$ given by $(a,b)\mapsto a$ and
+$(a,b)\mapsto b$ and the inequalities $Z_{(a,b)}\le X_a$, $Z_{(a,b)}\le Y_b$. For an
+object $W$ of $\cC$,
+\begin{align*}
+\Fam(\cC)\bigl((1,W),(P,Z)\bigr)&=\{(a,b)\in P:W\le X_a\wedge Y_b\}\\
+&=\{(a,b)\in A\times B: W\le X_a,\ W\le Y_b\},
+\end{align*}
+because $W\le X_a$ and $W\le Y_b$ force $X_a\wedge Y_b$ to exist. The right-hand
+side is $\Fam(\cC)((1,W),(A,X))\times\Fam(\cC)((1,W),(B,Y))$, naturally in $W$,
+and the bijection is composition with the two projections.
+Since every family is a coproduct of one-element families and
+$\Fam(\cC)(\coprod_i(1,W_i),-)\iso\prod_i\Fam(\cC)((1,W_i),-)$, it follows that
+$(P,Z)$ is a product. In particular the product of $(1,x)$ and $(1,y)$ is the
+empty family.
+\end{counterexample}
+
+\section{Colimits}\label{sec:colimits}
+
+Recall that a category is \emph{connected} if it is nonempty and any two
+objects are joined by a zigzag, and that a \emph{connected colimit} is a
+colimit of a diagram indexed by a small connected category.
+
+\begin{theorem}\label{thm:colimits}
+The category $\Fel(\cC)$ has all small colimits if and only if $\cC$ has all
+small connected colimits. In that case, the colimit of a diagram
+$D\colon\cJ\to\Fel(\cC)$, with notation as in \cref{thm:limits}, is computed
+as follows. Let $\cG=\El(\legs D)$ be the category of elements of the functor
+$\legs D\colon\cJ\to\Set$, with objects $(j,a)$, $a\in A_j$, and morphisms
+$u\colon(j,a)\to(j',\varphi_u(a))$. For each connected component $c$ of $\cG$
+let $D_c\colon c\to\cC$ be the functor $(j,a)\mapsto L_{j,a}$,
+$u\mapsto(F_u)_a$. Then
+\[
+\colim_jK_j=\Bigl\langle\colim D_c\Bigr\rangle_{c\in\pi_0(\cG)},
+\]
+and $\legs$ preserves all colimits that exist.
+\end{theorem}
+
+\begin{proof}
+The leg functor preserves all colimits because it is a left adjoint
+(\cref{cor:first-string}).
+
+\emph{Sufficiency.} Suppose $\cC$ has small connected colimits. Each component
+$c$ of $\cG$ is a small connected category, so $\colim D_c$ exists; let
+$q_{(j,a)}\colon L_{j,a}\to\colim D_c$ be its coprojections, for $(j,a)\in c$.
+By \cref{lem:colim-set}, $\colim_jA_j\iso\pi_0(\cG)$ with coprojections
+$a\mapsto[(j,a)]$. Let $\Xi=\langle\colim D_c\rangle_{c\in\pi_0(\cG)}$ and define
+$Q_j\colon K_j\to\Xi$ with gait $a\mapsto[(j,a)]$ and components $q_{(j,a)}$.
+These form a cocone, because $q_{(j',\varphi_u(a))}\circ(F_u)_a=q_{(j,a)}$ is the
+cocone condition for $D_c$. Given another cocone
+$(R_j=(\rho_j,G_j)\colon K_j\to M)_j$ with $M=\langle M_b\rangle_{b\in B}$, the
+gaits form a cocone in $\Set$ and induce a unique $\rho\colon\pi_0(\cG)\to B$
+with $\rho([(j,a)])=\rho_j(a)$. For each component $c$, the morphisms
+$(G_j)_a\colon L_{j,a}\to M_{\rho(c)}$, for $(j,a)\in c$, form a cocone on
+$D_c$ by the cocone condition on the $R_j$, and so induce a unique
+$g_c\colon\colim D_c\to M_{\rho(c)}$. The morphism $(\rho,(g_c))\colon\Xi\to M$
+is the unique morphism compatible with the cocones.
+
+\emph{Necessity.} Suppose $\Fel(\cC)$ has small colimits, and let
+$E\colon\cJ\to\cC$ with $\cJ$ small and connected. Let $\Xi$ be a colimit of
+$\iota E$. Since $\legs$ preserves colimits, $\legs(\Xi)\iso\colim_\cJ1\iso\pi_0(\cJ)$,
+a singleton by \cref{lem:colim-set}. Hence $\Xi\iso\iota X$ for some $X$, and
+$X$ is a colimit of $E$ because $\iota$ is fully faithful.
+\end{proof}
+
+\begin{remark}\label{rem:connected-colimits}
+The same proof shows that $\Fel(\cC)$ has all small connected colimits if and
+only if $\cC$ does; since $\Fel(\cC)$ always has small coproducts and every
+colimit is a coproduct of connected colimits (over the components of the
+indexing category), this is equivalent to \cref{thm:colimits}. The statement
+for colimits of a \emph{fixed} connected shape is more delicate, because the
+components of $\cG$ need not have the same shape as $\cJ$, nor be finite when
+$\cJ$ is. The following counterexample shows that finite cocompleteness of
+$\cC$ does not imply that $\Fel(\cC)$ has coequalizers.
+\end{remark}
+
+\begin{counterexample}\label{cex:coequalizer-rationals}
+Let $\cC$ be the totally ordered set $\mathbb Q\cap[0,1]$, regarded as a
+category. It has an initial object $0$, a terminal object $1$, and all finite
+colimits (finite joins are maxima, and coequalizers are trivial in a poset).
+Let $(q_n)_{n\in\mathbb N}$ be a strictly increasing sequence in $\cC$
+converging to the irrational number $r=1/\sqrt2$, and let
+$K=\langle q_n\rangle_{n\in\mathbb N}$. The morphisms
+\[
+f=(\id_{\mathbb N},(q_n\le q_n)_n),\qquad g=(n\mapsto n+1,(q_n\le q_{n+1})_n)\colon K\too K
+\]
+have no coequalizer in $\Fel(\cC)$. Indeed, suppose $e\colon K\to Q$ were a
+coequalizer. Then $\legs(Q)$ is the coequalizer in $\Set$ of $\id$ and the
+successor map on $\mathbb N$, which is a singleton; so $Q\iso\iota(z)$ for some
+$z\in\cC$, and $e$ amounts to the inequalities $q_n\le z$. For every
+$w\in\cC$, the morphisms $K\to\iota(w)$ coequalizing $f$ and $g$ are all
+morphisms $K\to\iota(w)$, which exist if and only if $q_n\le w$ for all $n$,
+that is, if and only if $w\geq r$. The universal property therefore requires
+$z\le w$ for all rational $w\ge r$ in $\cC$ and $z\ge q_n$ for all $n$, so
+$z=r$, which is not in $\cC$.
+\end{counterexample}
+
+\begin{proposition}\label{prop:kit-colimits}
+The category $\Kit(\cC)$ of kittens has all finite colimits if and only if
+$\cC$ has all finite connected colimits; in that case they are computed as in
+\cref{thm:colimits} and agree with the colimits in $\Fel(\cC)$.
+\end{proposition}
+
+\begin{proof}
+If $\cJ$ is finite and each $K_j$ is a kitten, the category $\cG$ of
+\cref{thm:colimits} is finite, so its components are finite connected
+categories, and the construction in the proof of \cref{thm:colimits} uses
+only finite connected colimits in $\cC$. The result is a kitten since
+$\pi_0(\cG)$ is finite, and it is a colimit in $\Fel(\cC)$, hence in the full
+subcategory $\Kit(\cC)$. Conversely, the adjunction $\legs\dashv\Delta_1$
+restricts to finite sets and kittens, so $\legs\colon\Kit(\cC)\to\mathbf{FinSet}$
+preserves finite colimits, and the necessity argument of \cref{thm:colimits}
+applies verbatim to finite connected $\cJ$.
+\end{proof}
+
+\section{Monomorphisms and epimorphisms}\label{sec:mono-epi}
+
+\begin{proposition}\label{prop:mono}
+A feline morphism $(\varphi,F)\colon K\to K'$ is a monomorphism if and only if
+$\varphi$ is injective and each $F_\alpha$ is a monomorphism in $\cC$.
+\end{proposition}
+
+\begin{proof}
+Sufficiency: if $(\varphi,F)(\chi,G)=(\varphi,F)(\chi',G')$ then
+$\varphi\chi=\varphi\chi'$, so $\chi=\chi'$, and $F_{\chi(b)}G_b=F_{\chi(b)}G'_b$,
+so $G_b=G'_b$. Necessity: $\legs\iso\Fel(\cC)(\Cephalic,-)$ is representable,
+hence preserves monomorphisms, so $\varphi$ is injective. If
+$g,g'\colon X\to L_\alpha$ satisfy $F_\alpha g=F_\alpha g'$, then the morphisms
+$j_\alpha\iota(g),j_\alpha\iota(g')\colon\iota X\to K$ have equal composites with
+$(\varphi,F)$, namely $(\varphi(\alpha),F_\alpha g)$; hence they are equal, and
+$g=g'$.
+\end{proof}
+
+\begin{counterexample}\label{cex:mono-headless}
+The necessity of injectivity in \cref{prop:mono} depends on the head. Let
+$\cC$ be the poset $\{x_1,x_2,z\}$ with $x_1<z$, $x_2<z$ and $x_1,x_2$
+incomparable; it has a terminal object $z$ but no initial object. In
+$\Fel^{\hl}(\cC)\eqv\Fam(\cC)$, consider the morphism
+$m\colon(2,(x_1,x_2))\to(1,z)$ with the unique gait $2\to1$. For any family
+$(B,W)$, a morphism $(B,W)\to(2,(x_1,x_2))$ must send $b$ to the index $i$ with
+$W_b=x_i$, and exists only if no $W_b$ equals $z$; so there is at most one
+morphism from any object to $(2,(x_1,x_2))$, and $m$ is a monomorphism. Its
+gait is not injective.
+\end{counterexample}
+
+\begin{proposition}\label{prop:epi}
+A feline morphism $(\varphi,F)\colon K\to K'$ is an epimorphism if and only if
+$\varphi$ is surjective and, for each $\beta\in B$, the family
+$(F_\alpha\colon L_\alpha\to L'_\beta)_{\alpha\in\varphi^{-1}(\beta)}$ is jointly
+epimorphic in $\cC$ (that is, $gF_\alpha=g'F_\alpha$ for all
+$\alpha\in\varphi^{-1}(\beta)$ implies $g=g'$).
+\end{proposition}
+
+\begin{proof}
+Sufficiency: if $(\chi,G)(\varphi,F)=(\chi',G')(\varphi,F)$ then
+$\chi\varphi=\chi'\varphi$, so $\chi=\chi'$ as $\varphi$ is surjective; and
+$G_\beta F_\alpha=G'_\beta F_\alpha$ for all $\alpha\in\varphi^{-1}(\beta)$, so
+$G_\beta=G'_\beta$. Necessity: suppose $\beta\notin\im\varphi$. Let $K''$ be
+$K'\sqcup\iota(L'_\beta)$, and consider the coprojection
+$\inj_1\colon K'\to K''$ and the morphism $\inj'\colon K'\to K''$ which agrees
+with $\inj_1$ except that it sends the leg $\beta$ to the new leg, with
+identity component. Then $\inj_1\neq\inj'$ but
+$\inj_1(\varphi,F)=\inj'(\varphi,F)$. Hence $\varphi$ is surjective. Now fix
+$\beta$ and $g,g'\colon L'_\beta\to Y$ with $gF_\alpha=g'F_\alpha$ for all
+$\alpha\in\varphi^{-1}(\beta)$. Let $K''$ be obtained from $K'$ by replacing the
+leg $\beta$ by $Y$, and let $G,G'\colon K'\to K''$ have identity gait, components
+$g$ resp.\ $g'$ at $\beta$, and identity components elsewhere. Then
+$G(\varphi,F)=G'(\varphi,F)$, so $G=G'$ and $g=g'$.
+\end{proof}
+
+\begin{remark}\label{rem:mono-epi-asymmetry}
+The proofs of \cref{prop:mono,prop:epi} are not dual to one another. The
+characterization of monomorphisms uses the head, through the
+representability of $\legs$, and fails without it
+(\cref{cex:mono-headless}). The characterization of epimorphisms uses only
+test morphisms built from coproducts and from the replacement of one leg by
+another object, and in particular does not use the tail. This
+asymmetry reflects the fact that $\Fel(\cC)$ is a free completion under
+coproducts, and not under products.
+\end{remark}
+
+\section{Preservation properties}\label{sec:preservation}
+
+\begin{proposition}\label{prop:preservation}
+\begin{enumerate}
+\item The leg functor $\legs$ preserves all limits and colimits.
+\item The one-legged inclusion $\iota$ preserves all limits that exist in $\cC$,
+  and all connected colimits that exist in $\cC$; it preserves neither the
+  initial object nor binary coproducts.
+\item $\Delta_0$ preserves all colimits, and $\Delta_1$ preserves all limits and
+  all colimits.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) was shown in \cref{thm:limits,thm:colimits}. (ii) If $X$ is a limit of
+$E\colon\cJ\to\cC$, the cone $\iota X\to\iota E$ is a limit cone. Indeed, the
+sufficiency argument in the proof of \cref{thm:limits} uses only the limits of
+the diagrams $D_a$ for $a\in\lim_jA_j$; for $D=\iota E$ we have $\lim_j1=1$ and
+$D_*=E$, whose limit exists. Explicitly, a cone $M\to\iota E$ consists of the
+unique gait $\legs M\to1$ and, for each leg of $M$, a cone over $E$, which
+factors uniquely through $X$. Similarly, the sufficiency argument of
+\cref{thm:colimits} with $\El(\legs\iota E)\iso\cJ$ connected uses only the
+colimit of $E$, so $\iota$ preserves connected colimits that exist. The initial object
+$0$ is sent to $\Cephalic$, which is not initial (\cref{warn:cephalic}); and
+$\iota(X\sqcup Y)$ is unipedal while $\iota X\sqcup\iota Y$ is two-legged.
+(iii) $\Delta_0$ is a left adjoint; $\Delta_1$ is a right adjoint
+(\cref{cor:first-string}) and also a left adjoint (\cref{thm:adjoint-string}).
+\end{proof}

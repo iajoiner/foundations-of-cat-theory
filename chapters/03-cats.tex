@@ -1,0 +1,493 @@
+\chapter{Cats and their morphisms}\label{ch:cats}
+
+\begin{assumption}\label{ass:ch3}
+Throughout this chapter $\cC$ denotes a category possessing an initial object.
+No further assumption is made; in particular $\cC$ is not assumed to have a
+terminal object.
+\end{assumption}
+
+\section{The definition}\label{sec:def-cat}
+
+\begin{definition}\label{def:cat}
+A \emph{$\cC$-cat} is a tuple
+\[
+K=\bigl(H,T,(L_\alpha)_{\alpha\in A}\bigr)
+\]
+in which
+\begin{enumerate}
+\item $H$ is an initial object of $\cC$, called the \emph{head} of $K$;
+\item $T$ is a terminal object of $\cC$, called the \emph{tail} of $K$;
+\item $A$ is a small set, called the \emph{leg set} of $K$ and denoted $\legs(K)$;
+\item for each $\alpha\in A$, $L_\alpha$ is an object of $\cC$, called the
+  \emph{$\alpha$-th leg} of $K$.
+\end{enumerate}
+The \emph{canonical morphisms} of $K$ are the unique morphisms
+\[
+h_\alpha=h^K_\alpha\colon H\to L_\alpha,\qquad
+t_\alpha=t^K_\alpha\colon L_\alpha\to T,\qquad
+\sigma=\sigma^K\colon H\to T,
+\]
+called respectively the \emph{$\alpha$-th shoulder}, the \emph{$\alpha$-th
+hip}, and the \emph{spine} of $K$. If $|A|=n$ we say that $K$ is
+\emph{$n$-legged}; a $1$-legged cat is also called \emph{unipedal} and a
+$4$-legged cat \emph{quadrupedal}.
+\end{definition}
+
+The canonical morphisms are not additional data: they are determined by $H$,
+$T$ and the legs, because $H$ is initial and $T$ is terminal. We nevertheless
+name them, since they are the morphisms ``connecting the head, legs and tail''
+and since they will appear in diagrams.
+
+\begin{proposition}\label{prop:cat-diagram}
+For every $\cC$-cat $K$ the diagram
+\begin{equation}\label{eq:feline-diagram}
+\begin{tikzcd}[row sep=small]
+  & L_\alpha \arrow[dr, "t_\alpha"] & \\
+  H \arrow[ur, "h_\alpha"] \arrow[dr, "h_\beta"'] \arrow[rr, "\sigma" description] & & T \\
+  & L_\beta \arrow[ur, "t_\beta"'] &
+\end{tikzcd}
+\end{equation}
+consisting of all shoulders, hips and the spine commutes. That is,
+$t_\alpha h_\alpha=\sigma$ for all $\alpha\in A$.
+\end{proposition}
+
+\begin{proof}
+The only pairs of distinct parallel paths in the diagram run from $H$ to $T$.
+Their source is initial, so they agree by \cref{lem:parallel}.
+\end{proof}
+
+\begin{remark}\label{rem:head-not-product}
+The pair $(H,(h_\alpha)_\alpha)$ is a cone over the discrete diagram
+$(L_\alpha)_{\alpha\in A}$, and $(T,(t_\alpha)_\alpha)$ is a cocone. Neither
+is a limit or colimit in general: $(H,(h_\alpha))$ is a product cone if and
+only if a product $\prod_\alpha L_\alpha$ exists and is initial, and
+$(T,(t_\alpha))$ is a coproduct cocone if and only if a coproduct
+$\coprod_\alpha L_\alpha$ exists and is terminal. In $\Set$, for example, the
+head of $K$ is a product of its legs if and only if $A\neq\varnothing$ and some
+leg is empty, and the tail is a coproduct of the legs if and only if exactly
+one leg is nonempty and that leg is a singleton.
+\end{remark}
+
+\section{Feline shapes}\label{sec:shapes}
+
+\begin{definition}\label{def:feline-shape}
+Let $A$ be a small set, regarded as a discrete category. The \emph{feline shape}
+on $A$ is the category $\Fsh_A\defeq(A^{\triangleleft})^{\triangleright}$ of
+\cref{def:adjoin}. We denote its objects by $\mathsf h$ (the adjoined initial
+object), $\mathsf t$ (the adjoined terminal object), and $\ell_\alpha$ for
+$\alpha\in A$, and its non-identity morphisms by
+\[
+\eta_\alpha\colon\mathsf h\to\ell_\alpha,\qquad
+\varepsilon_\alpha\colon\ell_\alpha\to\mathsf t,\qquad
+s\colon\mathsf h\to\mathsf t,
+\]
+subject to $\varepsilon_\alpha\eta_\alpha=s$ for all $\alpha$.
+\end{definition}
+
+Thus $\Fsh_A$ is the poset $\{\mathsf h\}\sqcup A\sqcup\{\mathsf t\}$ in which
+$\mathsf h$ is the least element, $\mathsf t$ is the greatest element, and
+distinct elements of $A$ are incomparable. In particular $\Fsh_\varnothing\iso[1]$.
+
+\begin{proposition}\label{prop:cat-as-functor}
+Let $A$ be a small set. The assignment
+$K\mapsto\bigl(\mathsf h\mapsto H,\ \mathsf t\mapsto T,\ \ell_\alpha\mapsto L_\alpha,\
+\eta_\alpha\mapsto h_\alpha,\ \varepsilon_\alpha\mapsto t_\alpha,\ s\mapsto\sigma\bigr)$
+is a bijection between the class of $\cC$-cats with leg set $A$ and the class of
+functors $\Fsh_A\to\cC$ sending $\mathsf h$ to an initial object and $\mathsf t$
+to a terminal object.
+\end{proposition}
+
+\begin{proof}
+Given a $\cC$-cat $K$, the assignment preserves identities by definition and
+preserves the only nontrivial composition relation $\varepsilon_\alpha\eta_\alpha=s$
+by \cref{prop:cat-diagram}; hence it is a functor. Conversely, a functor
+$D\colon\Fsh_A\to\cC$ with $D(\mathsf h)$ initial and $D(\mathsf t)$ terminal
+determines the cat $(D(\mathsf h),D(\mathsf t),(D(\ell_\alpha))_\alpha)$, and
+$D$ is recovered from this cat because its values on $\eta_\alpha$,
+$\varepsilon_\alpha$ and $s$ are morphisms out of an initial object or into a
+terminal object and hence are the canonical morphisms. The two constructions
+are mutually inverse.
+\end{proof}
+
+\section{Morphisms of cats}\label{sec:morphisms}
+
+\begin{definition}\label{def:morphism}
+Let $K=(H,T,(L_\alpha)_{\alpha\in A})$ and $K'=(H',T',(L'_\beta)_{\beta\in B})$
+be $\cC$-cats. A \emph{morphism of $\cC$-cats} (or \emph{feline morphism})
+$F\colon K\to K'$ is a tuple
+\[
+F=\bigl(\varphi,F_H,F_T,(F_\alpha)_{\alpha\in A}\bigr)
+\]
+consisting of a function $\varphi\colon A\to B$ (the \emph{gait}), a morphism
+$F_H\colon H\to H'$, a morphism $F_T\colon T\to T'$, and morphisms
+$F_\alpha\colon L_\alpha\to L'_{\varphi(\alpha)}$ for $\alpha\in A$, such that
+for every $\alpha\in A$ the diagram
+\begin{equation}\label{eq:morphism-diagram}
+\begin{tikzcd}
+  H \arrow[r, "h_\alpha"] \arrow[d, "F_H"'] & L_\alpha \arrow[r, "t_\alpha"] \arrow[d, "F_\alpha"] & T \arrow[d, "F_T"] \\
+  H' \arrow[r, "h'_{\varphi(\alpha)}"'] & L'_{\varphi(\alpha)} \arrow[r, "t'_{\varphi(\alpha)}"'] & T'
+\end{tikzcd}
+\end{equation}
+commutes, and the \emph{spinal square} $F_T\circ\sigma=\sigma'\circ F_H$
+commutes. The composite of $F\colon K\to K'$ and
+$G=(\psi,G_{H'},G_{T'},(G_\beta)_\beta)\colon K'\to K''$ is
+\[
+G\circ F=\bigl(\psi\varphi,\ G_{H'}F_H,\ G_{T'}F_T,\ (G_{\varphi(\alpha)}F_\alpha)_{\alpha\in A}\bigr),
+\]
+and the identity of $K$ is $(\id_A,\id_H,\id_T,(\id_{L_\alpha})_\alpha)$.
+\end{definition}
+
+The composite $G\circ F$ is again a morphism: each of its squares is obtained
+by pasting a square for $F$ with a square for $G$. Composition is associative
+and unital because composition in $\Set$ and in $\cC$ is.
+
+\begin{definition}\label{def:Fel}
+The category of $\cC$-cats and feline morphisms is denoted $\Fel(\cC)$.
+\end{definition}
+
+We now record the observation on which the whole theory turns.
+
+\begin{proposition}[Automatic Commutativity]\label{prop:automatic}
+Let $K$ and $K'$ be $\cC$-cats with leg sets $A$ and $B$.
+\begin{enumerate}
+\item\label{it:auto-FH} For any morphism $F\colon K\to K'$, the component $F_H$
+  is the unique morphism $H\to H'$, and it is an isomorphism.
+\item\label{it:auto-FT} For any morphism $F\colon K\to K'$, the component $F_T$
+  is the unique morphism $T\to T'$, and it is an isomorphism.
+\item\label{it:auto-squares} Every square in \eqref{eq:morphism-diagram} and
+  the spinal square commute for \emph{arbitrary} choices of $\varphi$,
+  $F_H$, $F_T$ and $F_\alpha$ of the correct types.
+\end{enumerate}
+Consequently, for every function $\varphi\colon A\to B$ and every family of
+morphisms $(F_\alpha\colon L_\alpha\to L'_{\varphi(\alpha)})_{\alpha\in A}$
+there is exactly one morphism of $\cC$-cats $K\to K'$ with gait $\varphi$ and
+leg components $(F_\alpha)$.
+\end{proposition}
+
+\begin{proof}
+\ref{it:auto-FH} The object $H$ is initial, so $\cC(H,H')$ has exactly one
+element; it is an isomorphism by \cref{lem:initial-unique}(i) since $H'$ is
+also initial. \ref{it:auto-FT} is dual. \ref{it:auto-squares} The two
+composites around the left square of \eqref{eq:morphism-diagram} are
+morphisms $H\to L'_{\varphi(\alpha)}$ with initial source; the two composites
+around the right square are morphisms $L_\alpha\to T'$ with terminal target;
+the two composites around the spinal square are morphisms $H\to T'$, whose
+source is initial. All three pairs agree by \cref{lem:parallel}. The final
+assertion follows: $F_H$ and $F_T$ exist and are unique, and no condition
+remains on $(\varphi,(F_\alpha))$.
+\end{proof}
+
+We emphasize that \cref{prop:automatic} is not a technical convenience but a
+complete description of the situation: the commutative diagrams in
+\cref{def:morphism} impose no conditions whatsoever. The reader should keep
+this in mind whenever a commutative diagram involving a head or a tail
+appears below.
+
+\begin{notation}\label{not:morphism}
+In view of \cref{prop:automatic} we write a feline morphism simply as
+$F=(\varphi,(F_\alpha)_{\alpha\in A})$ or $(\varphi,F)$, suppressing $F_H$
+and $F_T$. In this notation composition reads
+$(\psi,G)\circ(\varphi,F)=(\psi\varphi,(G_{\varphi(\alpha)}F_\alpha)_\alpha)$.
+\end{notation}
+
+\begin{corollary}\label{cor:Fel-hom}
+For $\cC$-cats $K$ and $K'$ as above there are bijections, natural in the
+evident sense,
+\[
+\Fel(\cC)(K,K')\iso\coprod_{\varphi\colon A\to B}\ \prod_{\alpha\in A}\cC\bigl(L_\alpha,L'_{\varphi(\alpha)}\bigr)
+\iso\prod_{\alpha\in A}\ \coprod_{\beta\in B}\cC(L_\alpha,L'_\beta).
+\]
+In particular $\Fel(\cC)$ is locally small.
+\end{corollary}
+
+\begin{proof}
+The first bijection is \cref{prop:automatic}; the second is the
+distributivity of products over coproducts in $\Set$ (no choice is needed: an
+element of the right-hand side is a function $\alpha\mapsto(\beta_\alpha,f_\alpha)$).
+\end{proof}
+
+\begin{remark}[Morphisms as natural transformations]\label{rem:morphism-functorial}
+Under \cref{prop:cat-as-functor}, a cat $K$ with leg set $A$ is a functor
+$K\colon\Fsh_A\to\cC$. Call a functor $u\colon\Fsh_A\to\Fsh_B$
+\emph{leg-preserving} if $u(\mathsf h)=\mathsf h$, $u(\mathsf t)=\mathsf t$
+and $u$ maps each $\ell_\alpha$ to some $\ell_\beta$. Since the hom-sets of
+$\Fsh_B$ have at most one element, leg-preserving functors $u$ correspond
+bijectively to functions $\varphi\colon A\to B$ via $u(\ell_\alpha)=\ell_{\varphi(\alpha)}$.
+A morphism $(\varphi,F_H,F_T,(F_\alpha))\colon K\to K'$ is then precisely a
+pair $(u,\theta)$ consisting of the leg-preserving functor $u$ associated with
+$\varphi$ and a natural transformation $\theta\colon K\Rightarrow K'\circ u$
+with components $\theta_{\mathsf h}=F_H$, $\theta_{\mathsf t}=F_T$ and
+$\theta_{\ell_\alpha}=F_\alpha$: the naturality squares of $\theta$ at
+$\eta_\alpha$, $\varepsilon_\alpha$ and $s$ are exactly the squares of
+\cref{def:morphism}. Thus $\Fel(\cC)$ is a (non-full) subcategory of the
+category of diagrams in $\cC$ considered in \cref{sec:gaits}. Functors
+$\Fsh_A\to\Fsh_B$ that fix $\mathsf h$ and $\mathsf t$ but send some leg to
+$\mathsf h$ or $\mathsf t$ are not leg-preserving. Those that send legs only to
+legs or to $\mathsf t$ give rise to the tail-absorbing morphisms of
+\cref{sec:tail-absorbing}; those that send a leg to $\mathsf h$ are discussed in
+\cref{rem:head-absorbing}.
+\end{remark}
+
+\section{The Fundamental Theorem}\label{sec:fundamental}
+
+The following theorem identifies cat theory with the theory of families.
+
+\begin{theorem}[Fundamental Theorem of Cat Theory]\label{thm:fundamental}
+Let $\cC$ be a category with an initial object, and let
+\[
+\begin{aligned}
+U\colon\Fel(\cC)&\too\Fam(\cC),\\
+\bigl(H,T,(L_\alpha)_{\alpha\in A}\bigr)&\longmapsto(A,(L_\alpha)_\alpha),\\
+(\varphi,F)&\longmapsto(\varphi,F)
+\end{aligned}
+\]
+be the functor forgetting the head and the tail.
+\begin{enumerate}
+\item\label{it:fund-ff} $U$ is fully faithful.
+\item\label{it:fund-eq} $U$ is an equivalence of categories if and only if
+  $\cC$ has a terminal object.
+\item\label{it:fund-iso} $U$ is an isomorphism of categories if and only if
+  $\cC$ has a terminal object, every initial object of $\cC$ equals a fixed
+  object $0$, and every terminal object of $\cC$ equals a fixed object $1$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+$U$ is a functor because composition in $\Fel(\cC)$, in the form of
+\cref{not:morphism}, is given by the same formula as composition in
+$\Fam(\cC)$.
+
+\ref{it:fund-ff} By \cref{prop:automatic}, the map
+$\Fel(\cC)(K,K')\to\Fam(\cC)(UK,UK')$ is a bijection.
+
+\ref{it:fund-eq} A fully faithful functor is an equivalence if and only if it
+is essentially surjective. If $\cC$ has a terminal object $1$, then for every
+family $(A,X)$ we have $(A,X)=U(0,1,X)$ for an initial object $0$, so $U$ is
+surjective on objects. If $\cC$ has no terminal object, then $\Fel(\cC)$ has
+no objects at all, whereas $\Fam(\cC)$ contains the empty family
+$(\varnothing,\varnothing)$; hence $U$ is not essentially surjective.
+
+\ref{it:fund-iso} A fully faithful functor is an isomorphism if and only if it
+is bijective on objects. The fibre of $U$ over a family $(A,X)$ is in
+bijection with the class of pairs $(H,T)$ with $H$ initial and $T$ terminal.
+This class is nonempty if and only if $\cC$ has a terminal object, and has
+exactly one element if and only if, in addition, $\cC$ has exactly one initial
+object and exactly one terminal object.
+\end{proof}
+
+\begin{remark}\label{rem:fundamental-meaning}
+\Cref{thm:fundamental} has the following consequence, which governs the rest
+of this monograph. Every categorical property of $\Fel(\cC)$, that is,
+every property invariant under equivalence of categories, is a property of
+$\Fam(\cC)$ provided $\cC$ has a terminal object, and every construction on
+$\Fel(\cC)$ may be computed in $\Fam(\cC)$. We nonetheless continue to work
+with $\Fel(\cC)$, and we indicate in each case the corresponding statement for
+families.
+\end{remark}
+
+\begin{remark}\label{rem:not-iso}
+In most categories of interest the condition in
+\cref{thm:fundamental}\ref{it:fund-iso} fails. In $\Set$ there is one initial
+object but a large (non-small) collection of terminal objects, namely all
+singletons, so
+$U\colon\Fel(\Set)\to\Fam(\Set)$ is an equivalence that is not an
+isomorphism. In a skeletal category with initial and terminal objects, $U$ is
+an isomorphism.
+\end{remark}
+
+\begin{proposition}\label{prop:existence}
+The category $\Fel(\cC)$ is nonempty if and only if $\cC$ has a terminal
+object. If $\cC$ has no terminal object then $\Fel(\cC)$ is the empty category.
+\end{proposition}
+
+\begin{proof}
+A $\cC$-cat contains a terminal object. Conversely, if $1$ is terminal and $0$
+initial, $(0,1,\varnothing)$ is a $\cC$-cat.
+\end{proof}
+
+\begin{example}\label{ex:no-terminal}
+The poset $(\mathbb N,\le)$, regarded as a category, has initial object $0$ and
+no terminal object; hence $\Fel(\mathbb N,\le)=\varnothing$. The category of
+fields and field homomorphisms has no initial object, so it does not satisfy
+\cref{ass:ch3}; nevertheless no tuple satisfies \cref{def:cat} in it, and in
+\cref{thm:anatomy} we adopt the convention that $\Fel(\cC)=\varnothing$ for such
+$\cC$. The categories of nonempty sets and of nonempty topological spaces have
+terminal objects but no initial object, so they have no cats; but the headless
+cats of \cref{sec:headless} make sense there.
+\end{example}
+
+\section{Normalization and standard notation}\label{sec:normalization}
+
+\begin{assumption}\label{ass:normalized}
+From now on, whenever $\cC$ is assumed to have a terminal object, we fix once
+and for all an initial object $0=0_\cC$ and a terminal object $1=1_\cC$.
+\end{assumption}
+
+\begin{definition}\label{def:normalized}
+A $\cC$-cat is \emph{normalized} if its head is $0$ and its tail is $1$. We
+write $\Fel^{\nrm}(\cC)$ for the full subcategory of normalized cats.
+\end{definition}
+
+\begin{proposition}\label{prop:normalization}
+Suppose $\cC$ has a terminal object. Then $U$ restricts to an isomorphism of
+categories $\Fel^{\nrm}(\cC)\iso\Fam(\cC)$, the inclusion
+$\Fel^{\nrm}(\cC)\hookrightarrow\Fel(\cC)$ is an equivalence, and the
+\emph{normalization} functor
+\[
+N\colon\Fel(\cC)\too\Fel^{\nrm}(\cC),\qquad (H,T,L)\longmapsto(0,1,L),\qquad(\varphi,F)\longmapsto(\varphi,F)
+\]
+is a quasi-inverse equivalence; the morphisms $(\id_A,(\id_{L_\alpha})_\alpha)\colon K\to NK$
+form a natural isomorphism $\id\Rightarrow N$ (with inclusion suppressed).
+\end{proposition}
+
+\begin{proof}
+On normalized cats $U$ is bijective on objects and fully faithful. The
+morphism $(\id_A,\id)\colon K\to NK$ exists by \cref{prop:automatic} and is
+an isomorphism with inverse $(\id_A,\id)\colon NK\to K$. Naturality is the
+identity $(\varphi,F)\circ(\id,\id)=(\id,\id)\circ(\varphi,F)$.
+\end{proof}
+
+\begin{notation}\label{not:standard}
+Assume $\cC$ has a terminal object. We use the following notation throughout.
+\begin{enumerate}
+\item For a small set $A$ and a family $L=(L_\alpha)_{\alpha\in A}$ we write
+  $\langle L\rangle=\langle L_\alpha\rangle_{\alpha\in A}$ for the normalized
+  cat $(0,1,L)$.
+\item The \emph{one-legged inclusion} is the functor $\iota\colon\cC\to\Fel(\cC)$,
+  $\iota(X)=\langle X\rangle$, $\iota(f)=(\id_1,f)$, where here $1=\{*\}$
+  denotes the one-element index set.
+\item The \emph{legless cat} is $\Legless\defeq\langle\ \rangle_{\varnothing}=(0,1,\varnothing)$.
+\item The \emph{cephalic cat} is $\Cephalic\defeq\iota(0)$, the unipedal cat whose
+  leg is the head.
+\item The \emph{caudal cat} is $\Caudal\defeq\iota(1)$, the unipedal cat whose
+  leg is the tail.
+\item The \emph{leg functor} is $\legs\colon\Fel(\cC)\to\Set$,
+  $\legs(H,T,(L_\alpha)_{\alpha\in A})=A$, $\legs(\varphi,F)=\varphi$.
+\item For $\alpha\in A$, the \emph{$\alpha$-th leg inclusion} of a cat $K$ is
+  the morphism $j_\alpha=(\alpha,\id_{L_\alpha})\colon\iota(L_\alpha)\to K$, where
+  $\alpha$ also denotes the function $1\to A$ with value $\alpha$.
+\end{enumerate}
+\end{notation}
+
+\begin{proposition}\label{prop:iota-ff}
+The one-legged inclusion $\iota$ is fully faithful, and its essential image
+is the full subcategory of unipedal cats.
+\end{proposition}
+
+\begin{proof}
+By \cref{cor:Fel-hom}, $\Fel(\cC)(\iota X,\iota Y)\iso\cC(X,Y)$ via
+$(\id_1,f)\mapsto f$, which is inverse to the action of $\iota$. A unipedal
+cat $(H,T,(L_a)_{a\in\{a\}})$ is isomorphic to $\iota(L_a)$ by the morphism
+with gait the bijection $\{a\}\to1$ and identity component, which is an
+isomorphism by \cref{prop:iso} below; and by the same proposition every cat
+isomorphic to a unipedal cat is unipedal.
+\end{proof}
+
+\begin{proposition}\label{prop:iso}
+A feline morphism $(\varphi,F)\colon K\to K'$ is an isomorphism if and only if
+$\varphi$ is a bijection and every $F_\alpha$ is an isomorphism.
+\end{proposition}
+
+\begin{proof}
+If $(\psi,G)$ is inverse to $(\varphi,F)$, then $\psi\varphi=\id$ and
+$\varphi\psi=\id$, so $\varphi$ is bijective, and $G_{\varphi(\alpha)}F_\alpha=\id$,
+$F_{\psi(\beta)}G_\beta=\id$; taking $\beta=\varphi(\alpha)$ shows that $F_\alpha$
+is an isomorphism with inverse $G_{\varphi(\alpha)}$. Conversely, if $\varphi$ is
+bijective and each $F_\alpha$ invertible, then
+$(\varphi^{-1},(F_{\varphi^{-1}(\beta)}^{-1})_\beta)$ is an inverse.
+\end{proof}
+
+\section{Examples}\label{sec:examples}
+
+\begin{proposition}\label{prop:Fel-point}
+Let $\one$ be the terminal category, with a single object $*$ and only the
+identity morphism. Then $\Fel(\one)$ is isomorphic to $\Set$, via the leg
+functor $\legs$.
+\end{proposition}
+
+\begin{proof}
+The object $*$ is both initial and terminal, and it is the only object. Hence a
+$\one$-cat is a tuple $(*,*,(*)_{\alpha\in A})$, determined by the small set
+$A$, and every small set arises. A morphism with gait $\varphi$ has all
+components equal to $\id_*$, so it is determined by $\varphi$, and every
+function arises. Thus $\legs$ is bijective on objects and on morphisms.
+\end{proof}
+
+\begin{example}[Sets]\label{ex:set-cats}
+A $\Set$-cat is a family of small sets $(L_\alpha)_{\alpha\in A}$ equipped with
+the head $\varnothing$ and a chosen singleton as tail. A morphism consists of
+a function $\varphi\colon A\to B$ and functions $L_\alpha\to L'_{\varphi(\alpha)}$.
+We shall see in \cref{cor:Fel-Set} that $\Fel(\Set)$ is equivalent to the
+arrow category $\Set^{\to}$, via $K\mapsto(\coprod_\alpha L_\alpha\to A)$.
+\end{example}
+
+\begin{example}[Spaces]\label{ex:top-cats}
+In $\Top$ the head is the empty space and the tail is a one-point space. A
+$\Top$-cat is a family of spaces; note that the legs are not glued to one
+another, and in particular a cat is not a topological space. The topological
+space naturally associated with a cat, its disjoint union, is its body
+(\cref{def:body}).
+\end{example}
+
+\begin{example}[Pointed categories]\label{ex:pointed-cats}
+If $\cC$ is pointed, for instance $\cC=\Ab$, $\Grp$, $\Vect_k$ or $\Setp$,
+then the head and the tail of every cat are zero objects, hence isomorphic to
+each other, and every shoulder, hip and spine is a zero morphism. The
+distinction between head and tail is then a matter of labelling alone. In
+\cref{prop:Delta0-left} and \cref{rem:pointed-no-chloe} we shall see that
+pointedness nevertheless has consequences for the theory.
+\end{example}
+
+\begin{example}[Rings]\label{ex:ring-cats}
+In the category $\Ring$ of unital rings, the head is $\mathbb Z$ and the tail
+is the zero ring. A $\Ring$-cat is therefore a family of rings
+$(R_\alpha)$, each equipped with its unique ring homomorphisms
+$\mathbb Z\to R_\alpha\to 0$.
+\end{example}
+
+\begin{example}[Bounded posets]\label{ex:poset-cats}
+Let $P$ be a poset with least element $\bot$ and greatest element $\top$,
+regarded as a category. A $P$-cat is a family $(p_\alpha)_{\alpha\in A}$ of
+elements of $P$, and a morphism $\langle p_\alpha\rangle_A\to\langle q_\beta\rangle_B$
+is a function $\varphi\colon A\to B$ with $p_\alpha\le q_{\varphi(\alpha)}$ for
+all $\alpha$. Although $P$ is a preorder, $\Fel(P)$ is not: the two functions
+$1\to2$ are the gaits of two distinct morphisms $\langle\bot\rangle\to\langle\bot,\bot\rangle$.
+When $P=\{\bot=\top\}$, $\Fel(P)$ is isomorphic to $\Set$ by \cref{prop:Fel-point}.
+\end{example}
+
+\begin{example}[Categories]\label{ex:cat-cats}
+In the category $\Cat$ of small categories, the head is the empty category and
+the tail is the terminal category $\one$. A $\Cat$-cat is a small family of
+small categories; it is a family of categories, not itself a category.
+\end{example}
+
+\begin{example}[Opposite of sets]\label{ex:setop-cats}
+In $\Set^{\op}$ the initial object is a singleton and the terminal object is
+$\varnothing$. A $\Set^{\op}$-cat has a singleton for a head and the empty set
+for a tail; a morphism $\langle X_\alpha\rangle_A\to\langle Y_\beta\rangle_B$
+consists of $\varphi\colon A\to B$ and functions $Y_{\varphi(\alpha)}\to X_\alpha$.
+\end{example}
+
+\section{Remarks on the definition}\label{sec:remarks-def}
+
+\begin{remark}[Why the head is initial]\label{rem:why-initial}
+If, in \cref{def:cat}, $H$ and $T$ were allowed to be arbitrary objects
+equipped with morphisms $h_\alpha\colon H\to L_\alpha$ and
+$t_\alpha\colon L_\alpha\to T$, then the commutativity of
+\eqref{eq:feline-diagram} would become a genuine condition, the components
+$F_H$ and $F_T$ of a morphism would become genuine data, and the resulting
+structure would be a functor $\Fsh_A\to\cC$, that is, a cone over the legs
+together with a cocone under them and a morphism $H\to T$ equal to every
+composite $t_\alpha h_\alpha$ (when $A=\varnothing$, simply a morphism $H\to T$). The theory of such diagrams is a special
+case of the theory of diagrams in $\cC$ and is not considered here. The
+requirement that $H$ be initial and $T$ terminal is exactly what makes the
+head and tail inert.
+\end{remark}
+
+\begin{remark}[Standing assumption on $\cC$]\label{rem:standing}
+We have required $\cC$ to have an initial object, as part of the definition of
+the theory. Most results of later chapters also require a terminal object,
+since otherwise $\Fel(\cC)$ is empty (\cref{prop:existence}). Where the
+initial object plays an essential r\^ole in a proof, beyond the existence of
+cats, we shall say so and give a counterexample for headless cats.
+\end{remark}

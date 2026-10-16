@@ -1,0 +1,58 @@
+\chapter{Dictionary}\label{app:dictionary}
+
+The following table records, for each feline notion, the classical notion to
+which it is equivalent or of which it is an instance. Here $\cC$ has an initial
+and a terminal object, and ``family'' means small family of objects of $\cC$.
+
+\medskip
+
+{\small
+\renewcommand{\arraystretch}{1.25}
+\begin{longtable}{p{0.40\textwidth}p{0.52\textwidth}}
+\textbf{Feline term} & \textbf{Classical counterpart}\\
+\hline
+\endhead
+$\cC$-cat (\cref{def:cat}) & a family, together with a choice of initial and terminal object\\
+head, tail & a chosen initial, terminal object; no information\\
+shoulders, hips, spine & the unique morphisms out of an initial object and into a terminal object\\
+legs, leg set & the members of the family and its index set\\
+gait of a morphism & the reindexing function of a morphism of families\\
+$\Fel(\cC)$ & $\Fam(\cC)$, the free completion of $\cC$ under small coproducts (\cref{thm:fundamental})\\
+normalized cat & an object of $\Fam(\cC)$ (\cref{prop:normalization})\\
+feline shape $\Fsh_A$ & the poset $(A^{\triangleleft})^{\triangleright}$\\
+kitten & a finite family\\
+litter & a family of finite families\\
+legless cat $\Legless$ & the empty family; the initial object of $\Fam(\cC)$\\
+cephalic cat $\Cephalic$ & the one-member family $(0)$; representing object of the leg functor\\
+caudal cat $\Caudal$ & the one-member family $(1)$; the terminal object of $\Fam(\cC)$\\
+headless, tailless cat & a family, with a chosen terminal or initial object\\
+one-legged inclusion $\iota$ & the unit $\cC\to\Fam(\cC)$ of the coproduct completion\\
+leg functor $\legs$ & the family fibration $\Fam(\cC)\to\Set$\\
+reindexing morphism & cartesian morphism of the family fibration (\cref{thm:fibration})\\
+$\Delta_0$, $\Delta_1$ & sections of the family fibration by fibrewise initial and terminal objects\\
+points functor $\points$ & the global-sections functor $\Fam(\cC)(\Caudal,-)$\\
+body $\body$ & the coproduct of the family; left adjoint of $\iota$\\
+felinization $\Fel(F)$ & $\Fam(F)$\\
+fibred feline functor & fibred functor between family fibrations (\cref{thm:feline-functors})\\
+feline Yoneda functor $\Yon$ & the embedding of $\Fam(\cC)$ in $\PSh(\cC)$ as coproducts of representables\\
+feline presheaf & a presheaf on $\Fam(\cC)$ sending coproducts to products\\
+monoidal cat & graded monoid (\cref{thm:graded-monoids})\\
+self-enrichment & the leg functor, regarded as an identity-on-objects functor\\
+$\Fel_\Ab(\cC)$ & column-finite matrices over $\cC$\\
+tail-absorbing morphism & Kleisli morphism for the monad $-\sqcup\Caudal$\\
+cat of cats, flattening & a family of families; multiplication of the family pseudomonad\\
+gaited cat & a diagram in $\cC$; an object of the category of diagrams\\
+two-dimensional cat & a family in a $2$-category, up to biequivalence\\
+$\Fel(\Set)$ & the arrow category $\Set^{\to}$ (\cref{cor:Fel-Set})\\
+$\Fel(\PSh(\cD))$ & $\PSh(\cD^{\triangleleft})$ (\cref{cor:Fel-presheaf})\\
+$\Fel^n(\one)$ & $\Set^{[n-1]}$ (\cref{thm:iterated-point})\\
+census, automorphism group & multiplicity functions; products of wreath products\\
+kitten rig & the monoid semiring $\mathbb N[\Iso(\cC)]$\\
+Chloe Condition & every leg is a connected object\\
+Margaret Compatibility & the induced map of presheaves on connected objects is invertible\\
+Gideon Decomposition & decomposition into connected components\\
+Gideon number & number of connected components\\
+CMG Correspondence Theorem & uniqueness of decomposition into connected components; detection of such decompositions by connected objects\\
+Recognition Theorem & characterization of free coproduct completions\\
+\end{longtable}
+}

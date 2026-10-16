@@ -1,0 +1,311 @@
+\chapter{Representation and decomposition theorems}\label{ch:representation}
+
+\begin{assumption}\label{ass:ch12}
+Throughout this chapter $\cC$ has an initial object $0$ and a terminal object
+$1$. A recognition theorem characterizing categories of cats among locally
+small categories is proved in \cref{ch:cmg} (\cref{thm:recognition}), since it is
+naturally formulated in terms of Gideon Decompositions.
+\end{assumption}
+
+\section{The Leg Decomposition Theorem}\label{sec:leg-decomposition}
+
+\begin{theorem}[Leg Decomposition]\label{thm:leg-decomposition}
+\begin{enumerate}
+\item Every cat $K$ is the coproduct of the unipedal cats $\iota(L_\alpha)$,
+  $\alpha\in\legs(K)$, with coprojections the leg inclusions $j_\alpha$.
+\item \textup{(Uniqueness.)} If $(X_i)_{i\in I}$ and $(Y_j)_{j\in J}$ are small
+  families of objects with $\coprod_i\iota(X_i)\iso\coprod_j\iota(Y_j)$, then there
+  is a bijection $\sigma\colon I\to J$ with $X_i\iso Y_{\sigma(i)}$ for all $i$.
+\item \textup{(Refinement.)} For a cat $K$ and a small set $S$, the following
+  are in canonical bijection:
+  \begin{enumerate}
+  \item functions $f\colon\legs(K)\to S$;
+  \item morphisms $K\to\Delta_1(S)$;
+  \item coproduct decompositions of $K$ indexed by $S$, that is, families of
+    morphisms $(\kappa_s\colon K_s\to K)_{s\in S}$ exhibiting $K$ as a coproduct,
+    taken up to isomorphism of families over $K$.
+  \end{enumerate}
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) is \cref{cor:leg-decomposition-preview}. (ii) An isomorphism between the two
+coproducts has, by \cref{prop:coproducts,prop:iso}, a bijective gait
+$\sigma\colon I\to J$ and isomorphisms $X_i\to Y_{\sigma(i)}$ as components.
+
+(iii) The bijection between (a) and (b) is the adjunction $\legs\dashv\Delta_1$.
+Given $f$, set $K_s=\langle L_\alpha\rangle_{\alpha\in f^{-1}(s)}$ with $\kappa_s$
+the morphism with gait the inclusion $f^{-1}(s)\hookrightarrow\legs(K)$ and
+identity components; this is a coproduct decomposition by
+\cref{prop:coproducts}, since $\legs(K)=\coprod_sf^{-1}(s)$. Conversely, let
+$(\kappa_s)$ be a coproduct decomposition. Since $\legs$ preserves coproducts,
+the gaits of the $\kappa_s$ are injective with disjoint images covering
+$\legs(K)$; define $f(\alpha)=s$ if $\alpha$ is in the image of the gait of
+$\kappa_s$. The canonical morphism $\coprod_sK_s\to K$ is an isomorphism, so by
+\cref{prop:iso} each component of each $\kappa_s$ is an isomorphism, and
+$(\kappa_s)$ is isomorphic over $K$ to the decomposition constructed from $f$.
+The two constructions are mutually inverse.
+\end{proof}
+
+\begin{remark}\label{rem:leg-decomposition-honest}
+Part (i) says that every cat admits a Gideon Decomposition in $\Fel(\cC)$
+(\cref{ex:gideon}(v) below). Part (ii) has the form of a Krull--Schmidt theorem, but its proof is immediate,
+because isomorphisms of cats are bijections on legs. Part (iii) is an expression
+of the extensivity of $\Fel(\cC)$ (\cref{prop:extensive}).
+\end{remark}
+
+\section{The universal property}\label{sec:universal-property}
+
+\begin{theorem}[Universal property of $\Fel(\cC)$]\label{thm:universal-property}
+Let $\cE$ be a category with small coproducts, and let $\Fun_\sqcup(\Fel(\cC),\cE)$
+be the category of functors $\Fel(\cC)\to\cE$ preserving small coproducts. Then
+restriction along $\iota$,
+\[
+\iota^*\colon\Fun_\sqcup(\Fel(\cC),\cE)\too\Fun(\cC,\cE),
+\]
+is an equivalence of categories, with quasi-inverse $G\mapsto\widehat G$,
+$\widehat G(K)=\coprod_{\alpha}G(L_\alpha)$, the left Kan extension of $G$ along $\iota$.
+\end{theorem}
+
+\begin{proof}
+$\widehat G$ is a functor, with $\widehat G(\varphi,F)$ restricting on the
+$\alpha$-th summand to $\inj_{\varphi(\alpha)}\circ G(F_\alpha)$. It preserves
+coproducts because the leg set of $\coprod_iK_i$ is $\coprod_i\legs(K_i)$, and
+$\widehat G\iota\iso G$ since a coproduct of one object is that object. By
+\cref{prop:kan}, $\widehat G=\Lan_\iota G$. If $\Phi$ preserves coproducts then,
+by \cref{thm:leg-decomposition}(i),
+\[
+\Phi(K)\iso\Phi\Bigl(\coprod_\alpha\iota L_\alpha\Bigr)\iso\coprod_\alpha\Phi(\iota L_\alpha)=\widehat{\iota^*\Phi}(K),
+\]
+and these isomorphisms are natural in $K$ by \eqref{eq:leg-inclusion-naturality}.
+Finally, a natural transformation $\tau\colon\Phi\Rightarrow\Psi$ between
+coproduct-preserving functors is determined by its components at unipedal cats,
+since $\tau_K$ is the coproduct of the $\tau_{\iota L_\alpha}$ by naturality with
+respect to the leg inclusions; and every natural transformation
+$\rho\colon\iota^*\Phi\Rightarrow\iota^*\Psi$ extends in this way, to the family
+whose component at $K$ is the coproduct of the $\rho_{L_\alpha}$ under the
+isomorphisms $\Phi(K)\iso\coprod_\alpha\Phi(\iota L_\alpha)$ and
+$\Psi(K)\iso\coprod_\alpha\Psi(\iota L_\alpha)$. This family is natural: for
+$(\psi,F)\colon K\to K'$, both composites in the naturality square restrict on
+the $\alpha$-th summand to $\Psi(j_{\psi(\alpha)})\circ\rho_{L'_{\psi(\alpha)}}\circ\Phi(\iota F_\alpha)$,
+by \eqref{eq:leg-inclusion-naturality} and naturality of $\rho$. Hence $\iota^*$ is fully
+faithful, and it is essentially surjective by $\iota^*\widehat G\iso G$.
+\end{proof}
+
+\begin{corollary}\label{cor:universal-examples}
+\begin{enumerate}
+\item If $\cC$ has small coproducts, $\body\iso\widehat{\id_\cC}$.
+\item For any functor $F\colon\cC\to\cD$, where $\cD$ has an initial and a
+  terminal object, $\Fel(F)\iso\widehat{\iota_\cD F}$.
+\item $\legs\iso\widehat{\Delta}$ where $\Delta\colon\cC\to\Set$ is the constant
+  functor at $1$, and $\points\iso\widehat{\cC(1,-)}$.
+\item $\Yon\iso\widehat{y}$ for the Yoneda embedding $y\colon\cC\to\PSh(\cC)$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+Each functor on the left preserves coproducts and has the stated restriction
+along $\iota$. For $\legs$, preservation of coproducts holds because $\legs$ is
+a left adjoint (\cref{thm:adjoint-string}). For $\points$, it follows from the
+formula $\points(\coprod_iK_i)=\coprod_{(i,\alpha)}\cC(1,L_{i,\alpha})=\coprod_i\points(K_i)$,
+or equivalently from $\points\iso\Fel(\cC)(\Caudal,-)$ and the connectedness
+of the unipedal cat $\Caudal$ (\cref{prop:connected-unipedal}). For $\Yon$,
+$\Fel(F)$ and $\body$ it is immediate from the definitions and
+\cref{prop:coproducts}.
+\end{proof}
+
+\begin{remark}\label{rem:universal-honest}
+\Cref{thm:universal-property} is the statement that $\Fel(\cC)$, like
+$\Fam(\cC)$, is the free completion of $\cC$ under small coproducts. We
+emphasize that the universal property makes no reference to heads or tails.
+\end{remark}
+
+\section{The Kitten Approximation Theorem}\label{sec:kitten-approx}
+
+For a cat $K$ and a subset $F\subseteq\legs(K)$, let
+$K|_F=\langle L_\alpha\rangle_{\alpha\in F}$ and let $\kappa_F\colon K|_F\to K$
+be the morphism with gait the inclusion and identity components. If $F$ is
+finite, $K|_F$ is a kitten, called a \emph{subkitten} of $K$.
+
+\begin{theorem}[Kitten Approximation]\label{thm:kitten-approx}
+Let $K$ be a cat, and let $\mathcal P_{\mathrm{fin}}$ be the directed poset of
+finite subsets of $\legs(K)$. The diagram $\mathcal P_{\mathrm{fin}}\to\Fel(\cC)$,
+$F\mapsto K|_F$, with the evident inclusions, has colimit $K$, with colimit
+cocone $(\kappa_F)_F$. In particular every cat is a filtered colimit of kittens,
+and this colimit is preserved by $\legs$.
+\end{theorem}
+
+\begin{proof}
+The $\kappa_F$ form a cocone. Let $(\mu_F\colon K|_F\to M)_F$ be another cocone,
+$\mu_F=(\psi_F,G_F)$. For $\alpha\in\legs(K)$, compatibility gives
+$\psi_F(\alpha)=\psi_{\{\alpha\}}(\alpha)$ and $(G_F)_\alpha=(G_{\{\alpha\}})_\alpha$
+whenever $\alpha\in F$. Define $\mu\colon K\to M$ by
+$\psi(\alpha)=\psi_{\{\alpha\}}(\alpha)$ and $\mu_\alpha=(G_{\{\alpha\}})_\alpha$. Then
+$\mu\kappa_F=\mu_F$ for all $F$, and $\mu$ is unique because every leg lies in
+some $F$. Since $\legs(K)$ is the directed union of its finite subsets, $\legs$
+preserves this colimit.
+\end{proof}
+
+\begin{remark}\label{rem:kitten-approx-honest}
+The colimit in \cref{thm:kitten-approx} exists in $\Fel(\cC)$ whether or not
+$\cC$ has any filtered colimits; it is a directed union of subfamilies. We do
+not claim that $\Fel(\cC)$ is equivalent to the category of ind-objects of
+$\Kit(\cC)$.
+\end{remark}
+
+\section{Slices}\label{sec:slices}
+
+\begin{theorem}[Slice Decomposition]\label{thm:slice}
+For every cat $K$ there is an equivalence of categories
+\[
+\Fel(\cC)/K\eqv\prod_{\alpha\in\legs(K)}\Fel(\cC/L_\alpha).
+\]
+In particular $\Fel(\cC)/\Caudal\eqv\Fel(\cC)$, $\Fel(\cC)/\Delta_1(S)\eqv\Fel(\cC)^S$,
+and $\Fel(\cC)/\Legless\eqv\one$.
+\end{theorem}
+
+\begin{proof}
+Each slice $\cC/X$ has the initial object $(0\to X)$ and the terminal object
+$(\id_X)$, so $\Fel(\cC/X)$ is defined. By \cref{thm:leg-decomposition}(i) and
+extensivity (\cref{prop:extensive}),
+$\Fel(\cC)/K\eqv\prod_\alpha\Fel(\cC)/\iota(L_\alpha)$. It remains to show
+$\Fel(\cC)/\iota X\eqv\Fel(\cC/X)$. An object of $\Fel(\cC)/\iota X$ is a cat
+$\langle M_b\rangle_B$ with a morphism to $\iota X$, that is, a family of
+morphisms $m_b\colon M_b\to X$; this is a family of objects of $\cC/X$. A
+morphism over $\iota X$ is a morphism $(\psi,G)$ with $m'_{\psi(b)}G_b=m_b$ for
+all $b$, which is a family of morphisms in $\cC/X$. This identifies
+$\Fel(\cC)/\iota X$ with $\Fel(\cC/X)$ up to the choice of heads and tails. The
+special cases follow from $\cC/1\iso\cC$ and from the empty product being
+$\one$.
+\end{proof}
+
+\section{Image factorizations}\label{sec:image}
+
+\begin{proposition}\label{prop:image}
+Suppose $\cC$ has small coproducts and every morphism of $\cC$ factors as an
+epimorphism followed by a monomorphism. Then every feline morphism factors as
+an epimorphism followed by a monomorphism of $\Fel(\cC)$.
+\end{proposition}
+
+\begin{proof}
+Let $(\varphi,F)\colon K\to K'$, and let $B_0=\varphi(A)\subseteq B$. For
+$\beta\in B_0$, factor the induced morphism
+$\tilde F_\beta\colon\coprod_{\varphi(\alpha)=\beta}L_\alpha\to L'_\beta$ as an
+epimorphism $e_\beta\colon\coprod_{\varphi(\alpha)=\beta}L_\alpha\to E_\beta$ followed by
+a monomorphism $m_\beta\colon E_\beta\to L'_\beta$. Let $E=\langle E_\beta\rangle_{B_0}$.
+The morphism $(\varphi,(e_{\varphi(\alpha)}\inj_\alpha)_\alpha)\colon K\to E$ has
+surjective gait, and for each $\beta$ the family
+$(e_\beta\inj_\alpha)_{\alpha\in\varphi^{-1}(\beta)}$ is jointly epimorphic because
+the coprojections are jointly epimorphic and $e_\beta$ is epic; it is therefore
+an epimorphism by \cref{prop:epi}. The morphism $(B_0\hookrightarrow B,(m_\beta))\colon E\to K'$
+has injective gait and monic components, so it is a monomorphism by
+\cref{prop:mono}. Their composite is $(\varphi,F)$.
+\end{proof}
+
+\section{Presheaf representation}\label{sec:presheaf-rep}
+
+We restate the results of \cref{ch:yoneda} as a representation theorem.
+
+\begin{corollary}[Presheaf Representation]\label{cor:representation}
+Assume $\cC$ is locally small. The feline Yoneda functor identifies $\Fel(\cC)$,
+up to equivalence, with the full subcategory of $\PSh(\cC)$ consisting of the
+presheaves whose category of elements is a small coproduct of categories with
+terminal objects. Under this identification, the legs of a cat correspond to the
+connected components of the category of elements, to the elements of the
+presheaf at the head, and to the summands of its decomposition into
+representables.
+\end{corollary}
+
+\begin{proof}
+This combines \cref{thm:yoneda-ff,thm:yoneda-image,thm:head-tail-eval} with
+\cref{prop:components-head}.
+\end{proof}
+
+\section{Gideon Decompositions}\label{sec:gideon}
+
+The Leg Decomposition Theorem decomposes every cat into unipedal cats. The
+analogous decomposition of an object of $\cC$ into connected objects is the
+subject of this section; its relation to the notions of \cref{sec:chloe} and
+\cref{sec:margaret} is the content of \cref{ch:cmg}.
+
+\begin{definition}[Gideon Decomposition]\label{def:gideon}
+A \emph{Gideon Decomposition} of an object $X$ of $\cC$ is a pair $(K,\beta)$
+where $K$ is a $\cC$-cat satisfying the Chloe Condition and $\beta\colon K\to\iota X$
+is a cocone exhibiting $X$ as a coproduct of the legs of $K$; that is, for every
+object $Z$ the map $\cC(X,Z)\to\prod_\alpha\cC(L_\alpha,Z)$, $f\mapsto(f\beta_\alpha)_\alpha$,
+is a bijection. A morphism of Gideon Decompositions $(K,\beta)\to(K',\beta')$
+of $X$ is a morphism of cats $\theta\colon K\to K'$ with $\beta'\theta=\beta$.
+We write $\mathsf{Gid}(X)$ for the category of Gideon Decompositions of $X$.
+An object is \emph{Gideon-decomposable} if $\mathsf{Gid}(X)$ is nonempty; we
+write $\cC^\Gid$ for the full subcategory of Gideon-decomposable objects, and
+say that $\cC$ \emph{admits Gideon Decompositions} if $\cC^\Gid=\cC$.
+\end{definition}
+
+If $\cC$ has small coproducts, $(K,\beta)$ is a Gideon Decomposition if and only
+if $K$ is Chloe and the transpose $\beta^\flat\colon\body K\to X$ of $\beta$ under
+$\body\dashv\iota$ is an isomorphism. Note that \cref{def:gideon} makes sense for
+an arbitrary category $\cC$, with the convention of \cref{thm:anatomy} that
+there are no $\cC$-cats when $\cC$ lacks an initial or a terminal object; in
+particular, if some object of $\cC$ admits a Gideon Decomposition, then $\cC$
+has a terminal object. This observation is used in \cref{sec:recognition}.
+
+\begin{example}\label{ex:gideon}
+\begin{enumerate}
+\item Every set $X$ has the Gideon Decomposition consisting of the cat
+  $\langle\{x\}\rangle_{x\in X}$ and the inclusions of the points; so $\Set$
+  admits Gideon Decompositions.
+\item A topological space $X$ is Gideon-decomposable if and only if its connected
+  components are open, for instance if $X$ is locally connected. Indeed, if
+  $X\iso\coprod_aX_a$ with each $X_a$ nonempty and connected, the $X_a$ are
+  disjoint clopen connected subsets covering $X$, hence are its connected
+  components, which are therefore open; conversely, a space is the coproduct of
+  any partition of it into open subsets. In particular $\mathbb Q$ is not
+  Gideon-decomposable.
+\item $\Graph$ admits Gideon Decompositions: every graph is the coproduct of its
+  connected components.
+\item In a pointed category, an object is Gideon-decomposable if and only if it is
+  a zero object, since the only Chloe cats are legless
+  (\cref{rem:pointed-no-chloe}) and the coproduct of the empty family is initial.
+\item The category $\Fel(\cC)$ admits Gideon Decompositions: by
+  \cref{thm:leg-decomposition,prop:connected-unipedal}, the cat of cats
+  $\langle\iota L_\alpha\rangle_{\alpha\in\legs K}$ with the leg inclusions $j_\alpha$
+  is a Gideon Decomposition of $K$.
+\end{enumerate}
+\end{example}
+
+\subsection{The body of a Chloe cat}\label{sec:chloe-body}
+
+\begin{proposition}\label{prop:chloe-body}
+Suppose $\cC$ has small coproducts. Then:
+\begin{enumerate}
+\item the body functor restricted to Chloe cats,
+  $\body^\Chl\colon\Fel^\Chl(\cC)\to\cC$, is fully faithful;
+\item its essential image is $\cC^\Gid$, so that
+  $\cC^\Gid\eqv\Fel^\Chl(\cC)\eqv\Fam(\cC^\conn)$;
+\item $\cC^\Gid$ is closed under small coproducts in $\cC$;
+\item $\cC$ admits Gideon Decompositions if and only if the functor
+  $\Fam(\cC^\conn)\to\cC$, $(A,X)\mapsto\coprod_aX_a$, is an equivalence.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) For Chloe cats $K,K'$,
+\[
+\Fel(\cC)(K,K')\iso\prod_\alpha\coprod_\beta\cC(L_\alpha,L'_\beta)\iso\prod_\alpha\cC\Bigl(L_\alpha,\coprod_\beta L'_\beta\Bigr)\iso\cC(\body K,\body K'),
+\]
+the middle bijection by connectedness of $L_\alpha$; the composite is the action
+of $\body$. (ii) $X$ is in the essential image if and only if $X\iso\body K$ for a
+Chloe cat $K$, that is, if and only if $X$ is Gideon-decomposable; the second
+equivalence is \cref{prop:chloe-basic}(iv). (iii) A coproduct of coproducts of
+connected objects is a coproduct of connected objects. (iv) follows from (i),
+(ii) and \cref{prop:chloe-basic}(iv).
+\end{proof}
+
+\begin{example}\label{ex:flattening-chloe}
+Apply \cref{prop:chloe-body} to the category $\Fel(\cC)$, which has small
+coproducts and admits Gideon Decompositions (\cref{ex:gideon}(v)). Its Chloe
+cats are the cats of unipedal cats (\cref{ex:chloe}(iii)), and its body functor
+is flattening (\cref{prop:flattening}). Hence flattening restricts to an
+equivalence between the category of cats of unipedal cats and $\Fel(\cC)$.
+\end{example}
+
